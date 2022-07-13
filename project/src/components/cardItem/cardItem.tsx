@@ -1,3 +1,6 @@
+import { Link } from 'react-router-dom';
+import { AppRoute } from '../../const';
+
 function CardItem (): JSX.Element {
   return (
     <article className="cities__card place-card">
@@ -5,9 +8,9 @@ function CardItem (): JSX.Element {
         <span>Premium</span>
       </div>
       <div className="cities__image-wrapper place-card__image-wrapper">
-        <a href="#some">
+        <Link to={AppRoute.Room}>
           <img className="place-card__image" src="img/apartment-01.jpg" width="260" height="200" alt="Place" />
-        </a>
+        </Link>
       </div>
       <div className="place-card__info">
         <div className="place-card__price-wrapper">
@@ -29,7 +32,7 @@ function CardItem (): JSX.Element {
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href="#some">Beautiful &amp; luxurious apartment at great location</a>
+          <Link to={AppRoute.Room}>Beautiful &amp; luxurious apartment at great location</Link>
         </h2>
         <p className="place-card__type">Apartment</p>
       </div>
