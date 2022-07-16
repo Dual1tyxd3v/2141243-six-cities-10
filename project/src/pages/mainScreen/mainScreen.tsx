@@ -1,12 +1,14 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import CardItem from '../../components/cardItem/cardItem';
+import CardsList from '../../components/cardsList/cardsList';
 import Header from '../../components/header/header';
+import {Offers} from '../../types/offer';
 
 type MainProps = {
   placeNumber: number,
+  offers: Offers
 }
 
-function MainScreen({placeNumber}: MainProps): JSX.Element {
+function MainScreen({placeNumber, offers}: MainProps): JSX.Element {
   return (
     <div className="page page--gray page--main">
       <Header />
@@ -69,11 +71,7 @@ function MainScreen({placeNumber}: MainProps): JSX.Element {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                <CardItem />
-                <CardItem />
-                <CardItem />
-                <CardItem />
-                <CardItem />
+                <CardsList offers={offers}/>
               </div>
             </section>
             <div className="cities__right-section">

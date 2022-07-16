@@ -15,13 +15,13 @@ export const offers: Offers = [{
     'Wi-Fi', 'Dishwasher', 'Kitchen'
   ],
   host: {
-    avatarUrl: '../../public/img/avatar-angelina.jpg',
+    avatarUrl: '/img/avatar-angelina.jpg',
     id: 3,
     isPro: false,
     name: 'Angelina'
   },
   id: 1,
-  images: ['../../public/img/apartment-01.jpg', '../../public/img/apartment-02.jpg', '../../public/img/apartment-03.jpg'],
+  images: ['/img/apartment-01.jpg', '/img/apartment-02.jpg', '/img/apartment-03.jpg'],
   isFavorite: false,
   isPremium: true,
   location: {
@@ -30,9 +30,9 @@ export const offers: Offers = [{
     zoom: 7
   },
   maxAdults: 2,
-  previewImage: '../../public/img/apartment-01.jpg',
+  previewImage: '/img/apartment-01.jpg',
   price: 160,
-  rating: 4,
+  rating: 4.5,
   title: 'Beautiful & luxurious apartment at great location',
   type: 'apartment'
 }, {
@@ -50,13 +50,13 @@ export const offers: Offers = [{
     'Wi-Fi', 'Dishwasher', 'Kitchen', 'Washing machine', 'Cabel TV', 'Coffee machine'
   ],
   host: {
-    avatarUrl: '../../public/img/avatar-angelina.jpg',
+    avatarUrl: '/img/avatar-max.jpg',
     id: 11,
     isPro: true,
     name: 'Homer'
   },
   id: 2,
-  images: ['../../public/img/room.jpg', '../../public/img/apartment-02.jpg', '../../public/img/apartment-03.jpg', '../../public/img/apartment-01.jpg'],
+  images: ['/img/room.jpg', '/img/apartment-02.jpg', '/img/apartment-03.jpg', '/img/apartment-01.jpg'],
   isFavorite: true,
   isPremium: true,
   location: {
@@ -65,7 +65,7 @@ export const offers: Offers = [{
     zoom: 7
   },
   maxAdults: 4,
-  previewImage: '../../public/img/room.jpg',
+  previewImage: '/img/room.jpg',
   price: 90,
   rating: 4,
   title: 'Wood and stone place',
@@ -85,13 +85,13 @@ export const offers: Offers = [{
     'Wi-Fi', 'Dishwasher', 'Kitchen', 'Coffee machine'
   ],
   host: {
-    avatarUrl: '../../public/img/avatar-angelina.jpg',
+    avatarUrl: '/img/avatar-max.jpg',
     id: 1,
     isPro: true,
     name: 'Kerry King'
   },
   id: 3,
-  images: ['../../public/img/apartment-02.jpg', '../../public/img/room.jpg'],
+  images: ['/img/apartment-02.jpg', '/img/room.jpg'],
   isFavorite: false,
   isPremium: false,
   location: {
@@ -100,7 +100,7 @@ export const offers: Offers = [{
     zoom: 7
   },
   maxAdults: 2,
-  previewImage: '../../public/img/apartment-02.jpg',
+  previewImage: '/img/apartment-02.jpg',
   price: 135,
   rating: 5,
   title: 'Canal View Prinsengracht',
@@ -120,13 +120,13 @@ export const offers: Offers = [{
     'Wi-Fi', 'Dishwasher', 'Kitchen', 'Cabel TV'
   ],
   host: {
-    avatarUrl: '../../public/img/avatar-angelina.jpg',
+    avatarUrl: '/img/avatar-angelina.jpg',
     id: 24,
     isPro: false,
     name: 'John'
   },
   id: 4,
-  images: ['../../public/img/apartment-03.jpg', '../../public/img/apartment-01.jpg', '../../public/img/room.jpg'],
+  images: ['/img/apartment-03.jpg', '/img/apartment-01.jpg', '/img/room.jpg'],
   isFavorite: true,
   isPremium: false,
   location: {
@@ -135,7 +135,7 @@ export const offers: Offers = [{
     zoom: 7
   },
   maxAdults: 2,
-  previewImage: '../../public/img/apartment-03.jpg',
+  previewImage: '/img/apartment-03.jpg',
   price: 150,
   rating: 3,
   title: 'Nice, cozy, warm big bed apartment',

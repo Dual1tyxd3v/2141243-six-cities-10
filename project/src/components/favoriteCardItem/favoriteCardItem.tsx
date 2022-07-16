@@ -1,30 +1,21 @@
 import { Link } from 'react-router-dom';
 import { Offer } from '../../types/offer';
 
-type OfferProps = {
+type FavoriteCardItemProp = {
   offer: Offer;
-  onActiveCard: (id: number) => void;
 }
 
-function CardItem (prop: OfferProps): JSX.Element {
-  const {type, title, price, previewImage, rating, id, isPremium, isFavorite} = prop.offer;
-
-  function onMouseOverHandler() {
-    prop.onActiveCard(id);
-  }
+function FavoriteCardItem({offer}: FavoriteCardItemProp): JSX.Element {
+  const {price, title, previewImage, rating, type, isFavorite, id} = offer;
 
   return (
-    <article className="cities__card place-card" onMouseOver={onMouseOverHandler}>
-      {isPremium ?
-        <div className="place-card__mark">
-          <span>Premium</span>
-        </div> : null}
-      <div className="cities__image-wrapper place-card__image-wrapper">
-        <Link to={`offer/${id}`}>
-          <img className="place-card__image" src={previewImage} width="260" height="200" alt="Place" />
+    <article className="favorites__card place-card">
+      <div className="favorites__image-wrapper place-card__image-wrapper">
+        <Link to={`../offer/${id}`}>
+          <img className="place-card__image" src={previewImage} width="150" height="110" alt="Place" />
         </Link>
       </div>
-      <div className="place-card__info">
+      <div className="favorites__card-info place-card__info">
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
             <b className="place-card__price-value">&euro;{price}</b>
@@ -44,11 +35,12 @@ function CardItem (prop: OfferProps): JSX.Element {
           </div>
         </div>
         <h2 className="place-card__name">
-          <Link to={`offer/${id}`}>{title}</Link>
+          <Link to={`../offer/${id}`}>{title}</Link>
         </h2>
         <p className="place-card__type">{type}</p>
       </div>
     </article>
   );
 }
-export default CardItem;
+
+export default FavoriteCardItem;
