@@ -20,4 +20,5 @@ function FavoritesScreenEmpty(): JSX.Element {
     </div>
   );
 }
+
 export default FavoritesScreenEmpty;

@@ -7,9 +7,9 @@ type CardsListProps = {
 }
 
 function CardsList({offers}: CardsListProps): JSX.Element {
-  // устанавливаю начальное состояние на 1 элемент массива с карточками
+
   const [activeCard, setActiveCard] = useState(offers[0].id);
-  // а здесь доп проверка на повторение ID дабы исключить повторную перерисовку
+
   function onActiveCardHandle(id: number) {
     if (activeCard !== id) {
       setActiveCard(id);
@@ -17,7 +17,8 @@ function CardsList({offers}: CardsListProps): JSX.Element {
   }
 
   return (
-    <>
+    <div className="cities__places-list places__list tabs__content">
+
       {offers.map((offer: Offer) => (
         <CardItem
           key={offer.id}
@@ -25,7 +26,8 @@ function CardsList({offers}: CardsListProps): JSX.Element {
           onActiveCard={onActiveCardHandle}
         />
       ))}
-    </>
+
+    </div>
   );
 }
 

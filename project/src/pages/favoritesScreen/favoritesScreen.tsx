@@ -25,7 +25,7 @@ function FavotitesScreen({offers}: FavotitesScreenProp): JSX.Element {
           <section className="favorites">
             <h1 className="favorites__title">Saved listing</h1>
             <ul className="favorites__list">
-              {/* тут на основе фильтрованного массива строю <li> */}
+
               {favoriteLocations.map((cityName) => (
                 <li key={cityName} className="favorites__locations-items">
                   <div className="favorites__locations locations locations--current">
@@ -36,7 +36,7 @@ function FavotitesScreen({offers}: FavotitesScreenProp): JSX.Element {
                     </div>
                   </div>
                   <div className="favorites__places">
-                    {/* а здесь уже вывожу карточки с подходящим именем т.к. того требует разметка страницы */}
+
                     {favoriteOffers.map((offer) => {
                       if (offer.city.name !== cityName) {
                         return null;
@@ -56,4 +56,5 @@ function FavotitesScreen({offers}: FavotitesScreenProp): JSX.Element {
     </>
   );
 }
+
 export default FavotitesScreen;
