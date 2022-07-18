@@ -10,8 +10,8 @@ function CardsList({offers}: CardsListProps): JSX.Element {
 
   const [, setActiveCard] = useState(offers[0].id);
 
-  const memoActiveCardHandle = useCallback((id: number) => { setActiveCard(id);}, []);
-  //console.log(activeCard);
+  const memoActiveCardHandle = useCallback((id: number) => setActiveCard(id), []);
+
   return (
     <div className="cities__places-list places__list tabs__content">
 
