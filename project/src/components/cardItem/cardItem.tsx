@@ -6,11 +6,11 @@ type OfferProps = {
   onActiveCard: (id: number) => void;
 }
 
-function CardItem (prop: OfferProps): JSX.Element {
-  const {type, title, price, previewImage, rating, id, isPremium, isFavorite} = prop.offer;
+function CardItem ({offer, onActiveCard}: OfferProps): JSX.Element {
+  const {type, title, price, previewImage, rating, id, isPremium, isFavorite} = offer;
 
   function onMouseOverHandler() {
-    prop.onActiveCard(id);
+    onActiveCard(id);
   }
 
   return (
