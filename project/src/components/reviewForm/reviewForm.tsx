@@ -8,7 +8,7 @@ function ReviewForm(): JSX.Element {
   const memoChangeHandler = useCallback((evt: ChangeEvent<HTMLInputElement>) => {
     const {value} = evt.target;
     setFormData({...formData, rating: value});
-  }, []);
+  }, [formData]);
 
   function onTextAreaChange(evt: ChangeEvent<HTMLTextAreaElement>) {
     const {value} = evt.target;

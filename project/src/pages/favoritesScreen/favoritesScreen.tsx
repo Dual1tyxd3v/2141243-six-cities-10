@@ -1,6 +1,6 @@
 import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
-import { Offers} from '../../types/offer';
+import { Offers } from '../../types/offer';
 import FavoriteCardItem from '../../components/favoriteCardItem/favoriteCardItem';
 import FavoritesScreenEmpty from '../../pages/favoritesScreenEmpty/favoritesScreenEmpty';
 
@@ -15,7 +15,7 @@ function FavotitesScreen({offers}: FavotitesScreenProp): JSX.Element {
     return <FavoritesScreenEmpty />;
   }
 
-  const favoriteLocations = [...new Set(favoriteOffers.map((offer) => offer.city.name))];
+  const favoriteOffersObject = Object.fromEntries(favoriteOffers.map((m) => [m.city.name, offers.filter((it) => it.city.name === m.city.name)]));
 
   return (
     <>
@@ -26,27 +26,28 @@ function FavotitesScreen({offers}: FavotitesScreenProp): JSX.Element {
             <h1 className="favorites__title">Saved listing</h1>
             <ul className="favorites__list">
 
-              {favoriteLocations.map((cityName) => (
-                <li key={cityName} className="favorites__locations-items">
-                  <div className="favorites__locations locations locations--current">
-                    <div className="locations__item">
-                      <a className="locations__item-link" href="/">
-                        <span>{cityName}</span>
-                      </a>
+              {
+                Object.keys(favoriteOffersObject).map((city) => (
+                  <li key={city} className="favorites__locations-items">
+                    <div className="favorites__locations locations locations--current">
+                      <div className="locations__item">
+                        <a className="locations__item-link" href="/">
+                          <span>{city}</span>
+                        </a>
+                      </div>
                     </div>
-                  </div>
-                  <div className="favorites__places">
+                    <div className="favorites__places">
 
-                    {favoriteOffers.map((offer) => {
-                      if (offer.city.name !== cityName) {
-                        return null;
+                      {
+                        favoriteOffersObject[city].map((offer) => (
+                          <FavoriteCardItem key={offer.id} offer={offer} />
+                        ))
                       }
-                      return <FavoriteCardItem key={offer.id} offer={offer} />;
-                    })}
 
-                  </div>
-                </li>
-              ))}
+                    </div>
+                  </li>
+                ))
+              }
 
             </ul>
           </section>
