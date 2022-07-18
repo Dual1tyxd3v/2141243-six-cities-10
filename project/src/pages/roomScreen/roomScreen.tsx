@@ -95,9 +95,10 @@ function RoomScreen({offers}: RoomScreenProps): JSX.Element {
                   <span className="property__user-name">
                     {host.name}
                   </span>
-                  <span className="property__user-status">
-                    {host.isPro ? 'Pro' : ''}
-                  </span>
+                  {host.isPro ?
+                    <span className="property__user-status">
+                      Pro
+                    </span> : ''}
                 </div>
                 <div className="property__description">
                   <p className="property__text">
