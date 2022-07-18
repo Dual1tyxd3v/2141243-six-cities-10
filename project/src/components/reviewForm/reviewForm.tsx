@@ -1,13 +1,14 @@
-import { useState, ChangeEvent, FormEvent } from 'react';
+import { useState, ChangeEvent, FormEvent, useCallback } from 'react';
 import { ratingValue } from '../../const';
+import Stars from '../stars/stars';
 
 function ReviewForm(): JSX.Element {
   const [formData, setFormData] = useState({rating: '', review: ''});
 
-  function onChangeHandler(evt: ChangeEvent<HTMLInputElement>) {
+  const memoChangeHandler = useCallback((evt: ChangeEvent<HTMLInputElement>) => {
     const {value} = evt.target;
     setFormData({...formData, rating: value});
-  }
+  }, []);
 
   function onTextAreaChange(evt: ChangeEvent<HTMLTextAreaElement>) {
     const {value} = evt.target;
@@ -24,14 +25,7 @@ function ReviewForm(): JSX.Element {
       <div className="reviews__rating-form form__rating">
 
         {ratingValue.map((star, i) => (
-          <>
-            <input className="form__rating-input visually-hidden" name="rating" value={i + 1} id={`${i + 1}-stars`} type="radio" onChange={onChangeHandler}/>
-            <label htmlFor={`${i + 1}-stars`} className="reviews__rating-label form__rating-label" title={star}>
-              <svg className="form__star-image" width="37" height="33">
-                <use xlinkHref="#icon-star"></use>
-              </svg>
-            </label>
-          </>
+          <Stars key={star} id={i} value={star} onChangeStar={memoChangeHandler}/>
         )).reverse()}
 
       </div>
