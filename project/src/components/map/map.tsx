@@ -1,7 +1,7 @@
 import leaflet from 'leaflet';
 import { useRef, useEffect } from 'react';
 import useMap from '../../hooks/useMap/useMap';
-import { DEFAULT_MARKER, ACTIVE_MARKER } from '../../const';
+import { DEFAULT_MARKER_SRC, ACTIVE_MARKER_SRC } from '../../const';
 import { Offers, Offer } from '../../types/offer';
 
 import 'leaflet/dist/leaflet.css';
@@ -18,13 +18,13 @@ function Map({offers, activeCard}: MapProps): JSX.Element {
   const map = useMap(mapRef, city);
 
   const defaultIcon = leaflet.icon({
-    iconUrl: DEFAULT_MARKER,
+    iconUrl: DEFAULT_MARKER_SRC,
     iconSize: [40, 40],
     iconAnchor: [20, 40],
   });
 
   const activeIcon = leaflet.icon({
-    iconUrl: ACTIVE_MARKER,
+    iconUrl: ACTIVE_MARKER_SRC,
     iconSize: [40, 40],
     iconAnchor: [20, 40],
   });

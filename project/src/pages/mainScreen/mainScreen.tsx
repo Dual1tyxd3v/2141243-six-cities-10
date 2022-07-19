@@ -3,18 +3,15 @@ import { useState, useCallback } from 'react';
 import CardsList from '../../components/cardsList/cardsList';
 import Tabs from '../../components/tabs/tabs';
 import Header from '../../components/header/header';
-import {Offers, OffersObject, Offer} from '../../types/offer';
+import {Offers, Offer} from '../../types/offer';
 import Map from '../../components/map/map';
-import {cities} from '../../mocks/offers';
 
 type MainProps = {
   placeNumber: number;
   offers: Offers;
-  offersObject: OffersObject;
 }
 
-function MainScreen({placeNumber, offers, offersObject}: MainProps): JSX.Element {
-  const [city, setCity] = useState(cities[1]);
+function MainScreen({placeNumber, offers}: MainProps): JSX.Element {
   const [activeCard, setActiveCard] = useState(offers[0]);
 
   const memoActiveCardHandle = useCallback((offer: Offer) => setActiveCard(offer), []);
@@ -48,7 +45,6 @@ function MainScreen({placeNumber, offers, offersObject}: MainProps): JSX.Element
               <CardsList onActiveCard={memoActiveCardHandle} offers={offers} />
             </section>
             <div className="cities__right-section">
-              {/* <Map offers={Object.values(offersObject[city])}/> */}
               <Map offers={offers} activeCard={activeCard} />
             </div>
           </div>

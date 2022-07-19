@@ -19,7 +19,7 @@ function App({placeNumber, offers, authStatus, offersObject}: AppProps): JSX.Ele
   return (
     <BrowserRouter>
       <Routes>
-        <Route path={AppRoute.Main} element={<MainScreen placeNumber={placeNumber} offers={offers} offersObject={offersObject}/>}/>
+        <Route path={AppRoute.Main} element={<MainScreen placeNumber={placeNumber} offers={offers} />}/>
         <Route path={AppRoute.Login} element={<LoginScreen />}/>
         <Route path={AppRoute.Favorites} element={
           <PrivateRoute authorizationStatus={authStatus}>
