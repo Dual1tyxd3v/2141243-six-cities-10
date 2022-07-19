@@ -1,15 +1,23 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
+import { useState, useCallback } from 'react';
 import CardsList from '../../components/cardsList/cardsList';
 import Tabs from '../../components/tabs/tabs';
 import Header from '../../components/header/header';
-import {Offers} from '../../types/offer';
+import {Offers, OffersObject, Offer} from '../../types/offer';
+import Map from '../../components/map/map';
+import {cities} from '../../mocks/offers';
 
 type MainProps = {
-  placeNumber: number,
-  offers: Offers
+  placeNumber: number;
+  offers: Offers;
+  offersObject: OffersObject;
 }
 
-function MainScreen({placeNumber, offers}: MainProps): JSX.Element {
+function MainScreen({placeNumber, offers, offersObject}: MainProps): JSX.Element {
+  const [city, setCity] = useState(cities[1]);
+  const [activeCard, setActiveCard] = useState(offers[0]);
+
+  const memoActiveCardHandle = useCallback((offer: Offer) => setActiveCard(offer), []);
 
   return (
     <div className="page page--gray page--main">
@@ -37,10 +45,11 @@ function MainScreen({placeNumber, offers}: MainProps): JSX.Element {
                   <li className="places__option" tabIndex={0}>Top rated first</li>
                 </ul>
               </form>
-              <CardsList offers={offers}/>
+              <CardsList onActiveCard={memoActiveCardHandle} offers={offers} />
             </section>
             <div className="cities__right-section">
-              <section className="cities__map map"></section>
+              {/* <Map offers={Object.values(offersObject[city])}/> */}
+              <Map offers={offers} activeCard={activeCard} />
             </div>
           </div>
         </div>

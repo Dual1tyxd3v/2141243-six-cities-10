@@ -6,19 +6,20 @@ import NotFoundScreen from '../../pages/notFoundScreen/notFoundScreen';
 import RoomScreen from '../../pages/roomScreen/roomScreen';
 import {AppRoute, AuthorizationStatus} from '../../const';
 import PrivateRoute from '../../components/private-route/private-route';
-import {Offers} from '../../types/offer';
+import {Offers, OffersObject} from '../../types/offer';
 
 type AppProps = {
   placeNumber: number;
   offers: Offers;
   authStatus: AuthorizationStatus;
+  offersObject: OffersObject
 }
 
-function App({placeNumber, offers, authStatus}: AppProps): JSX.Element {
+function App({placeNumber, offers, authStatus, offersObject}: AppProps): JSX.Element {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path={AppRoute.Main} element={<MainScreen placeNumber={placeNumber} offers={offers}/>}/>
+        <Route path={AppRoute.Main} element={<MainScreen placeNumber={placeNumber} offers={offers} offersObject={offersObject}/>}/>
         <Route path={AppRoute.Login} element={<LoginScreen />}/>
         <Route path={AppRoute.Favorites} element={
           <PrivateRoute authorizationStatus={authStatus}>

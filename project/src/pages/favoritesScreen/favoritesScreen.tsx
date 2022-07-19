@@ -15,7 +15,7 @@ function FavotitesScreen({offers}: FavotitesScreenProp): JSX.Element {
     return <FavoritesScreenEmpty />;
   }
 
-  const favoriteOffersObject = Object.fromEntries(favoriteOffers.map((m) => [m.city.name, offers.filter((it) => it.city.name === m.city.name)]));
+  const favoriteOffersObject = Object.fromEntries(favoriteOffers.map((m) => [m.city.name, favoriteOffers.filter((it) => it.city.name === m.city.name)]));
 
   return (
     <>
