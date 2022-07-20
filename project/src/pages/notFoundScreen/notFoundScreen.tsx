@@ -3,6 +3,7 @@ import Header from '../../components/header/header';
 import Footer from '../../components/footer/footer';
 
 function NotFoundScreen(): JSX.Element {
+
   return (
     <div className="page page--favorites-empty">
       <Header />
@@ -17,6 +18,7 @@ function NotFoundScreen(): JSX.Element {
           </section>
         </div>
       </main>
+
       <Footer />
     </div>
   );

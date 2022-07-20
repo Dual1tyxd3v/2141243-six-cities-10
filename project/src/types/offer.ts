@@ -4,7 +4,7 @@ type Location = {
   zoom: number;
 }
 
-type City = {
+export type City = {
   location: Location;
   name: string;
 }
@@ -36,3 +36,9 @@ export type Offer = {
 }
 
 export type Offers = Offer[];
+
+export type OffersObject = {
+  [k: string]: Offer[]
+};
+
+export type Cities = string[];

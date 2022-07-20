@@ -4,8 +4,8 @@ export const offers: Offers = [{
   bedrooms:3,
   city: {
     location: {
-      latitude: 52.370216,
-      longitude: 4.895168,
+      latitude: 52.3909553943508,
+      longitude: 4.85309666406198,
       zoom: 10
     },
     name: 'Paris'
@@ -25,8 +25,8 @@ export const offers: Offers = [{
   isFavorite: false,
   isPremium: true,
   location: {
-    latitude: 52.370216,
-    longitude: 4.895168,
+    latitude: 52.3909553943508,
+    longitude: 4.85309666406198,
     zoom: 7
   },
   maxAdults: 2,
@@ -39,8 +39,8 @@ export const offers: Offers = [{
   bedrooms:2,
   city: {
     location: {
-      latitude: 32.370216,
-      longitude: 24.895168,
+      latitude: 52.3909553943508,
+      longitude: 4.85309666406198,
       zoom: 10
     },
     name: 'Amsterdam'
@@ -60,8 +60,8 @@ export const offers: Offers = [{
   isFavorite: true,
   isPremium: true,
   location: {
-    latitude: 32.370216,
-    longitude: 24.895168,
+    latitude: 52.369553943508,
+    longitude: 4.85309666406198,
     zoom: 7
   },
   maxAdults: 4,
@@ -74,11 +74,11 @@ export const offers: Offers = [{
   bedrooms:2,
   city: {
     location: {
-      latitude: 21.370216,
-      longitude: 9.895168,
+      latitude: 52.3909553943508,
+      longitude: 4.85309666406198,
       zoom: 10
     },
-    name: 'Paris'
+    name: 'Amsterdam'
   },
   description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorum eius, veniam temporibus perferendis sapiente laboriosam ipsa blanditiis consequatur natus non magnam accusamus consequuntur placeat quos possimus officia, voluptatum laborum commodi!',
   goods: [
@@ -95,8 +95,8 @@ export const offers: Offers = [{
   isFavorite: false,
   isPremium: false,
   location: {
-    latitude: 21.370216,
-    longitude: 9.895168,
+    latitude: 52.3909553943508,
+    longitude: 4.929309666406198,
     zoom: 7
   },
   maxAdults: 2,
@@ -109,8 +109,8 @@ export const offers: Offers = [{
   bedrooms:1,
   city: {
     location: {
-      latitude: 73.370216,
-      longitude: 62.895168,
+      latitude: 52.3909553943508,
+      longitude: 4.85309666406198,
       zoom: 10
     },
     name: 'Hamburg'
@@ -130,8 +130,8 @@ export const offers: Offers = [{
   isFavorite: true,
   isPremium: false,
   location: {
-    latitude: 73.370216,
-    longitude: 62.895168,
+    latitude: 52.3809553943508,
+    longitude: 4.939309666406198,
     zoom: 7
   },
   maxAdults: 2,
@@ -141,3 +141,7 @@ export const offers: Offers = [{
   title: 'Nice, cozy, warm big bed apartment',
   type: 'house'
 }];
+
+export const offersObject = Object.fromEntries(offers.map((m) => [m.city.name, offers.filter((offer) => offer.city.name === m.city.name)]));
+
+export const cities = Object.keys(offersObject);

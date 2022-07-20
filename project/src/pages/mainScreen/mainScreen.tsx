@@ -1,15 +1,20 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
+import { useState, useCallback } from 'react';
 import CardsList from '../../components/cardsList/cardsList';
 import Tabs from '../../components/tabs/tabs';
 import Header from '../../components/header/header';
-import {Offers} from '../../types/offer';
+import {Offers, Offer} from '../../types/offer';
+import Map from '../../components/map/map';
 
 type MainProps = {
-  placeNumber: number,
-  offers: Offers
+  placeNumber: number;
+  offers: Offers;
 }
 
 function MainScreen({placeNumber, offers}: MainProps): JSX.Element {
+  const [activeCard, setActiveCard] = useState(offers[0]);
+
+  const memoActiveCardHandle = useCallback((offer: Offer) => setActiveCard(offer), []);
 
   return (
     <div className="page page--gray page--main">
@@ -37,10 +42,10 @@ function MainScreen({placeNumber, offers}: MainProps): JSX.Element {
                   <li className="places__option" tabIndex={0}>Top rated first</li>
                 </ul>
               </form>
-              <CardsList offers={offers}/>
+              <CardsList onActiveCard={memoActiveCardHandle} offers={offers} />
             </section>
             <div className="cities__right-section">
-              <section className="cities__map map"></section>
+              <Map offers={offers} activeCard={activeCard} />
             </div>
           </div>
         </div>
