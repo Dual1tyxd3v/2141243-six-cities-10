@@ -8,7 +8,7 @@ import 'leaflet/dist/leaflet.css';
 
 type MapProps = {
   offers: Offers;
-  activeCard: Offer;
+  activeCard?: Offer;
 }
 
 function Map({offers, activeCard}: MapProps): JSX.Element {
@@ -19,19 +19,19 @@ function Map({offers, activeCard}: MapProps): JSX.Element {
 
   const defaultIcon = leaflet.icon({
     iconUrl: DEFAULT_MARKER_SRC,
-    iconSize: [40, 40],
-    iconAnchor: [20, 40],
+    iconSize: [30, 40],
+    iconAnchor: [15, 40],
   });
 
   const activeIcon = leaflet.icon({
     iconUrl: ACTIVE_MARKER_SRC,
-    iconSize: [40, 40],
-    iconAnchor: [20, 40],
+    iconSize: [30, 40],
+    iconAnchor: [15, 40],
   });
 
   useEffect(() => {
     if (map) {
-      offers.map((offer) => {
+      offers.forEach((offer) => {
         leaflet
           .marker({
             lat: offer.location.latitude,
@@ -45,7 +45,7 @@ function Map({offers, activeCard}: MapProps): JSX.Element {
   });
 
   return (
-    <section className="cities__map map" ref={mapRef}></section>
+    <div ref={mapRef} style={{height: '100%'}}></div>
   );
 
 }

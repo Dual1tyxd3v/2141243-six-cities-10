@@ -24,9 +24,11 @@ function ReviewForm(): JSX.Element {
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <div className="reviews__rating-form form__rating">
 
-        {ratingValue.map((star, i) => (
-          <Stars key={star} id={i} value={star} onChangeStar={memoChangeHandler}/>
-        )).reverse()}
+        {
+          ratingValue.map((star, i) => (
+            <Stars key={star} id={i} value={star} onChangeStar={memoChangeHandler}/>
+          )).reverse()
+        }
 
       </div>
       <textarea className="reviews__textarea form__textarea" id="review" name="review" placeholder="Tell how was your stay, what you like and what can be improved" onChange={onTextAreaChange}></textarea>
@@ -34,7 +36,7 @@ function ReviewForm(): JSX.Element {
         <p className="reviews__help">
                       To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least <b className="reviews__text-amount">50 characters</b>.
         </p>
-        <button className="reviews__submit form__submit button" type="submit" disabled={(formData.review.length < 50)}>Submit</button>
+        <button className="reviews__submit form__submit button" type="submit" disabled={(formData.rating.length === 0 || formData.review.length < 50 )}>Submit</button>
       </div>
     </form>
   );

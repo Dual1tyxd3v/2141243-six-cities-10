@@ -17,3 +17,7 @@ export const ratingValue = [
 
 export const DEFAULT_MARKER_SRC = 'img/pin.svg';
 export const ACTIVE_MARKER_SRC = 'img/pin-active.svg';
+
+export const MONTHS = [
+  'January', 'February', 'March', 'April', 'May', 'June','Jule', 'August', 'September', 'October', 'November', 'December',
+];
