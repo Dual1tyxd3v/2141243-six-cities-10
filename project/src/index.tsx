@@ -12,10 +12,6 @@ const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,
 );
 
-/* root.render(
-  <App placeNumber={settings.PLACE_NUMBER} offers={offers} authStatus={AuthorizationStatus.Auth} />
-); */
-
 root.render(
   <React.StrictMode>
     <App placeNumber={settings.PLACE_NUMBER}
