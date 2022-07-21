@@ -14,7 +14,7 @@ type MainProps = {
 function MainScreen({placeNumber, offers}: MainProps): JSX.Element {
   const [activeCard, setActiveCard] = useState(offers[0]);
 
-  const memoActiveCardHandle = useCallback((offer: Offer) => setActiveCard(offer), []);
+  const activeCardChangeHandle = useCallback((offer: Offer) => setActiveCard(offer), []);
 
   return (
     <div className="page page--gray page--main">
@@ -42,10 +42,14 @@ function MainScreen({placeNumber, offers}: MainProps): JSX.Element {
                   <li className="places__option" tabIndex={0}>Top rated first</li>
                 </ul>
               </form>
-              <CardsList onActiveCard={memoActiveCardHandle} offers={offers} />
+              <div className="cities__places-list places__list tabs__content">
+                <CardsList onActiveCard={activeCardChangeHandle} offers={offers} />
+              </div>
             </section>
             <div className="cities__right-section">
-              <Map offers={offers} activeCard={activeCard} />
+              <section className="cities__map map" >
+                <Map offers={offers} activeCard={activeCard} />
+              </section>
             </div>
           </div>
         </div>

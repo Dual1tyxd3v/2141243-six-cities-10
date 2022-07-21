@@ -1,11 +1,10 @@
 import { Map, TileLayer } from 'leaflet';
-import { useState, useEffect, MutableRefObject, useRef} from 'react';
+import { useState, useEffect, MutableRefObject, useRef } from 'react';
 import { City } from '../../types/offer';
 
 function useMap(mapRef: MutableRefObject<HTMLElement | null>, city: City): Map | null {
   const [map, setMap] = useState<Map | null>(null);
   const isRendered = useRef<boolean>(false);
-
   useEffect(() => {
     if (mapRef.current !== null && !isRendered.current) {
       const {latitude, longitude, zoom} = city.location;

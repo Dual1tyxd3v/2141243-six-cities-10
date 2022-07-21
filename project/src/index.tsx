@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './components/app/app';
-import { offers, offersObject } from './mocks/offers';
+import { offers, comments } from './mocks/offers';
 import { AuthorizationStatus } from './const';
 
 const settings = {
@@ -16,8 +16,8 @@ root.render(
   <React.StrictMode>
     <App placeNumber={settings.PLACE_NUMBER}
       offers={offers}
-      offersObject={offersObject}
       authStatus={AuthorizationStatus.Auth}
+      comments={comments}
     />
   </React.StrictMode>,
 );

@@ -3,24 +3,26 @@ import { Offer } from '../../types/offer';
 
 type OfferProps = {
   offer: Offer;
-  onActiveCard: (offer: Offer) => void;
+  onActiveCard?: (offer: Offer) => void;
 }
 
 function CardItem ({offer, onActiveCard}: OfferProps): JSX.Element {
   const {type, title, price, previewImage, rating, id, isPremium, isFavorite} = offer;
 
   function onMouseOverHandler() {
-    onActiveCard(offer);
+    onActiveCard && onActiveCard(offer);
   }
 
   return (
     <article className="cities__card place-card" onMouseEnter={onMouseOverHandler}>
-      {isPremium ?
-        <div className="place-card__mark">
-          <span>Premium</span>
-        </div> : null}
+      {
+        isPremium ?
+          <div className="place-card__mark">
+            <span>Premium</span>
+          </div> : null
+      }
       <div className="cities__image-wrapper place-card__image-wrapper">
-        <Link to={`offer/${id}`} title={`offer/${id}`}>
+        <Link to={`../offer/${id}`} title={`../offer/${id}`}>
           <img className="place-card__image" src={previewImage} width="260" height="200" alt="Place" />
         </Link>
       </div>
