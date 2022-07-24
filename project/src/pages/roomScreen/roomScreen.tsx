@@ -1,18 +1,19 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
 import { useParams } from 'react-router-dom';
 import Header from '../../components/header/header';
-import { Offers, Comments} from '../../types/offer';
+import { useAppSelector } from '../../hooks';
+import { Comments } from '../../types/offer';
 import NotFoundScreen from '../../pages/notFoundScreen/notFoundScreen';
 import ReviewList from '../../components/reviewList/reviewList';
 import Map from '../../components/map/map';
 import CardsList from '../../components/cardsList/cardsList';
 
 type RoomScreenProps = {
-  offers: Offers;
   comments: Comments;
 }
 
-function RoomScreen({offers, comments}: RoomScreenProps): JSX.Element {
+function RoomScreen({comments}: RoomScreenProps): JSX.Element {
+  const {offers} = useAppSelector((state) => state);
+
   const params = useParams();
   const paramsId = Number(params.id);
   const offer = offers.find((it) => it.id === paramsId);

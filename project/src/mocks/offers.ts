@@ -1,4 +1,4 @@
-import { Offers, Comments } from '../types/offer';
+import { Offers, Comments, Cities } from '../types/offer';
 
 export const offers: Offers = [{
   bedrooms:3,
@@ -144,7 +144,7 @@ export const offers: Offers = [{
 
 export const offersObject = Object.fromEntries(offers.map((m) => [m.city.name, offers.filter((offer) => offer.city.name === m.city.name)]));
 
-export const cities = Object.keys(offersObject);
+export const cities: Cities = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
 
 export const comments: Comments = [{
   comment: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',

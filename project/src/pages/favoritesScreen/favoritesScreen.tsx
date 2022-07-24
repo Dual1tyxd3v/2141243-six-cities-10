@@ -1,14 +1,11 @@
 import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
-import { Offers } from '../../types/offer';
+import { useAppSelector } from '../../hooks';
 import FavoriteCardItem from '../../components/favoriteCardItem/favoriteCardItem';
 import FavoritesScreenEmpty from '../../pages/favoritesScreenEmpty/favoritesScreenEmpty';
 
-type FavotitesScreenProp = {
-  offers: Offers;
-}
-
-function FavotitesScreen({offers}: FavotitesScreenProp): JSX.Element {
+function FavotitesScreen(): JSX.Element {
+  const {offers} = useAppSelector((state) => state);
   const favoriteOffers = offers.filter((it) => it.isFavorite);
 
   if (favoriteOffers.length === 0) {
