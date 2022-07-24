@@ -1,11 +1,20 @@
-import { Offers } from '../../types/offer';
+import { MouseEvent } from 'react';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { cities } from '../../mocks/offers';
+import { changeCity } from '../../store/action';
 
-type TabsProps = {
-  offers: Offers;
-}
+function Tabs(): JSX.Element {
+  const {city} = useAppSelector((state) => state);
 
-function Tabs({offers}: TabsProps): JSX.Element {
-  const cities = [...new Set(offers.map((offer) => offer.city.name))];
+  const dispatch = useAppDispatch();
+
+  const onClickHandler = (e: MouseEvent) => {
+    e.preventDefault();
+    if (e.currentTarget.textContent) {
+      const targetCity = e.currentTarget.textContent;
+      dispatch(changeCity({city: targetCity}));
+    }
+  };
 
   return (
     <div className="tabs">
@@ -13,10 +22,10 @@ function Tabs({offers}: TabsProps): JSX.Element {
         <ul className="locations__list tabs__list">
 
           {
-            cities.map((city) => (
-              <li key={city} className="locations__item">
-                <a className={`locations__item-link tabs__item ${city === 'Amsterdam' ? 'tabs__item tabs__item--active' : ''}`} href="/">
-                  <span>{city}</span>
+            cities.map((cityItem) => (
+              <li key={cityItem} className="locations__item">
+                <a className={`locations__item-link tabs__item ${cityItem === city ? 'tabs__item tabs__item--active' : ''}`} href="/" onClick={onClickHandler}>
+                  <span>{cityItem}</span>
                 </a>
               </li>
             ))

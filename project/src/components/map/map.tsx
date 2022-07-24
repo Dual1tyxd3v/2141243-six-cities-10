@@ -38,10 +38,16 @@ function Map({offers, activeCard}: MapProps): JSX.Element {
             lng: offer.location.longitude,
           }, {
             icon: (activeCard === offer) ? activeIcon : defaultIcon,
-          })
-          .addTo(map);
+          }).addTo(map);
       });
     }
+    return () => {
+      map?.eachLayer((it) => {
+        if (it.getPane()?.classList.contains('leaflet-marker-pane')) {
+          it.remove();
+        }
+      });
+    };
   });
 
   return (
