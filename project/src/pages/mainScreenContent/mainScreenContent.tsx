@@ -1,7 +1,10 @@
 import CardsList from '../../components/cardsList/cardsList';
+import { sortMenuTabs } from '../../const';
 import Map from '../../components/map/map';
+import { useAppSelector } from '../../hooks';
 import { useState, useCallback } from 'react';
 import { Offers, Offer } from '../../types/offer';
+import SortMenu from '../../components/sortMenu/sortMenu';
 
 type MainScreenContentProps = {
   offers: Offers;
@@ -10,6 +13,29 @@ type MainScreenContentProps = {
 
 function MainScreenContent({offers, city}: MainScreenContentProps): JSX.Element {
   const [activeCard, setActiveCard] = useState<Offer>();
+  const [showSortMenu, setShowSortMenu] = useState(false);
+
+  const {sortBy} = useAppSelector((state) => state);
+
+  const sortOffers = (sortMethod: string) => {
+    switch (sortMethod) {
+      case sortMenuTabs.Popular:
+        return offers;
+      case sortMenuTabs.Rated:
+        return offers.sort((a, b) => b.rating - a.rating);
+      case sortMenuTabs.PriceHighToLow:
+        return offers.sort((a, b) => b.price - a.price);
+      case sortMenuTabs.PriceLowToHigh:
+        return offers.sort((a, b) => a.price - b.price);
+      default:
+        return offers;
+    }
+  };
+  sortOffers(sortBy);
+
+  const onSortMenuHandler = () => {
+    setShowSortMenu(!showSortMenu);
+  };
 
   const activeCardChangeHandle = useCallback((offer: Offer) => setActiveCard(offer), []);
   return (
@@ -20,18 +46,15 @@ function MainScreenContent({offers, city}: MainScreenContentProps): JSX.Element 
           <b className="places__found">{offers.length} places to stay in {city}</b>
           <form className="places__sorting" action="#" method="get">
             <span className="places__sorting-caption">Sort by</span>
-            <span className="places__sorting-type" tabIndex={0}>
-          Popular
+            <span className="places__sorting-type" tabIndex={0} onClick={onSortMenuHandler}>
+              &nbsp;{sortBy}
               <svg className="places__sorting-arrow" width="7" height="4">
                 <use xlinkHref="#icon-arrow-select"></use>
               </svg>
             </span>
-            <ul className="places__options places__options--custom places__options--opened">
-              <li className="places__option places__option--active" tabIndex={0}>Popular</li>
-              <li className="places__option" tabIndex={0}>Price: low to high</li>
-              <li className="places__option" tabIndex={0}>Price: high to low</li>
-              <li className="places__option" tabIndex={0}>Top rated first</li>
-            </ul>
+            {
+              showSortMenu ? <SortMenu onCloseMenu={onSortMenuHandler} /> : null
+            }
           </form>
           <div className="cities__places-list places__list tabs__content">
             <CardsList onActiveCard={activeCardChangeHandle} offers={offers} />

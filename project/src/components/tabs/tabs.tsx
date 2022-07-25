@@ -22,10 +22,10 @@ function Tabs(): JSX.Element {
         <ul className="locations__list tabs__list">
 
           {
-            cities.map((cityItem) => (
-              <li key={cityItem} className="locations__item">
-                <a className={`locations__item-link tabs__item ${cityItem === city ? 'tabs__item tabs__item--active' : ''}`} href="/" onClick={onClickHandler}>
-                  <span>{cityItem}</span>
+            cities.map((selectedCity) => (
+              <li key={selectedCity} className="locations__item">
+                <a className={`locations__item-link tabs__item ${selectedCity === city ? 'tabs__item tabs__item--active' : ''}`} href="/" onClick={onClickHandler}>
+                  <span>{selectedCity}</span>
                 </a>
               </li>
             ))
