@@ -19,8 +19,6 @@ function MainScreenContent({offers, city}: MainScreenContentProps): JSX.Element 
 
   const sortOffers = (sortMethod: string) => {
     switch (sortMethod) {
-      case sortMenuTabs.Popular:
-        return offers;
       case sortMenuTabs.Rated:
         return offers.sort((a, b) => b.rating - a.rating);
       case sortMenuTabs.PriceHighToLow:
