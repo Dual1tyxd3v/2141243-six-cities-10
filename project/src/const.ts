@@ -21,3 +21,10 @@ export const ACTIVE_MARKER_SRC = 'img/pin-active.svg';
 export const MONTHS = [
   'January', 'February', 'March', 'April', 'May', 'June','Jule', 'August', 'September', 'October', 'November', 'December',
 ];
+
+export enum sortMenuTabs {
+  Popular = 'Popular',
+  PriceLowToHigh = 'Price: low to high',
+  PriceHighToLow = 'Price: high to low',
+  Rated = 'Top rated first',
+}
