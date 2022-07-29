@@ -5,6 +5,7 @@ import { useAppSelector } from '../../hooks';
 import { useState, useCallback } from 'react';
 import { Offers, Offer } from '../../types/offer';
 import SortMenu from '../../components/sortMenu/sortMenu';
+import MainScreenEmpty from '../mainScreenEmpty/mainScreenEmpty';
 
 type MainScreenContentProps = {
   offers: Offers;
@@ -16,6 +17,12 @@ function MainScreenContent({offers, city}: MainScreenContentProps): JSX.Element 
   const [showSortMenu, setShowSortMenu] = useState(false);
 
   const {sortBy} = useAppSelector((state) => state);
+
+  const activeCardChangeHandle = useCallback((offer: Offer) => setActiveCard(offer), []);
+
+  if (offers.length === 0) {
+    return <MainScreenEmpty city={city}/>;
+  }
 
   const sortOffers = (sortMethod: string) => {
     switch (sortMethod) {
@@ -35,7 +42,6 @@ function MainScreenContent({offers, city}: MainScreenContentProps): JSX.Element 
     setShowSortMenu(!showSortMenu);
   };
 
-  const activeCardChangeHandle = useCallback((offer: Offer) => setActiveCard(offer), []);
   return (
     <div className="cities">
       <div className="cities__places-container container">
