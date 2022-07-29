@@ -17,12 +17,11 @@ function RoomScreen({comments}: RoomScreenProps): JSX.Element {
   const params = useParams();
   const paramsId = Number(params.id);
   const offer = offers.find((it) => it.id === paramsId);
+  const neighboringOffers = offers.filter((it) => it.city.name === offer?.city.name && it.id !== offer.id);
 
   if (!offer) {
     return <NotFoundScreen />;
   }
-
-  const nearOffers = offers.filter((item) => offer.id !== item.id);
 
   const {images, id, title, isPremium, rating, type, bedrooms, maxAdults, price, goods, host, description} = offer;
   return (
@@ -123,14 +122,14 @@ function RoomScreen({comments}: RoomScreenProps): JSX.Element {
             </div>
           </div>
           <section className="property__map map" >
-            <Map offers={offers} activeCard={offer}/>
+            <Map offers={neighboringOffers.concat(offer)} activeCard={offer}/>
           </section>
         </section>
         <div className="container">
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <div className="near-places__list places__list">
-              <CardsList offers={nearOffers} />
+              <CardsList offers={neighboringOffers} />
             </div>
           </section>
         </div>

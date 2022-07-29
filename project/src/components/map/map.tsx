@@ -32,6 +32,7 @@ function Map({offers, activeCard}: MapProps): JSX.Element {
   useEffect(() => {
     if (map) {
       map.setView([latitude, longitude], zoom);
+
       offers.forEach((offer) => {
         leaflet
           .marker({
