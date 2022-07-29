@@ -11,6 +11,10 @@ export enum AuthorizationStatus {
   Unknown = 'UNKNOWN',
 }
 
+export enum APIRoute {
+  Offers = '/hotels',
+}
+
 export const ratingValue = [
   'terribly', 'badly', 'not bad', 'good', 'perfect',
 ];
