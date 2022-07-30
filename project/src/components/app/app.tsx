@@ -4,16 +4,15 @@ import LoginScreen from '../../pages/loginScreen/loginScreen';
 import FavotitesScreen from '../../pages/favoritesScreen/favoritesScreen';
 import NotFoundScreen from '../../pages/notFoundScreen/notFoundScreen';
 import RoomScreen from '../../pages/roomScreen/roomScreen';
-import {AppRoute, AuthorizationStatus} from '../../const';
+import {AppRoute} from '../../const';
 import PrivateRoute from '../../components/private-route/private-route';
 import {Comments} from '../../types/offer';
 
 type AppProps = {
-  authStatus: AuthorizationStatus;
   comments: Comments;
 }
 
-function App({authStatus, comments}: AppProps): JSX.Element {
+function App({comments}: AppProps): JSX.Element {
 
   return (
     <BrowserRouter>
@@ -21,7 +20,7 @@ function App({authStatus, comments}: AppProps): JSX.Element {
         <Route path={AppRoute.Main} element={<MainScreen />}/>
         <Route path={AppRoute.Login} element={<LoginScreen />}/>
         <Route path={AppRoute.Favorites} element={
-          <PrivateRoute authorizationStatus={authStatus}>
+          <PrivateRoute>
             <FavotitesScreen />
           </PrivateRoute>
         }

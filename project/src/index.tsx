@@ -2,12 +2,13 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './components/app/app';
 import { comments } from './mocks/offers';
-import { AuthorizationStatus } from './const';
 import { store } from './store';
 import { Provider } from 'react-redux';
-import { fetchOfferAction } from './store/api-actions';
+import { checkAuthAction, fetchOfferAction } from './store/api-actions';
+import ErrorMessage from './components/errorMessage/errorMessage';
 
 store.dispatch(fetchOfferAction());
+store.dispatch(checkAuthAction());
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,
@@ -16,8 +17,8 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <Provider store={store}>
+      <ErrorMessage />
       <App
-        authStatus={AuthorizationStatus.Auth}
         comments={comments}
       />
     </Provider>
