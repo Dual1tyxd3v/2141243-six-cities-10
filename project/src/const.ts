@@ -16,6 +16,7 @@ export enum AuthorizationStatus {
 export enum APIRoute {
   Offers = '/hotels',
   Login = '/login',
+  Logout = '/logout',
 }
 
 export const ratingValue = [

@@ -1,9 +1,12 @@
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
-import { useAppSelector } from '../../hooks';
+import { useAppDispatch } from '../../hooks';
+import { getTUserInfo } from '../../services/userInfo';
+import { logoutAction } from '../../store/api-actions';
 
 function HeaderNavLogged(): JSX.Element {
-  const {userInfo} = useAppSelector((state) => state);
+  const dispatch = useAppDispatch();
+  const email = getTUserInfo();
 
   return (
     <nav className="header__nav">
@@ -12,14 +15,21 @@ function HeaderNavLogged(): JSX.Element {
           <Link className="header__nav-link header__nav-link--profile" to={AppRoute.Favorites} title={AppRoute.Favorites}>
             <div className="header__avatar-wrapper user__avatar-wrapper">
             </div>
-            <span className="header__user-name user__name">{userInfo?.email}</span>
+            <span className="header__user-name user__name">{email}</span>
             <span className="header__favorite-count">3</span>
           </Link>
         </li>
         <li className="header__nav-item">
-          <a className="header__nav-link" href="#">
+          <Link
+            className="header__nav-link"
+            to='/'
+            onClick={(evt) => {
+              evt.preventDefault();
+              dispatch(logoutAction());
+            }}
+          >
             <span className="header__signout">Sign out</span>
-          </a>
+          </Link>
         </li>
       </ul>
     </nav>
