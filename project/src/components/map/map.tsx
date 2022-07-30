@@ -15,8 +15,8 @@ function Map({offers, activeCard}: MapProps): JSX.Element {
   const mapRef = useRef(null);
 
   const city = offers[0].city;
+  const {latitude, longitude, zoom} = city.location;
   const map = useMap(mapRef, city);
-
   const defaultIcon = leaflet.icon({
     iconUrl: DEFAULT_MARKER_SRC,
     iconSize: [30, 40],
@@ -31,6 +31,8 @@ function Map({offers, activeCard}: MapProps): JSX.Element {
 
   useEffect(() => {
     if (map) {
+      map.setView([latitude, longitude], zoom);
+
       offers.forEach((offer) => {
         leaflet
           .marker({

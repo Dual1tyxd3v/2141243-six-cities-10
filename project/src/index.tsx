@@ -5,6 +5,9 @@ import { comments } from './mocks/offers';
 import { AuthorizationStatus } from './const';
 import { store } from './store';
 import { Provider } from 'react-redux';
+import { fetchOfferAction } from './store/api-actions';
+
+store.dispatch(fetchOfferAction());
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,

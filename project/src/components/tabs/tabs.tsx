@@ -1,6 +1,6 @@
 import { MouseEvent } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { cities } from '../../mocks/offers';
+import { cities } from '../../const';
 import { changeCity } from '../../store/action';
 
 function Tabs(): JSX.Element {

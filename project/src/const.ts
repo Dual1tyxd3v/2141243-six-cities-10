@@ -1,3 +1,5 @@
+import { Cities } from './types/offer';
+
 export enum AppRoute {
   Main = '/',
   Login = '/login',
@@ -9,6 +11,10 @@ export enum AuthorizationStatus {
   Auth = 'AUTH',
   NoAuth = 'NO_AUTH',
   Unknown = 'UNKNOWN',
+}
+
+export enum APIRoute {
+  Offers = '/hotels',
 }
 
 export const ratingValue = [
@@ -28,3 +34,5 @@ export enum sortMenuTabs {
   PriceHighToLow = 'Price: high to low',
   Rated = 'Top rated first',
 }
+
+export const cities: Cities = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];

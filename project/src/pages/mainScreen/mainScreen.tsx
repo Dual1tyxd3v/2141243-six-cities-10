@@ -1,12 +1,10 @@
 import Tabs from '../../components/tabs/tabs';
 import Header from '../../components/header/header';
 import { useAppSelector } from '../../hooks';
-import MainScreenEmpty from '../mainScreenEmpty/mainScreenEmpty';
 import MainScreenContent from '../mainScreenContent/mainScreenContent';
 
 function MainScreen(): JSX.Element {
-  const {offers, city} = useAppSelector((state) => state);
-
+  const {offers, city, isLoaded} = useAppSelector((state) => state);
   const filteredOffers = offers.filter((offer) => offer.city.name === city);
 
   return (
@@ -16,7 +14,7 @@ function MainScreen(): JSX.Element {
         <h1 className="visually-hidden">Cities</h1>
         <Tabs />
         {
-          filteredOffers.length > 0 ? <MainScreenContent offers={filteredOffers} city={city}/> : <MainScreenEmpty city={city}/>
+          isLoaded ? <h2 style={{textAlign:'center'}}>Loading DATA</h2> : <MainScreenContent offers={filteredOffers} city={city}/>
         }
       </main>
     </div>
