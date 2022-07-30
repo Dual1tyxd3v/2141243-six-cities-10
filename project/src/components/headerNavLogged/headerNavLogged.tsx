@@ -1,12 +1,12 @@
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import { useAppDispatch } from '../../hooks';
-import { getTUserInfo } from '../../services/userInfo';
+import { getUserInfo } from '../../services/userInfo';
 import { logoutAction } from '../../store/api-actions';
 
 function HeaderNavLogged(): JSX.Element {
   const dispatch = useAppDispatch();
-  const email = getTUserInfo();
+  const email = getUserInfo();
 
   return (
     <nav className="header__nav">
@@ -22,7 +22,7 @@ function HeaderNavLogged(): JSX.Element {
         <li className="header__nav-item">
           <Link
             className="header__nav-link"
-            to='/'
+            to='/logout'
             onClick={(evt) => {
               evt.preventDefault();
               dispatch(logoutAction());

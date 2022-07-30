@@ -1,13 +1,14 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AxiosInstance } from 'axios';
-import { APIRoute, AuthorizationStatus } from '../const';
+import { store } from '.';
+import { APIRoute, AuthorizationStatus, TIMEOUT_SHOW_ERROR } from '../const';
 import { dropToken, saveToken } from '../services/token';
 import { dropUserInfo, saveUserInfo } from '../services/userInfo';
 import { AuthData } from '../types/auth-data';
 import { Offers } from '../types/offer';
 import { AppDispatch, State } from '../types/state';
 import { UserData } from '../types/user-data';
-import { loadOffers, setAuthStatus, setDataLoadStatus } from './action';
+import { loadOffers, setAuthStatus, setDataLoadStatus, setErrorMessage } from './action';
 
 export const fetchOfferAction = createAsyncThunk<void, undefined, {
   dispatch: AppDispatch, state: State, extra: AxiosInstance
@@ -56,5 +57,17 @@ export const logoutAction = createAsyncThunk<void, undefined, {
     dropToken();
     dropUserInfo();
     dispatch(setAuthStatus(AuthorizationStatus.NoAuth));
+  },
+);
+
+export const clearErrorAction = createAsyncThunk<void, undefined, {
+  dispatch: AppDispatch, state: State, extra: AxiosInstance
+}>(
+  'clearError',
+  () => {
+    setTimeout(
+      () => store.dispatch(setErrorMessage(null)),
+      TIMEOUT_SHOW_ERROR
+    );
   },
 );

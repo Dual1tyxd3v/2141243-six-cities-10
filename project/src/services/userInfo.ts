@@ -2,7 +2,7 @@ const USER_INFO_NAME = 'user_info';
 
 export type UserInfo = string;
 
-export const getTUserInfo = (): UserInfo => {
+export const getUserInfo = (): UserInfo => {
   const userInfo = localStorage.getItem(USER_INFO_NAME);
   return userInfo ?? '';
 };
