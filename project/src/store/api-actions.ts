@@ -27,12 +27,8 @@ export const fetchNearbyOffersAction = createAsyncThunk<void, number, {
   'data/fetchNearbyOffers',
   async (id, {dispatch, extra: api}) => {
     const NEARBY_OFFERS_ROUTE = `/hotels/${id}/nearby`;
-
     const {data: nearbyOffers} = await api.get<Offers>(NEARBY_OFFERS_ROUTE);
-    const {data: comments} = await api.get<Comments>(APIRoute.Comments + id);
-
     dispatch(setNearbyOffers(nearbyOffers));
-    dispatch(setComments(comments));
   },
 );
 

@@ -5,7 +5,7 @@ import NotFoundScreen from '../../pages/notFoundScreen/notFoundScreen';
 import ReviewList from '../../components/reviewList/reviewList';
 import Map from '../../components/map/map';
 import CardsList from '../../components/cardsList/cardsList';
-import { fetchNearbyOffersAction } from '../../store/api-actions';
+import { fetchCommentsAction, fetchNearbyOffersAction } from '../../store/api-actions';
 import { useLayoutEffect } from 'react';
 
 function RoomScreen(): JSX.Element {
@@ -16,6 +16,7 @@ function RoomScreen(): JSX.Element {
 
   useLayoutEffect(() => {
     dispatch(fetchNearbyOffersAction(paramsId));
+    dispatch(fetchCommentsAction(paramsId));
   }, [paramsId, dispatch]);
 
   const {offers, nearbyOffers, comments} = useAppSelector((state) => state);
