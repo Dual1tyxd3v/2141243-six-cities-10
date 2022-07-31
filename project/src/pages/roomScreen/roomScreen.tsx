@@ -1,23 +1,29 @@
 import { useParams } from 'react-router-dom';
 import Header from '../../components/header/header';
-import { useAppSelector } from '../../hooks';
-import { Comments } from '../../types/offer';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import NotFoundScreen from '../../pages/notFoundScreen/notFoundScreen';
 import ReviewList from '../../components/reviewList/reviewList';
 import Map from '../../components/map/map';
 import CardsList from '../../components/cardsList/cardsList';
+import { fetchCommentsAction, fetchNearbyOffersAction, fetchOfferAction } from '../../store/api-actions';
+import { useLayoutEffect } from 'react';
 
-type RoomScreenProps = {
-  comments: Comments;
-}
 
-function RoomScreen({comments}: RoomScreenProps): JSX.Element {
-  const {offers} = useAppSelector((state) => state);
-
+function RoomScreen(): JSX.Element {
   const params = useParams();
   const paramsId = Number(params.id);
-  const offer = offers.find((it) => it.id === paramsId);
-  const neighboringOffers = offers.filter((it) => it.city.name === offer?.city.name && it.id !== offer.id);
+
+  const dispatch = useAppDispatch();
+  const {offer, comments, nearbyOffers, isLoaded} = useAppSelector((state) => state);
+  useLayoutEffect(() => {
+    dispatch(fetchOfferAction(paramsId));
+    dispatch(fetchNearbyOffersAction(paramsId));
+    dispatch(fetchCommentsAction(paramsId));
+  }, [paramsId, dispatch]);
+
+  if (isLoaded) {
+    return <h2 style={{textAlign:'center'}}>Loading DATA</h2>;
+  }
 
   if (!offer) {
     return <NotFoundScreen />;
@@ -122,14 +128,14 @@ function RoomScreen({comments}: RoomScreenProps): JSX.Element {
             </div>
           </div>
           <section className="property__map map" >
-            <Map offers={neighboringOffers.concat(offer)} activeCard={offer}/>
+            <Map offers={nearbyOffers.concat(offer)} activeCard={offer}/>
           </section>
         </section>
         <div className="container">
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <div className="near-places__list places__list">
-              <CardsList offers={neighboringOffers} />
+              <CardsList offers={nearbyOffers} />
             </div>
           </section>
         </div>

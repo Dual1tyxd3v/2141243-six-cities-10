@@ -34,7 +34,7 @@ function ReviewItem({commentObject}: ReviewItemProps): JSX.Element {
         <p className="reviews__text">
           {comment}
         </p>
-        <time className="reviews__time" dateTime="2019-04-24">{formatDate(date)}</time>
+        <time className="reviews__time" dateTime={date.slice(0, 10)}>{formatDate(date)}</time>
       </div>
     </li>
   );

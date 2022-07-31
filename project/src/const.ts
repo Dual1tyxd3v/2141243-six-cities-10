@@ -17,6 +17,8 @@ export enum APIRoute {
   Offers = '/hotels',
   Login = '/login',
   Logout = '/logout',
+  Comments = '/comments/',
+  Offer = '/hotels/',
 }
 
 export const ratingValue = [
@@ -40,3 +42,5 @@ export enum sortMenuTabs {
 export const cities: Cities = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
 
 export const TIMEOUT_SHOW_ERROR = 3000;
+
+export const MAX_COMMENTS_TO_VIEW = 10;

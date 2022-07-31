@@ -6,7 +6,6 @@ import MainScreenContent from '../mainScreenContent/mainScreenContent';
 function MainScreen(): JSX.Element {
   const {offers, city, isLoaded} = useAppSelector((state) => state);
   const filteredOffers = offers.filter((offer) => offer.city.name === city);
-
   return (
     <div className="page page--gray page--main">
       <Header />
