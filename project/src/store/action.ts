@@ -1,6 +1,6 @@
 import { createAction } from '@reduxjs/toolkit';
 import { AuthorizationStatus } from '../const';
-import { Offers } from '../types/offer';
+import { Comments, Offers } from '../types/offer';
 
 export const changeCity = createAction<{city: string}>('changeCity');
 
@@ -14,3 +14,6 @@ export const setAuthStatus = createAction<AuthorizationStatus>('setAuthStatus');
 
 export const setErrorMessage = createAction<string | null>('setErrorMessage');
 
+export const setNearbyOffers = createAction<Offers>('setNearbyOffers');
+
+export const setComments = createAction<Comments>('setComments');
