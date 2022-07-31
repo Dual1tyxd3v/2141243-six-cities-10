@@ -10,8 +10,8 @@ type InitialState = {
   isLoaded: boolean;
   authorizationStatus: AuthorizationStatus;
   error: string | null;
-  nearbyOffers: Offers | null;
-  comments: Comments | null;
+  nearbyOffers: Offers;
+  comments: Comments;
 }
 
 const initialState: InitialState = {
@@ -21,8 +21,8 @@ const initialState: InitialState = {
   isLoaded: true,
   authorizationStatus: AuthorizationStatus.Unknown,
   error: null,
-  nearbyOffers: null,
-  comments: null,
+  nearbyOffers: [],
+  comments: [],
 };
 
 const reducer = createReducer(initialState, (builder) => {

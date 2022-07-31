@@ -25,7 +25,7 @@ function App({comments}: AppProps): JSX.Element {
           </PrivateRoute>
         }
         />
-        <Route path={AppRoute.Room} element={<RoomScreen comments={comments}/>} />
+        <Route path={AppRoute.Room} element={<RoomScreen />} />
         <Route path='*' element={<NotFoundScreen />} />
       </Routes>
     </BrowserRouter>

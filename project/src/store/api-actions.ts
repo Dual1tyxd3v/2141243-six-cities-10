@@ -5,10 +5,10 @@ import { APIRoute, AuthorizationStatus, TIMEOUT_SHOW_ERROR } from '../const';
 import { dropToken, saveToken } from '../services/token';
 import { dropUserInfo, saveUserInfo } from '../services/userInfo';
 import { AuthData } from '../types/auth-data';
-import { Offers } from '../types/offer';
+import { Comments, Offers } from '../types/offer';
 import { AppDispatch, State } from '../types/state';
 import { UserData } from '../types/user-data';
-import { loadOffers, setAuthStatus, setDataLoadStatus, setErrorMessage } from './action';
+import { loadOffers, setAuthStatus, setComments, setDataLoadStatus, setErrorMessage, setNearbyOffers } from './action';
 
 export const fetchOfferAction = createAsyncThunk<void, undefined, {
   dispatch: AppDispatch, state: State, extra: AxiosInstance
@@ -18,6 +18,31 @@ export const fetchOfferAction = createAsyncThunk<void, undefined, {
     const {data} = await api.get<Offers>(APIRoute.Offers);
     dispatch(loadOffers(data));
     dispatch(setDataLoadStatus(false));
+  },
+);
+
+export const fetchNearbyOffersAction = createAsyncThunk<void, number, {
+  dispatch: AppDispatch, state: State, extra: AxiosInstance
+}>(
+  'data/fetchNearbyOffers',
+  async (id, {dispatch, extra: api}) => {
+    const NEARBY_OFFERS_ROUTE = `/hotels/${id}/nearby`;
+
+    const {data: nearbyOffers} = await api.get<Offers>(NEARBY_OFFERS_ROUTE);
+    const {data: comments} = await api.get<Comments>(APIRoute.Comments + id);
+
+    dispatch(setNearbyOffers(nearbyOffers));
+    dispatch(setComments(comments));
+  },
+);
+
+export const fetchCommentsAction = createAsyncThunk<void, number, {
+  dispatch: AppDispatch, state: State, extra: AxiosInstance
+}>(
+  'data/fetchComments',
+  async (id, {dispatch, extra: api}) => {
+    const {data} = await api.get<Comments>(APIRoute.Comments + id);
+    dispatch(setComments(data));
   },
 );
 
@@ -41,8 +66,8 @@ export const loginAction = createAsyncThunk<void, AuthData, {
 }>(
   'user/login',
   async ({email, password}, {dispatch, extra: api}) => {
-    const {data} = await api.post<UserData>(APIRoute.Login, {email, password});
-    saveToken(data.token);
+    const {data: {token}} = await api.post<UserData>(APIRoute.Login, {email, password});
+    saveToken(token);
     saveUserInfo(email);
     dispatch(setAuthStatus(AuthorizationStatus.Auth));
   },
