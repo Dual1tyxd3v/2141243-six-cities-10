@@ -5,23 +5,25 @@ import NotFoundScreen from '../../pages/notFoundScreen/notFoundScreen';
 import ReviewList from '../../components/reviewList/reviewList';
 import Map from '../../components/map/map';
 import CardsList from '../../components/cardsList/cardsList';
-import { fetchCommentsAction, fetchNearbyOffersAction } from '../../store/api-actions';
+import { fetchCommentsAction, fetchNearbyOffersAction, fetchOfferAction } from '../../store/api-actions';
 import { useLayoutEffect } from 'react';
+
 
 function RoomScreen(): JSX.Element {
   const params = useParams();
   const paramsId = Number(params.id);
 
   const dispatch = useAppDispatch();
-
+  const {offer, comments, nearbyOffers, isLoaded} = useAppSelector((state) => state);
   useLayoutEffect(() => {
+    dispatch(fetchOfferAction(paramsId));
     dispatch(fetchNearbyOffersAction(paramsId));
     dispatch(fetchCommentsAction(paramsId));
   }, [paramsId, dispatch]);
 
-  const {offers, nearbyOffers, comments} = useAppSelector((state) => state);
-
-  const offer = offers.find((it) => it.id === paramsId);
+  if (isLoaded) {
+    return <h2 style={{textAlign:'center'}}>Loading DATA</h2>;
+  }
 
   if (!offer) {
     return <NotFoundScreen />;

@@ -5,12 +5,12 @@ import { APIRoute, AuthorizationStatus, TIMEOUT_SHOW_ERROR } from '../const';
 import { dropToken, saveToken } from '../services/token';
 import { dropUserInfo, saveUserInfo } from '../services/userInfo';
 import { AuthData } from '../types/auth-data';
-import { Comments, Offers } from '../types/offer';
+import { Comments, Offer, Offers } from '../types/offer';
 import { AppDispatch, State } from '../types/state';
 import { UserData } from '../types/user-data';
-import { loadOffers, setAuthStatus, setComments, setDataLoadStatus, setErrorMessage, setNearbyOffers } from './action';
+import { loadOffers, setAuthStatus, setComments, setDataLoadStatus, setErrorMessage, setNearbyOffers, setOffer } from './action';
 
-export const fetchOfferAction = createAsyncThunk<void, undefined, {
+export const fetchOffersAction = createAsyncThunk<void, undefined, {
   dispatch: AppDispatch, state: State, extra: AxiosInstance
 }>(
   'data/fetchOffers',
@@ -19,6 +19,18 @@ export const fetchOfferAction = createAsyncThunk<void, undefined, {
     dispatch(loadOffers(data));
     dispatch(setDataLoadStatus(false));
   },
+);
+
+export const fetchOfferAction = createAsyncThunk<void, number, {
+  dispatch: AppDispatch, state: State, extra: AxiosInstance
+}>(
+  'data/fetchOffer',
+  async (id, {dispatch, extra: api}) => {
+    const {data} = await api.get<Offer>(`/hotels/${id}`);
+    dispatch(setDataLoadStatus(true));
+    dispatch(setOffer(data));
+    dispatch(setDataLoadStatus(false));
+  }
 );
 
 export const fetchNearbyOffersAction = createAsyncThunk<void, number, {
