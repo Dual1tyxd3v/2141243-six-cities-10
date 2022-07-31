@@ -1,7 +1,7 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { AuthorizationStatus } from '../const';
 import { Comments, Offer, Offers } from '../types/offer';
-import { changeCity, changeSortBy, loadOffers, setAuthStatus, setComments, setDataLoadStatus, setErrorMessage, setNearbyOffers, setOffer } from './action';
+import { changeCity, changeSortBy, loadOffers, setAuthStatus, setComments, setDataLoadStatus, setErrorMessage, setNearbyOffers, setOffer, setPostLoadStatus } from './action';
 
 type InitialState = {
   city: string;
@@ -13,18 +13,22 @@ type InitialState = {
   nearbyOffers: Offers;
   comments: Comments;
   offer: Offer | null;
+  postLoaded: boolean;
+  postStatusCode: number;
 }
 
 const initialState: InitialState = {
   city: 'Paris',
   offers: [],
   sortBy: 'Popular',
-  isLoaded: true,
+  isLoaded: false,
   authorizationStatus: AuthorizationStatus.Unknown,
   error: null,
   nearbyOffers: [],
   comments: [],
   offer: null,
+  postLoaded: false,
+  postStatusCode: 0,
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -48,6 +52,8 @@ const reducer = createReducer(initialState, (builder) => {
       state.comments = action.payload;
     }).addCase(setOffer, (state, action) => {
       state.offer = action.payload;
+    }).addCase(setPostLoadStatus, (state, action) => {
+      state.postLoaded = action.payload;
     });
 });
 

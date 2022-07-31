@@ -19,3 +19,5 @@ export const setNearbyOffers = createAction<Offers>('setNearbyOffers');
 export const setComments = createAction<Comments>('setComments');
 
 export const setOffer = createAction<Offer>('setOffer');
+
+export const setPostLoadStatus = createAction<boolean>('setPostLoadStatus');

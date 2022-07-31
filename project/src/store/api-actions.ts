@@ -6,15 +6,17 @@ import { dropToken, saveToken } from '../services/token';
 import { dropUserInfo, saveUserInfo } from '../services/userInfo';
 import { AuthData } from '../types/auth-data';
 import { Comments, Offer, Offers } from '../types/offer';
+import { PostData } from '../types/post-data';
 import { AppDispatch, State } from '../types/state';
 import { UserData } from '../types/user-data';
-import { loadOffers, setAuthStatus, setComments, setDataLoadStatus, setErrorMessage, setNearbyOffers, setOffer } from './action';
+import { loadOffers, setAuthStatus, setComments, setDataLoadStatus, setErrorMessage, setNearbyOffers, setOffer, setPostLoadStatus } from './action';
 
 export const fetchOffersAction = createAsyncThunk<void, undefined, {
   dispatch: AppDispatch, state: State, extra: AxiosInstance
 }>(
   'data/fetchOffers',
   async (_arg, {dispatch, extra: api}) => {
+    dispatch(setDataLoadStatus(true));
     const {data} = await api.get<Offers>(APIRoute.Offers);
     dispatch(loadOffers(data));
     dispatch(setDataLoadStatus(false));
@@ -26,8 +28,8 @@ export const fetchOfferAction = createAsyncThunk<void, number, {
 }>(
   'data/fetchOffer',
   async (id, {dispatch, extra: api}) => {
-    const {data} = await api.get<Offer>(`/hotels/${id}`);
     dispatch(setDataLoadStatus(true));
+    const {data} = await api.get<Offer>(`/hotels/${id}`);
     dispatch(setOffer(data));
     dispatch(setDataLoadStatus(false));
   }
@@ -103,4 +105,22 @@ export const clearErrorAction = createAsyncThunk<void, undefined, {
       TIMEOUT_SHOW_ERROR
     );
   },
+);
+
+export const addCommentAction = createAsyncThunk<void, PostData, {
+  dispatch: AppDispatch, state: State, extra: AxiosInstance
+}>(
+  'addComment',
+  async ({comment, rating, id}, {dispatch, extra: api}) => {
+    try {
+      dispatch(setPostLoadStatus(true));
+      const resp = await api.post<Comments>(APIRoute.Comments + id, {comment, rating});
+      dispatch(setComments(resp.data));
+      dispatch(setPostLoadStatus(false));
+    }
+    catch {
+      dispatch(setPostLoadStatus(false));
+    }
+  },
+
 );
