@@ -7,6 +7,7 @@ import Map from '../../components/map/map';
 import { fetchCommentsAction, fetchNearbyOffersAction, fetchOfferAction } from '../../store/api-actions';
 import { useLayoutEffect } from 'react';
 import CardItem from '../../components/cardItem/cardItem';
+import { getComments, getLoadedStatus, getNearbyOffers, getOffer } from '../../store/dataProcess/selectors';
 
 
 function RoomScreen(): JSX.Element {
@@ -14,7 +15,10 @@ function RoomScreen(): JSX.Element {
   const paramsId = Number(params.id);
 
   const dispatch = useAppDispatch();
-  const {offer, comments, nearbyOffers, isLoaded} = useAppSelector((state) => state.OTHER);
+  const offer = useAppSelector(getOffer);
+  const comments = useAppSelector(getComments);
+  const nearbyOffers = useAppSelector(getNearbyOffers);
+  const isLoaded = useAppSelector(getLoadedStatus);
 
   useLayoutEffect(() => {
     dispatch(fetchOfferAction(paramsId));

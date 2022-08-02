@@ -2,9 +2,13 @@ import Tabs from '../../components/tabs/tabs';
 import Header from '../../components/header/header';
 import { useAppSelector } from '../../hooks';
 import MainScreenContent from '../mainScreenContent/mainScreenContent';
+import { getLoadedStatus, getOffers } from '../../store/dataProcess/selectors';
 
 function MainScreen(): JSX.Element {
-  const {offers, city, isLoaded} = useAppSelector((state) => state.OTHER);
+  const {city} = useAppSelector((state) => state.OTHER);
+  const offers = useAppSelector(getOffers);
+  const isLoaded = useAppSelector(getLoadedStatus);
+
   const filteredOffers = offers.filter((offer) => offer.city.name === city);
   return (
     <div className="page page--gray page--main">

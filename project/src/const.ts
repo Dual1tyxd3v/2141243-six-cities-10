@@ -49,5 +49,6 @@ export const MIN_REVIEW_SYMBOLS = 50;
 
 export enum NameSpace {
   User = 'USER',
+  Data = 'DATA',
   Other = 'OTHER'
 }

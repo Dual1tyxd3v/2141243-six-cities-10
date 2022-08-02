@@ -4,7 +4,7 @@ import { AuthorizationStatus, NameSpace } from '../../const';
 import { checkAuthAction, loginAction, logoutAction} from '../api-actions';
 
 const initialState: UserProcess = {
-  authorizationStatus: AuthorizationStatus.Unknown
+  authorizationStatus: AuthorizationStatus.Unknown,
 };
 
 export const userProcess = createSlice({
@@ -16,7 +16,7 @@ export const userProcess = createSlice({
       .addCase(checkAuthAction.fulfilled, (state) => {
         state.authorizationStatus = AuthorizationStatus.Auth;
       })
-      .addCase(checkAuthAction.rejected, (state) => {
+      .addCase(checkAuthAction.rejected, (state, action) => {
         state.authorizationStatus = AuthorizationStatus.NoAuth;
       })
       .addCase(loginAction.fulfilled, (state) => {

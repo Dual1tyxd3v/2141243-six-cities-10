@@ -3,11 +3,12 @@ import { useParams } from 'react-router-dom';
 import { MIN_REVIEW_SYMBOLS, ratingValue } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { addCommentAction } from '../../store/api-actions';
+import { getPostLoadedStatus } from '../../store/dataProcess/selectors';
 import Stars from '../stars/stars';
 
 function ReviewForm(): JSX.Element {
   const dispatch = useAppDispatch();
-  const {postLoaded} = useAppSelector((state) => state.OTHER);
+  const postLoaded = useAppSelector(getPostLoadedStatus);
 
   const params = useParams();
   const paramsId = Number(params.id);
