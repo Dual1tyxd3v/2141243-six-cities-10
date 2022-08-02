@@ -6,13 +6,8 @@ import NotFoundScreen from '../../pages/notFoundScreen/notFoundScreen';
 import RoomScreen from '../../pages/roomScreen/roomScreen';
 import {AppRoute} from '../../const';
 import PrivateRoute from '../../components/private-route/private-route';
-import {Comments} from '../../types/offer';
 
-type AppProps = {
-  comments: Comments;
-}
-
-function App({comments}: AppProps): JSX.Element {
+function App(): JSX.Element {
 
   return (
     <BrowserRouter>

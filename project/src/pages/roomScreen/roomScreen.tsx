@@ -14,7 +14,8 @@ function RoomScreen(): JSX.Element {
   const paramsId = Number(params.id);
 
   const dispatch = useAppDispatch();
-  const {offer, comments, nearbyOffers, isLoaded} = useAppSelector((state) => state);
+  const {offer, comments, nearbyOffers, isLoaded} = useAppSelector((state) => state.OTHER);
+
   useLayoutEffect(() => {
     dispatch(fetchOfferAction(paramsId));
     dispatch(fetchNearbyOffersAction(paramsId));

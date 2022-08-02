@@ -4,7 +4,7 @@ import { cities } from '../../const';
 import { changeCity } from '../../store/action';
 
 function Tabs(): JSX.Element {
-  const {city} = useAppSelector((state) => state);
+  const {city} = useAppSelector((state) => state.OTHER);
 
   const dispatch = useAppDispatch();
 

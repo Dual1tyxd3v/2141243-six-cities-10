@@ -1,14 +1,12 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { AuthorizationStatus } from '../const';
 import { Comments, Offer, Offers } from '../types/offer';
-import { changeCity, changeSortBy, loadOffers, setAuthStatus, setComments, setDataLoadStatus, setErrorMessage, setNearbyOffers, setOffer, setPostLoadStatus } from './action';
+import { changeCity, changeSortBy, loadOffers, setComments, setDataLoadStatus, setErrorMessage, setNearbyOffers, setOffer, setPostLoadStatus } from './action';
 
 type InitialState = {
   city: string;
   offers: Offers;
   sortBy: string;
   isLoaded: boolean;
-  authorizationStatus: AuthorizationStatus;
   error: string | null;
   nearbyOffers: Offers;
   comments: Comments;
@@ -22,7 +20,6 @@ const initialState: InitialState = {
   offers: [],
   sortBy: 'Popular',
   isLoaded: false,
-  authorizationStatus: AuthorizationStatus.Unknown,
   error: null,
   nearbyOffers: [],
   comments: [],
@@ -42,8 +39,6 @@ const reducer = createReducer(initialState, (builder) => {
       state.offers = action.payload;
     }).addCase(setDataLoadStatus, (state, action) => {
       state.isLoaded = action.payload;
-    }).addCase(setAuthStatus, (state, action) => {
-      state.authorizationStatus = action.payload;
     }).addCase(setErrorMessage, (state, action) => {
       state.error = action.payload;
     }).addCase(setNearbyOffers, (state, action) => {

@@ -7,7 +7,7 @@ import Stars from '../stars/stars';
 
 function ReviewForm(): JSX.Element {
   const dispatch = useAppDispatch();
-  const {postLoaded} = useAppSelector((state) => state);
+  const {postLoaded} = useAppSelector((state) => state.OTHER);
 
   const params = useParams();
   const paramsId = Number(params.id);

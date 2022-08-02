@@ -1,11 +1,12 @@
 import { Link } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../../const';
 import { useAppSelector } from '../../hooks';
+import { getAuthorizationStatus } from '../../store/userProcess/selectors';
 import HeaderNavLogged from '../headerNavLogged/headerNavLogged';
 import HeaderNavNotLogged from '../headerNavNotLogged/headerNavNotLogged';
 
 function Header(): JSX.Element {
-  const {authorizationStatus} = useAppSelector((state) => state);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
 
   return (
     <header className="header">

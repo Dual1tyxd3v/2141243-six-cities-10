@@ -16,7 +16,7 @@ function MainScreenContent({offers, city}: MainScreenContentProps): JSX.Element 
   const [activeCard, setActiveCard] = useState<Offer>();
   const [showSortMenu, setShowSortMenu] = useState(false);
 
-  const {sortBy} = useAppSelector((state) => state);
+  const {sortBy} = useAppSelector((state) => state.OTHER);
 
   const activeCardChangeHandle = useCallback((offer: Offer) => setActiveCard(offer), []);
 

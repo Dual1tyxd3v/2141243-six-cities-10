@@ -7,7 +7,7 @@ type SortMenuProps = {
 }
 
 function SortMenu({onCloseMenu}: SortMenuProps): JSX.Element {
-  const {sortBy} = useAppSelector((state) => state);
+  const {sortBy} = useAppSelector((state) => state.OTHER);
   const dispatch = useAppDispatch();
 
   const onSortChangeHandler = (sortTab: string) => {

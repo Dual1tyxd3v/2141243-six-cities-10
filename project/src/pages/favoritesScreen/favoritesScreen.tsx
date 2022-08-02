@@ -5,7 +5,7 @@ import FavoriteCardItem from '../../components/favoriteCardItem/favoriteCardItem
 import FavoritesScreenEmpty from '../../pages/favoritesScreenEmpty/favoritesScreenEmpty';
 
 function FavotitesScreen(): JSX.Element {
-  const {offers} = useAppSelector((state) => state);
+  const {offers} = useAppSelector((state) => state.OTHER);
   const favoriteOffers = offers.filter((it) => it.isFavorite);
 
   if (favoriteOffers.length === 0) {
