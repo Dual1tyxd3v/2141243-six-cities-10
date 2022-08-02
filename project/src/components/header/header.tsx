@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { Link } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../../const';
 import { useAppSelector } from '../../hooks';
@@ -28,4 +29,4 @@ function Header(): JSX.Element {
   );
 }
 
-export default Header;
+export default memo(Header);
