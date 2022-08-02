@@ -44,3 +44,5 @@ export const cities: Cities = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Ham
 export const TIMEOUT_SHOW_ERROR = 3000;
 
 export const MAX_COMMENTS_TO_VIEW = 10;
+
+export const MIN_REVIEW_SYMBOLS = 50;
