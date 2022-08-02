@@ -6,6 +6,7 @@ import { Offers, Offer } from '../../types/offer';
 import SortMenu from '../../components/sortMenu/sortMenu';
 import MainScreenEmpty from '../mainScreenEmpty/mainScreenEmpty';
 import CardItem from '../../components/cardItem/cardItem';
+import { getSortMethod } from '../../store/appProcess/selectors';
 
 type MainScreenContentProps = {
   offers: Offers;
@@ -16,7 +17,7 @@ function MainScreenContent({offers, city}: MainScreenContentProps): JSX.Element 
   const [activeCard, setActiveCard] = useState<Offer>();
   const [showSortMenu, setShowSortMenu] = useState(false);
 
-  const {sortBy} = useAppSelector((state) => state.OTHER);
+  const sortBy = useAppSelector(getSortMethod);
 
   const activeCardChangeHandle = useCallback((offer: Offer) => setActiveCard(offer), []);
 

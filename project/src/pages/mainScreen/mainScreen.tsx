@@ -3,9 +3,10 @@ import Header from '../../components/header/header';
 import { useAppSelector } from '../../hooks';
 import MainScreenContent from '../mainScreenContent/mainScreenContent';
 import { getLoadedStatus, getOffers } from '../../store/dataProcess/selectors';
+import { getCity } from '../../store/appProcess/selectors';
 
 function MainScreen(): JSX.Element {
-  const {city} = useAppSelector((state) => state.OTHER);
+  const city = useAppSelector(getCity);
   const offers = useAppSelector(getOffers);
   const isLoaded = useAppSelector(getLoadedStatus);
 

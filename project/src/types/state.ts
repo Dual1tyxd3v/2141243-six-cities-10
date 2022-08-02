@@ -18,3 +18,8 @@ export type DataProcess = {
   offer: Offer | null;
   postLoaded: boolean;
 };
+
+export type AppProcess = {
+  city: string;
+  sortBy: string;
+}
