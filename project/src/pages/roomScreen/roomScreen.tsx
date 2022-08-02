@@ -4,9 +4,9 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import NotFoundScreen from '../../pages/notFoundScreen/notFoundScreen';
 import ReviewList from '../../components/reviewList/reviewList';
 import Map from '../../components/map/map';
-import CardsList from '../../components/cardsList/cardsList';
 import { fetchCommentsAction, fetchNearbyOffersAction, fetchOfferAction } from '../../store/api-actions';
 import { useLayoutEffect } from 'react';
+import CardItem from '../../components/cardItem/cardItem';
 
 
 function RoomScreen(): JSX.Element {
@@ -135,7 +135,9 @@ function RoomScreen(): JSX.Element {
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <div className="near-places__list places__list">
-              <CardsList offers={nearbyOffers} />
+              {
+                nearbyOffers.map((offerItem) => <CardItem key={offerItem.id} offer={offerItem}/>)
+              }
             </div>
           </section>
         </div>
