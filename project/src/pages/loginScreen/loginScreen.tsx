@@ -1,10 +1,12 @@
 import Header from '../../components/header/header';
-import { FormEvent, useRef } from 'react';
+import { FormEvent, MouseEvent, useRef } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { Navigate } from 'react-router-dom';
-import { AppRoute, AuthorizationStatus } from '../../const';
+import { Link, Navigate } from 'react-router-dom';
+import { AppRoute, AuthorizationStatus, cities } from '../../const';
 import { loginAction } from '../../store/api-actions';
 import { getAuthorizationStatus } from '../../store/userProcess/selectors';
+import { changeCity } from '../../store/appProcess/appProcess';
+import { redirectToRoute } from '../../store/action';
 
 function LoginScreen(): JSX.Element {
   const emailRef = useRef<HTMLInputElement | null>(null);
@@ -26,6 +28,14 @@ function LoginScreen(): JSX.Element {
         password: passRef.current.value
       }));
     }
+  };
+
+  const randomCity = cities[Math.floor(Math.random() * cities.length)];
+
+  const handleClick = (evt: MouseEvent) => {
+    evt.preventDefault();
+    dispatch(changeCity(randomCity));
+    dispatch(redirectToRoute(AppRoute.Main));
   };
   return (
     <div className="page page--gray page--login">
@@ -53,9 +63,13 @@ function LoginScreen(): JSX.Element {
           </section>
           <section className="locations locations--login locations--current">
             <div className="locations__item">
-              <a className="locations__item-link" href="/login">
-                <span>Amsterdam</span>
-              </a>
+              <Link
+                className="locations__item-link"
+                to={AppRoute.Main}
+                onClick={handleClick}
+              >
+                <span>{randomCity}</span>
+              </Link>
             </div>
           </section>
         </div>

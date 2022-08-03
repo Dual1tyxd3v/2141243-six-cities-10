@@ -1,4 +1,4 @@
-import {Route, BrowserRouter, Routes} from 'react-router-dom';
+import {Route, Routes} from 'react-router-dom';
 import MainScreen from '../../pages/mainScreen/mainScreen';
 import LoginScreen from '../../pages/loginScreen/loginScreen';
 import FavotitesScreen from '../../pages/favoritesScreen/favoritesScreen';
@@ -6,11 +6,13 @@ import NotFoundScreen from '../../pages/notFoundScreen/notFoundScreen';
 import RoomScreen from '../../pages/roomScreen/roomScreen';
 import {AppRoute} from '../../const';
 import PrivateRoute from '../../components/private-route/private-route';
+import HistoryRouter from '../historyRoute/historyRoute';
+import { browserHistory } from '../../browserHistory';
 
 function App(): JSX.Element {
 
   return (
-    <BrowserRouter>
+    <HistoryRouter history={browserHistory}>
       <Routes>
         <Route path={AppRoute.Main} element={<MainScreen />}/>
         <Route path={AppRoute.Login} element={<LoginScreen />}/>
@@ -23,7 +25,7 @@ function App(): JSX.Element {
         <Route path={AppRoute.Room} element={<RoomScreen />} />
         <Route path='*' element={<NotFoundScreen />} />
       </Routes>
-    </BrowserRouter>
+    </HistoryRouter>
   );
 }
 
