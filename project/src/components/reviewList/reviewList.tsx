@@ -3,13 +3,15 @@ import ReviewForm from '../reviewForm/reviewForm';
 import { Comments } from '../../types/offer';
 import { AuthorizationStatus, MAX_COMMENTS_TO_VIEW } from '../../const';
 import { useAppSelector } from '../../hooks';
+import { getAuthorizationStatus } from '../../store/userProcess/selectors';
 
 type ReviewListProps = {
   comments: Comments
 };
 
 function ReviewList({comments}: ReviewListProps): JSX.Element {
-  const {authorizationStatus} = useAppSelector((state) => state);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
+
   const lastTenSortedComments = comments.slice().sort((a, b) => {
     const dateA = new Date(a.date).getTime();
     const dateB = new Date(b.date).getTime();

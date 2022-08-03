@@ -1,4 +1,3 @@
-import CardsList from '../../components/cardsList/cardsList';
 import { sortMenuTabs } from '../../const';
 import Map from '../../components/map/map';
 import { useAppSelector } from '../../hooks';
@@ -6,6 +5,8 @@ import { useState, useCallback } from 'react';
 import { Offers, Offer } from '../../types/offer';
 import SortMenu from '../../components/sortMenu/sortMenu';
 import MainScreenEmpty from '../mainScreenEmpty/mainScreenEmpty';
+import CardItem from '../../components/cardItem/cardItem';
+import { getSortMethod } from '../../store/appProcess/selectors';
 
 type MainScreenContentProps = {
   offers: Offers;
@@ -16,7 +17,7 @@ function MainScreenContent({offers, city}: MainScreenContentProps): JSX.Element 
   const [activeCard, setActiveCard] = useState<Offer>();
   const [showSortMenu, setShowSortMenu] = useState(false);
 
-  const {sortBy} = useAppSelector((state) => state);
+  const sortBy = useAppSelector(getSortMethod);
 
   const activeCardChangeHandle = useCallback((offer: Offer) => setActiveCard(offer), []);
 
@@ -61,7 +62,9 @@ function MainScreenContent({offers, city}: MainScreenContentProps): JSX.Element 
             }
           </form>
           <div className="cities__places-list places__list tabs__content">
-            <CardsList onActiveCard={activeCardChangeHandle} offers={offers} />
+            {
+              offers.map((offerItem) => <CardItem key={offerItem.id} offer={offerItem} onActiveCard={activeCardChangeHandle} />)
+            }
           </div>
         </section>
         <div className="cities__right-section">

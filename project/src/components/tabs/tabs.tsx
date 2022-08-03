@@ -1,10 +1,11 @@
 import { MouseEvent } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { cities } from '../../const';
-import { changeCity } from '../../store/action';
+import { changeCity } from '../../store/appProcess/appProcess';
+import { getCity } from '../../store/appProcess/selectors';
 
 function Tabs(): JSX.Element {
-  const {city} = useAppSelector((state) => state);
+  const city = useAppSelector(getCity);
 
   const dispatch = useAppDispatch();
 
@@ -12,7 +13,7 @@ function Tabs(): JSX.Element {
     e.preventDefault();
     if (e.currentTarget.textContent) {
       const targetCity = e.currentTarget.textContent;
-      dispatch(changeCity({city: targetCity}));
+      dispatch(changeCity(targetCity));
     }
   };
 

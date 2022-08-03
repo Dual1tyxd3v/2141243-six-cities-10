@@ -3,9 +3,10 @@ import Header from '../../components/header/header';
 import { useAppSelector } from '../../hooks';
 import FavoriteCardItem from '../../components/favoriteCardItem/favoriteCardItem';
 import FavoritesScreenEmpty from '../../pages/favoritesScreenEmpty/favoritesScreenEmpty';
+import { getOffers } from '../../store/dataProcess/selectors';
 
 function FavotitesScreen(): JSX.Element {
-  const {offers} = useAppSelector((state) => state);
+  const offers = useAppSelector(getOffers);
   const favoriteOffers = offers.filter((it) => it.isFavorite);
 
   if (favoriteOffers.length === 0) {

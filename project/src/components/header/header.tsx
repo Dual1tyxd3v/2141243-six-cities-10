@@ -1,11 +1,10 @@
+import { memo } from 'react';
 import { Link } from 'react-router-dom';
-import { AppRoute, AuthorizationStatus } from '../../const';
-import { useAppSelector } from '../../hooks';
-import HeaderNavLogged from '../headerNavLogged/headerNavLogged';
-import HeaderNavNotLogged from '../headerNavNotLogged/headerNavNotLogged';
+import { APIRoute, AppRoute } from '../../const';
+import HeaderNav from '../headerNav/headerNav';
 
 function Header(): JSX.Element {
-  const {authorizationStatus} = useAppSelector((state) => state);
+  const currentUrlPath = window.location.pathname;
 
   return (
     <header className="header">
@@ -17,9 +16,7 @@ function Header(): JSX.Element {
             </Link>
           </div>
           {
-            authorizationStatus === AuthorizationStatus.Auth ?
-              <HeaderNavLogged /> :
-              <HeaderNavNotLogged />
+            currentUrlPath === APIRoute.Login ? null : <HeaderNav />
           }
         </div>
       </div>
@@ -27,4 +24,4 @@ function Header(): JSX.Element {
   );
 }
 
-export default Header;
+export default memo(Header);
