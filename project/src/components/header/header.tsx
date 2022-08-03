@@ -1,13 +1,10 @@
 import { memo } from 'react';
 import { Link } from 'react-router-dom';
-import { AppRoute, AuthorizationStatus } from '../../const';
-import { useAppSelector } from '../../hooks';
-import { getAuthorizationStatus } from '../../store/userProcess/selectors';
-import HeaderNavLogged from '../headerNavLogged/headerNavLogged';
-import HeaderNavNotLogged from '../headerNavNotLogged/headerNavNotLogged';
+import { APIRoute, AppRoute } from '../../const';
+import HeaderNav from '../headerNav/headerNav';
 
 function Header(): JSX.Element {
-  const authorizationStatus = useAppSelector(getAuthorizationStatus);
+  const currentUrlPath = window.location.pathname;
 
   return (
     <header className="header">
@@ -19,9 +16,7 @@ function Header(): JSX.Element {
             </Link>
           </div>
           {
-            authorizationStatus === AuthorizationStatus.Auth ?
-              <HeaderNavLogged /> :
-              <HeaderNavNotLogged />
+            currentUrlPath === APIRoute.Login ? null : <HeaderNav />
           }
         </div>
       </div>
