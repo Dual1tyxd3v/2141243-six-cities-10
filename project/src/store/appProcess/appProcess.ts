@@ -5,6 +5,7 @@ import { AppProcess } from '../../types/state';
 const initialState: AppProcess = {
   city: 'Paris',
   sortBy: 'Popular',
+  error: null,
 };
 
 export const appProcess = createSlice({
@@ -16,8 +17,11 @@ export const appProcess = createSlice({
     },
     changeSortBy: (state, action) => {
       state.sortBy = action.payload;
+    },
+    setErrorMessage: (state, action) => {
+      state.error = action.payload;
     }
   },
 });
 
-export const {changeCity, changeSortBy} = appProcess.actions;
+export const {changeCity, changeSortBy, setErrorMessage} = appProcess.actions;

@@ -7,7 +7,7 @@ import { AuthData } from '../types/auth-data';
 import { Comments, Offer, Offers } from '../types/offer';
 import { PostData } from '../types/post-data';
 import { UserData } from '../types/user-data';
-import { setErrorMessage } from './action';
+import { setErrorMessage } from './appProcess/appProcess';
 import { AppDispatch, State } from '../types/state';
 
 
