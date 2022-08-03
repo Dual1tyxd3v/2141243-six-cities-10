@@ -1,10 +1,10 @@
 import { memo } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { APIRoute, AppRoute } from '../../const';
 import HeaderNav from '../headerNav/headerNav';
 
 function Header(): JSX.Element {
-  const currentUrlPath = window.location.pathname;
+  const currentUrlPath = useLocation().pathname;
 
   return (
     <header className="header">
