@@ -73,10 +73,10 @@ function RoomScreen(): JSX.Element {
                   {title}
                 </h1>
                 <button
-                  className="button property__bookmark-button property__bookmark-button--active " type="button"
+                  className={`button property__bookmark-button ${isFavorite ? 'property__bookmark-button--active' : ''}`} type="button"
                   onClick={handleClick}
                 >
-                  <svg className="property__bookmark-icon" width="31" height="33">
+                  <svg className="place-card__bookmark-icon" width="31" height="33">
                     <use xlinkHref="#icon-bookmark"></use>
                   </svg>
                   <span className="visually-hidden">{isFavorite ? 'In bookmarks' : 'To bookmarks'}</span>
