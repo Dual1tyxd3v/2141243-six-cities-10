@@ -4,7 +4,6 @@ import { AppRoute, AuthorizationStatus } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { redirectToRoute } from '../../store/action';
 import { changeOfferFavoriteStatusAction } from '../../store/api-actions';
-//import { changeFavoriteFlagInNearbyOffers } from '../../store/dataProcess/dataProcess';
 import { getAuthorizationStatus } from '../../store/userProcess/selectors';
 import { Offer } from '../../types/offer';
 

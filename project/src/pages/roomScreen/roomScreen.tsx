@@ -40,12 +40,9 @@ function RoomScreen(): JSX.Element {
   const {images, id, title, isPremium, rating, type, bedrooms, maxAdults, price, goods, host, description, isFavorite} = offer;
 
   const handleClick = () => {
-    if (authorizationStatus === AuthorizationStatus.Auth) {
-      dispatch(changeOfferFavoriteStatusAction({id, status: Number(!isFavorite)}));
-      dispatch(fetchOfferAction(paramsId));
-    } else {
-      dispatch(redirectToRoute(AppRoute.Login));
-    }
+    authorizationStatus === AuthorizationStatus.Auth
+      ? dispatch(changeOfferFavoriteStatusAction({id, status: Number(!isFavorite)}))
+      : dispatch(redirectToRoute(AppRoute.Login));
   };
   return (
     <div className="page">
