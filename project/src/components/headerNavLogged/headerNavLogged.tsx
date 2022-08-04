@@ -1,19 +1,23 @@
 import { MouseEvent} from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { getUserInfo } from '../../services/userInfo';
 import { redirectToRoute } from '../../store/action';
-import { fetchFavoriteOffersAction, fetchOffersAction, logoutAction } from '../../store/api-actions';
-import { getOffers } from '../../store/dataProcess/selectors';
+import { fetchFavoriteOffersAction, fetchNearbyOffersAction, fetchOffersAction, logoutAction } from '../../store/api-actions';
+import { clearFavoriteOffers } from '../../store/dataProcess/dataProcess';
+import { getFavoriteOffers } from '../../store/dataProcess/selectors';
 
 function HeaderNavLogged(): JSX.Element {
   const dispatch = useAppDispatch();
 
   const email = getUserInfo();
-  const offers = useAppSelector(getOffers);
+  const offers = useAppSelector(getFavoriteOffers);
 
   const favoriteOffersCount = offers.filter((offer) => offer.isFavorite).length;
+
+  const urlPath = useLocation().pathname;
+  const id = Number(urlPath.slice(urlPath.lastIndexOf('/') + 1));
 
   const handleClick = (evt: MouseEvent) => {
     evt.preventDefault();
@@ -39,6 +43,10 @@ function HeaderNavLogged(): JSX.Element {
               evt.preventDefault();
               dispatch(logoutAction());
               dispatch(fetchOffersAction());
+              dispatch(clearFavoriteOffers());
+              if (urlPath.includes('offer')) {
+                dispatch(fetchNearbyOffersAction(id));
+              }
             }}
           >
             <span className="header__signout">Sign out</span>

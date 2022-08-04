@@ -4,11 +4,13 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import NotFoundScreen from '../../pages/notFoundScreen/notFoundScreen';
 import ReviewList from '../../components/reviewList/reviewList';
 import Map from '../../components/map/map';
-import { fetchCommentsAction, fetchNearbyOffersAction, fetchOfferAction } from '../../store/api-actions';
+import { changeOfferFavoriteStatusAction, fetchCommentsAction, fetchNearbyOffersAction, fetchOfferAction } from '../../store/api-actions';
 import { useLayoutEffect } from 'react';
 import CardItem from '../../components/cardItem/cardItem';
 import { getComments, getLoadedStatus, getNearbyOffers, getOffer } from '../../store/dataProcess/selectors';
-
+import { getAuthorizationStatus } from '../../store/userProcess/selectors';
+import { AppRoute, AuthorizationStatus } from '../../const';
+import { redirectToRoute } from '../../store/action';
 
 function RoomScreen(): JSX.Element {
   const params = useParams();
@@ -19,6 +21,7 @@ function RoomScreen(): JSX.Element {
   const comments = useAppSelector(getComments);
   const nearbyOffers = useAppSelector(getNearbyOffers);
   const isLoaded = useAppSelector(getLoadedStatus);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
 
   useLayoutEffect(() => {
     dispatch(fetchOfferAction(paramsId));
@@ -26,7 +29,7 @@ function RoomScreen(): JSX.Element {
     dispatch(fetchCommentsAction(paramsId));
   }, [paramsId, dispatch]);
 
-  if (isLoaded) {
+  if (!offer && isLoaded) {
     return <h2 style={{textAlign:'center'}}>Loading DATA</h2>;
   }
 
@@ -34,7 +37,16 @@ function RoomScreen(): JSX.Element {
     return <NotFoundScreen />;
   }
 
-  const {images, id, title, isPremium, rating, type, bedrooms, maxAdults, price, goods, host, description} = offer;
+  const {images, id, title, isPremium, rating, type, bedrooms, maxAdults, price, goods, host, description, isFavorite} = offer;
+
+  const handleClick = () => {
+    if (authorizationStatus === AuthorizationStatus.Auth) {
+      dispatch(changeOfferFavoriteStatusAction({id, status: Number(!isFavorite)}));
+      dispatch(fetchOfferAction(paramsId));
+    } else {
+      dispatch(redirectToRoute(AppRoute.Login));
+    }
+  };
   return (
     <div className="page">
       <Header />
@@ -63,11 +75,14 @@ function RoomScreen(): JSX.Element {
                 <h1 className="property__name">
                   {title}
                 </h1>
-                <button className="property__bookmark-button property__bookmark-button--active button" type="button">
+                <button
+                  className="button property__bookmark-button property__bookmark-button--active " type="button"
+                  onClick={handleClick}
+                >
                   <svg className="property__bookmark-icon" width="31" height="33">
                     <use xlinkHref="#icon-bookmark"></use>
                   </svg>
-                  <span className="visually-hidden">To bookmarks</span>
+                  <span className="visually-hidden">{isFavorite ? 'In bookmarks' : 'To bookmarks'}</span>
                 </button>
               </div>
               <div className="property__rating rating">

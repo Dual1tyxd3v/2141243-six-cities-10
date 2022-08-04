@@ -1,9 +1,10 @@
-import { memo } from 'react';
+import { memo, useEffect } from 'react';
 import { Link, } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { redirectToRoute } from '../../store/action';
 import { changeOfferFavoriteStatusAction } from '../../store/api-actions';
+//import { changeFavoriteFlagInNearbyOffers } from '../../store/dataProcess/dataProcess';
 import { getAuthorizationStatus } from '../../store/userProcess/selectors';
 import { Offer } from '../../types/offer';
 
@@ -23,7 +24,15 @@ function CardItem ({offer, onActiveCard, classPrefix}: OfferProps): JSX.Element 
   function onMouseOverHandler() {
     onActiveCard && onActiveCard(offer);
   }
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
+  const handleClick = () => {
+    authorizationStatus === AuthorizationStatus.Auth
+      ? dispatch(changeOfferFavoriteStatusAction({id, status: Number(!isFavorite)}))
+      : dispatch(redirectToRoute(AppRoute.Login));
+  };
   return (
     <article className={`${classPrefix}__card place-card`} onMouseEnter={onMouseOverHandler}>
       {
@@ -44,13 +53,9 @@ function CardItem ({offer, onActiveCard, classPrefix}: OfferProps): JSX.Element 
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
           <button
-            className={`place-card__bookmark-button button ${isFavorite ? 'place-card__bookmark-button--active button' : ''}`}
+            className={`place-card__bookmark-button button ${isFavorite ? 'place-card__bookmark-button--active' : ''}`}
             type="button"
-            onClick={() => {
-              authorizationStatus === AuthorizationStatus.Auth
-                ? dispatch(changeOfferFavoriteStatusAction({id, status: Number(!isFavorite)}))
-                : dispatch(redirectToRoute(AppRoute.Login));
-            }}
+            onClick={handleClick}
           >
             <svg className="place-card__bookmark-icon" width="18" height="19">
               <use xlinkHref="#icon-bookmark"></use>
