@@ -141,7 +141,7 @@ function RoomScreen(): JSX.Element {
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <div className="near-places__list places__list">
               {
-                nearbyOffers.map((offerItem) => <CardItem key={offerItem.id} offer={offerItem}/>)
+                nearbyOffers.map((offerItem) => <CardItem classPrefix='cities' key={offerItem.id} offer={offerItem}/>)
               }
             </div>
           </section>

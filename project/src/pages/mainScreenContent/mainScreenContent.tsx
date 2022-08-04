@@ -63,7 +63,7 @@ function MainScreenContent({offers, city}: MainScreenContentProps): JSX.Element 
           </form>
           <div className="cities__places-list places__list tabs__content">
             {
-              offers.map((offerItem) => <CardItem key={offerItem.id} offer={offerItem} onActiveCard={activeCardChangeHandle} />)
+              offers.map((offerItem) => <CardItem classPrefix='cities' key={offerItem.id} offer={offerItem} onActiveCard={activeCardChangeHandle} />)
             }
           </div>
         </section>

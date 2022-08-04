@@ -1,39 +1,57 @@
 import { memo } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, } from 'react-router-dom';
+import { AppRoute, AuthorizationStatus } from '../../const';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { redirectToRoute } from '../../store/action';
+import { changeOfferFavoriteStatusAction } from '../../store/api-actions';
+import { getAuthorizationStatus } from '../../store/userProcess/selectors';
 import { Offer } from '../../types/offer';
 
 type OfferProps = {
   offer: Offer;
   onActiveCard?: (offer: Offer) => void;
+  classPrefix: string;
 }
 
-function CardItem ({offer, onActiveCard}: OfferProps): JSX.Element {
+function CardItem ({offer, onActiveCard, classPrefix}: OfferProps): JSX.Element {
   const {type, title, price, previewImage, rating, id, isPremium, isFavorite} = offer;
+
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
+
+  const dispatch = useAppDispatch();
 
   function onMouseOverHandler() {
     onActiveCard && onActiveCard(offer);
   }
 
   return (
-    <article className="cities__card place-card" onMouseEnter={onMouseOverHandler}>
+    <article className={`${classPrefix}__card place-card`} onMouseEnter={onMouseOverHandler}>
       {
         isPremium ?
           <div className="place-card__mark">
             <span>Premium</span>
           </div> : null
       }
-      <div className="cities__image-wrapper place-card__image-wrapper">
+      <div className={`${classPrefix}__image-wrapper place-card__image-wrapper`}>
         <Link to={`../offer/${id}`} title={`../offer/${id}`}>
-          <img className="place-card__image" src={previewImage} width="260" height="200" alt="Place" />
+          <img className="place-card__image" src={previewImage} width={classPrefix === 'cities' ? '260' : '150'} height={classPrefix === 'cities' ? '200' : '110'} alt="Place" />
         </Link>
       </div>
-      <div className="place-card__info">
+      <div className={`${classPrefix === 'cities' ? '' : 'favorites__card-info '}place-card__info`}>
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
             <b className="place-card__price-value">&euro;{price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <button className={`place-card__bookmark-button button ${isFavorite ? 'place-card__bookmark-button--active button' : ''}`} type="button">
+          <button
+            className={`place-card__bookmark-button button ${isFavorite ? 'place-card__bookmark-button--active button' : ''}`}
+            type="button"
+            onClick={() => {
+              authorizationStatus === AuthorizationStatus.Auth
+                ? dispatch(changeOfferFavoriteStatusAction({id, status: Number(!isFavorite)}))
+                : dispatch(redirectToRoute(AppRoute.Login));
+            }}
+          >
             <svg className="place-card__bookmark-icon" width="18" height="19">
               <use xlinkHref="#icon-bookmark"></use>
             </svg>

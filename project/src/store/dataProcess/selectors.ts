@@ -8,3 +8,5 @@ export const getOffer = (state: State): Offer => state[NameSpace.Data].offer as 
 export const getComments = (state: State): Comments => state[NameSpace.Data].comments;
 export const getPostLoadedStatus = (state: State): boolean => state[NameSpace.Data].postLoaded;
 export const getNearbyOffers = (state: State): Offers => state[NameSpace.Data].nearbyOffers;
+export const getFavoriteOffers = (state: State): Offers => state[NameSpace.Data].favoriteOffers;
+export const getFavoriteOffersReloadStatus = (state: State) => state[NameSpace.Data].reloadFavorites;
