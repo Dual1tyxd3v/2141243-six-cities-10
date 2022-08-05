@@ -19,6 +19,7 @@ export enum APIRoute {
   Logout = '/logout',
   Comments = '/comments/',
   Offer = '/hotels/',
+  Favorite = '/favorite',
 }
 
 export const ratingValue = [
@@ -53,3 +54,6 @@ export enum NameSpace {
   App = 'APP',
   Other = 'OTHER'
 }
+
+export const passwordRegular = /\d\D|\D\d/g;
+export const emailRegular = /\w{3}@\D{3}.\D{2}/;

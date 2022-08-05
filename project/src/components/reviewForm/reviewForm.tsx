@@ -15,7 +15,7 @@ function ReviewForm(): JSX.Element {
 
   const [formData, setFormData] = useState({rating: '', review: ''});
 
-  const memoChangeHandler = useCallback((evt: ChangeEvent<HTMLInputElement>) => {
+  const changeHandler = useCallback((evt: ChangeEvent<HTMLInputElement>) => {
     const {value} = evt.target;
     setFormData({...formData, rating: value});
   }, [formData]);
@@ -47,7 +47,7 @@ function ReviewForm(): JSX.Element {
 
         {
           ratingValue.map((star, i) => (
-            <Stars key={star} id={i} value={star} onChangeStar={memoChangeHandler} />
+            <Stars key={star} id={i} value={star} onChangeStar={changeHandler} />
           )).reverse()
         }
 

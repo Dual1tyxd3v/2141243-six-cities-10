@@ -24,20 +24,22 @@ function MainScreenContent({offers, city}: MainScreenContentProps): JSX.Element 
   if (offers.length === 0) {
     return <MainScreenEmpty city={city}/>;
   }
-
-  const sortOffers = (sortMethod: string) => {
+  const offersCopy = JSON.parse(JSON.stringify(offers));
+  const sortOffers = (sortMethod: string, arr: Offers) => {
     switch (sortMethod) {
+      case sortMenuTabs.Popular:
+        return offers;
       case sortMenuTabs.Rated:
-        return offers.sort((a, b) => b.rating - a.rating);
+        return arr.sort((a, b) => b.rating - a.rating);
       case sortMenuTabs.PriceHighToLow:
-        return offers.sort((a, b) => b.price - a.price);
+        return arr.sort((a, b) => b.price - a.price);
       case sortMenuTabs.PriceLowToHigh:
-        return offers.sort((a, b) => a.price - b.price);
+        return arr.sort((a, b) => a.price - b.price);
       default:
         return offers;
     }
   };
-  sortOffers(sortBy);
+  const offersSorted = sortOffers(sortBy, offersCopy);
 
   const onSortMenuHandler = () => {
     setShowSortMenu(!showSortMenu);
@@ -63,7 +65,8 @@ function MainScreenContent({offers, city}: MainScreenContentProps): JSX.Element 
           </form>
           <div className="cities__places-list places__list tabs__content">
             {
-              offers.map((offerItem) => <CardItem key={offerItem.id} offer={offerItem} onActiveCard={activeCardChangeHandle} />)
+              offersSorted.map((offerItem) =>
+                <CardItem classPrefix='cities' key={offerItem.id} offer={offerItem} onActiveCard={activeCardChangeHandle} />)
             }
           </div>
         </section>

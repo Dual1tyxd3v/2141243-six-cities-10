@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { NameSpace } from '../../const';
 import { DataProcess } from '../../types/state';
-import { addCommentAction, fetchCommentsAction, fetchNearbyOffersAction, fetchOfferAction, fetchOffersAction } from '../api-actions';
+import { addCommentAction, changeOfferFavoriteStatusAction, fetchCommentsAction, fetchFavoriteOffersAction, fetchNearbyOffersAction, fetchOfferAction, fetchOffersAction } from '../api-actions';
 
 const initialState: DataProcess = {
   offers: [],
@@ -10,12 +10,17 @@ const initialState: DataProcess = {
   comments: [],
   postLoaded: false,
   nearbyOffers: [],
+  favoriteOffers: [],
+  reloadFavorites: false,
 };
 
 export const dataProcess = createSlice({
   name: NameSpace.Data,
   initialState,
   reducers: {
+    clearFavoriteOffers: (state) => {
+      state.favoriteOffers = [];
+    },
   },
   extraReducers(builder) {
     builder
@@ -54,6 +59,35 @@ export const dataProcess = createSlice({
       })
       .addCase(addCommentAction.pending, (state) => {
         state.postLoaded = true;
+      })
+      .addCase(fetchFavoriteOffersAction.fulfilled, (state, action) => {
+        state.favoriteOffers = action.payload;
+        state.reloadFavorites = false;
+      })
+      .addCase(fetchFavoriteOffersAction.rejected, (state) => {
+        state.reloadFavorites = false;
+      })
+      .addCase(fetchFavoriteOffersAction.pending, (state) => {
+        state.reloadFavorites = true;
+      })
+      .addCase(changeOfferFavoriteStatusAction.fulfilled, (state, action) => {
+        state.offers.forEach((offer) => {
+          if (offer.id === action.payload.id) {
+            offer.isFavorite = !offer.isFavorite;
+          }
+        });
+        if (state.offer) {
+          state.offer.isFavorite = !state.offer.isFavorite;
+        }
+        if (state.nearbyOffers) {
+          state.nearbyOffers.forEach((offer) => {
+            if (offer.id === action.payload.id) {
+              offer.isFavorite = !offer.isFavorite;
+            }
+          });
+        }
       });
   }
 });
+
+export const { clearFavoriteOffers } = dataProcess.actions;

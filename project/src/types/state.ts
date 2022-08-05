@@ -17,6 +17,8 @@ export type DataProcess = {
   comments: Comments;
   offer: Offer | null;
   postLoaded: boolean;
+  favoriteOffers: Offers;
+  reloadFavorites: boolean;
 };
 
 export type AppProcess = {
@@ -24,3 +26,9 @@ export type AppProcess = {
   sortBy: string;
   error: string | null;
 }
+
+export type ChangeStatusData = {
+  id: number;
+  status: number;
+};
+

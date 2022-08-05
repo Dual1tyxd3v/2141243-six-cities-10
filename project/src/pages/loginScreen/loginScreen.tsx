@@ -2,10 +2,10 @@ import Header from '../../components/header/header';
 import { FormEvent, MouseEvent, useRef } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { Link, Navigate } from 'react-router-dom';
-import { AppRoute, AuthorizationStatus, cities } from '../../const';
-import { loginAction } from '../../store/api-actions';
+import { AppRoute, AuthorizationStatus, cities, emailRegular, passwordRegular } from '../../const';
+import { clearErrorAction, loginAction } from '../../store/api-actions';
 import { getAuthorizationStatus } from '../../store/userProcess/selectors';
-import { changeCity } from '../../store/appProcess/appProcess';
+import { changeCity, setErrorMessage } from '../../store/appProcess/appProcess';
 import { redirectToRoute } from '../../store/action';
 
 function LoginScreen(): JSX.Element {
@@ -22,12 +22,18 @@ function LoginScreen(): JSX.Element {
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
 
-    if (emailRef.current !== null && passRef.current !== null) {
+    if (emailRef.current === null || passRef.current === null) {
+      return;
+    }
+    if (emailRef.current.value.match(emailRegular) && passRef.current.value.match(passwordRegular)) {
       dispatch(loginAction({
         email: emailRef.current.value,
         password: passRef.current.value
       }));
+      return;
     }
+    dispatch(setErrorMessage('Invalid email or password(Min: 1 letter and 1 number).'));
+    dispatch(clearErrorAction());
   };
 
   const randomCity = cities[Math.floor(Math.random() * cities.length)];

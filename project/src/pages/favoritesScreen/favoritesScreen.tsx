@@ -1,15 +1,19 @@
 import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
 import { useAppSelector } from '../../hooks';
-import FavoriteCardItem from '../../components/favoriteCardItem/favoriteCardItem';
 import FavoritesScreenEmpty from '../../pages/favoritesScreenEmpty/favoritesScreenEmpty';
-import { getOffers } from '../../store/dataProcess/selectors';
+import { getFavoriteOffers, getFavoriteOffersReloadStatus } from '../../store/dataProcess/selectors';
+import CardItem from '../../components/cardItem/cardItem';
+import { fetchFavoriteOffersAction } from '../../store/api-actions';
+import { store } from '../../store';
 
+store.dispatch(fetchFavoriteOffersAction());
 function FavotitesScreen(): JSX.Element {
-  const offers = useAppSelector(getOffers);
-  const favoriteOffers = offers.filter((it) => it.isFavorite);
 
-  if (favoriteOffers.length === 0) {
+  const favoriteOffers = useAppSelector(getFavoriteOffers);
+  const isLoaded = useAppSelector(getFavoriteOffersReloadStatus);
+
+  if (favoriteOffers.length === 0 && !isLoaded) {
     return <FavoritesScreenEmpty />;
   }
 
@@ -38,7 +42,7 @@ function FavotitesScreen(): JSX.Element {
 
                       {
                         favoriteOffersObject[city].map((offer) => (
-                          <FavoriteCardItem key={offer.id} offer={offer} />
+                          <CardItem classPrefix='favorites' key={offer.id} offer={offer} />
                         ))
                       }
 
