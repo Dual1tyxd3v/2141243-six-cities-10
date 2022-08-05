@@ -1,5 +1,5 @@
 import axios, { AxiosError, AxiosInstance, AxiosRequestConfig } from 'axios';
-import { apiErrorHandler } from './apiErrorHandler';
+import { apiErrorHandler } from './api-error-handler';
 import { getToken } from './token';
 
 const BASE_URL = 'https://10.react.pages.academy/six-cities';

@@ -1,8 +1,8 @@
 import { MouseEvent } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { cities } from '../../const';
-import { changeCity } from '../../store/appProcess/appProcess';
-import { getCity } from '../../store/appProcess/selectors';
+import { changeCity } from '../../store/app-process/app-process';
+import { getCity } from '../../store/app-process/selectors';
 
 function Tabs(): JSX.Element {
   const city = useAppSelector(getCity);

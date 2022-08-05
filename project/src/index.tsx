@@ -4,7 +4,7 @@ import App from './components/app/app';
 import { store } from './store';
 import { Provider } from 'react-redux';
 import { checkAuthAction, fetchOffersAction } from './store/api-actions';
-import ErrorMessage from './components/errorMessage/errorMessage';
+import ErrorMessage from './components/error-message/error-message';
 
 store.dispatch(fetchOffersAction());
 store.dispatch(checkAuthAction());

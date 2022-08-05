@@ -1,6 +1,6 @@
 import leaflet from 'leaflet';
 import { useRef, useEffect } from 'react';
-import useMap from '../../hooks/useMap/useMap';
+import useMap from '../../hooks/use-map/use-map';
 import { DEFAULT_MARKER_SRC, ACTIVE_MARKER_SRC } from '../../const';
 import { Offers, Offer } from '../../types/offer';
 
