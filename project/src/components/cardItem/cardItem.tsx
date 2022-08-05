@@ -1,4 +1,4 @@
-import { memo, useEffect } from 'react';
+import { memo, useEffect, MouseEvent } from 'react';
 import { Link, } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
@@ -9,19 +9,26 @@ import { Offer } from '../../types/offer';
 
 type OfferProps = {
   offer: Offer;
-  onActiveCard?: (offer: Offer) => void;
+  onActiveCard?: (offer: Offer, type: string) => void;
   classPrefix: string;
 }
 
 function CardItem ({offer, onActiveCard, classPrefix}: OfferProps): JSX.Element {
-  const {type, title, price, previewImage, rating, id, isPremium, isFavorite} = offer;
+  const {type,
+    title,
+    price,
+    previewImage,
+    rating,
+    id,
+    isPremium,
+    isFavorite} = offer;
 
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
 
   const dispatch = useAppDispatch();
 
-  function onMouseOverHandler() {
-    onActiveCard && onActiveCard(offer);
+  function onMouseOverHandler(evt: MouseEvent<HTMLElement>) {
+    onActiveCard && onActiveCard(offer, evt.type);
   }
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -34,7 +41,7 @@ function CardItem ({offer, onActiveCard, classPrefix}: OfferProps): JSX.Element 
     );
   };
   return (
-    <article className={`${classPrefix}__card place-card`} onMouseEnter={onMouseOverHandler}>
+    <article className={`${classPrefix}__card place-card`} onMouseEnter={onMouseOverHandler} onMouseLeave={onMouseOverHandler}>
       {
         isPremium ?
           <div className="place-card__mark">
@@ -65,7 +72,7 @@ function CardItem ({offer, onActiveCard, classPrefix}: OfferProps): JSX.Element 
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{width: `${Math.floor(rating * 100 / 5)}%`}}></span>
+            <span style={{width: `${Math.round(rating) * 20}%`}}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>

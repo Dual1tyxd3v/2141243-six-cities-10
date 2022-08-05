@@ -20,7 +20,7 @@ export const dataProcess = createSlice({
   reducers: {
     clearFavoriteOffers: (state) => {
       state.favoriteOffers = [];
-    },
+    }
   },
   extraReducers(builder) {
     builder
@@ -90,4 +90,4 @@ export const dataProcess = createSlice({
   }
 });
 
-export const { clearFavoriteOffers } = dataProcess.actions;
+export const { clearFavoriteOffers} = dataProcess.actions;
