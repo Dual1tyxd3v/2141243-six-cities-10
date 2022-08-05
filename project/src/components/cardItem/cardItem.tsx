@@ -28,9 +28,10 @@ function CardItem ({offer, onActiveCard, classPrefix}: OfferProps): JSX.Element 
   }, []);
 
   const handleClick = () => {
-    authorizationStatus === AuthorizationStatus.Auth
-      ? dispatch(changeOfferFavoriteStatusAction({id, status: Number(!isFavorite)}))
-      : dispatch(redirectToRoute(AppRoute.Login));
+    dispatch(authorizationStatus === AuthorizationStatus.Auth
+      ? changeOfferFavoriteStatusAction({id, status: Number(!isFavorite)})
+      : redirectToRoute(AppRoute.Login)
+    );
   };
   return (
     <article className={`${classPrefix}__card place-card`} onMouseEnter={onMouseOverHandler}>

@@ -37,12 +37,25 @@ function RoomScreen(): JSX.Element {
     return <NotFoundScreen />;
   }
 
-  const {images, id, title, isPremium, rating, type, bedrooms, maxAdults, price, goods, host, description, isFavorite} = offer;
+  const {
+    images,
+    id,
+    title,
+    isPremium,
+    rating,
+    type,
+    bedrooms,
+    maxAdults,
+    price,
+    goods,
+    host,
+    description,
+    isFavorite} = offer;
 
   const handleClick = () => {
-    authorizationStatus === AuthorizationStatus.Auth
-      ? dispatch(changeOfferFavoriteStatusAction({id, status: Number(!isFavorite)}))
-      : dispatch(redirectToRoute(AppRoute.Login));
+    dispatch(authorizationStatus === AuthorizationStatus.Auth
+      ? changeOfferFavoriteStatusAction({id, status: Number(!isFavorite)})
+      : redirectToRoute(AppRoute.Login));
   };
   return (
     <div className="page">

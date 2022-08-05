@@ -18,7 +18,9 @@ function MainScreen(): JSX.Element {
         <h1 className="visually-hidden">Cities</h1>
         <Tabs />
         {
-          isLoaded ? <h2 style={{textAlign:'center'}}>Loading DATA</h2> : <MainScreenContent offers={filteredOffers} city={city}/>
+          isLoaded
+            ? <h2 style={{textAlign:'center'}}>Loading DATA</h2>
+            : <MainScreenContent offers={filteredOffers} city={city}/>
         }
       </main>
     </div>

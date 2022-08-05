@@ -71,18 +71,18 @@ export const dataProcess = createSlice({
         state.reloadFavorites = true;
       })
       .addCase(changeOfferFavoriteStatusAction.fulfilled, (state, action) => {
-        state.offers.forEach((it) => {
-          if (it.id === action.payload.id) {
-            it.isFavorite = !it.isFavorite;
+        state.offers.forEach((offer) => {
+          if (offer.id === action.payload.id) {
+            offer.isFavorite = !offer.isFavorite;
           }
         });
         if (state.offer) {
           state.offer.isFavorite = !state.offer.isFavorite;
         }
         if (state.nearbyOffers) {
-          state.nearbyOffers.forEach((it) => {
-            if (it.id === action.payload.id) {
-              it.isFavorite = !it.isFavorite;
+          state.nearbyOffers.forEach((offer) => {
+            if (offer.id === action.payload.id) {
+              offer.isFavorite = !offer.isFavorite;
             }
           });
         }

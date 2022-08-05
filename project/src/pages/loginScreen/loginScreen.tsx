@@ -22,17 +22,18 @@ function LoginScreen(): JSX.Element {
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
 
-    if (emailRef.current !== null && passRef.current !== null) {
-      if (emailRef.current.value.match(emailRegular) && passRef.current.value.match(passwordRegular)) {
-        dispatch(loginAction({
-          email: emailRef.current.value,
-          password: passRef.current.value
-        }));
-      } else {
-        dispatch(setErrorMessage('Invalid email or password(Min: 1 letter and 1 number).'));
-        dispatch(clearErrorAction());
-      }
+    if (emailRef.current === null || passRef.current === null) {
+      return;
     }
+    if (emailRef.current.value.match(emailRegular) && passRef.current.value.match(passwordRegular)) {
+      dispatch(loginAction({
+        email: emailRef.current.value,
+        password: passRef.current.value
+      }));
+      return;
+    }
+    dispatch(setErrorMessage('Invalid email or password(Min: 1 letter and 1 number).'));
+    dispatch(clearErrorAction());
   };
 
   const randomCity = cities[Math.floor(Math.random() * cities.length)];
