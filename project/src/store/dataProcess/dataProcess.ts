@@ -12,6 +12,7 @@ const initialState: DataProcess = {
   nearbyOffers: [],
   favoriteOffers: [],
   reloadFavorites: false,
+  commentPostStatus: false,
 };
 
 export const dataProcess = createSlice({
@@ -53,12 +54,13 @@ export const dataProcess = createSlice({
       .addCase(addCommentAction.fulfilled, (state, action) => {
         state.comments = action.payload;
         state.postLoaded = false;
+        state.commentPostStatus = true;
       })
       .addCase(addCommentAction.rejected, (state) => {
-        state.postLoaded = false;
+        state.commentPostStatus = false;
       })
       .addCase(addCommentAction.pending, (state) => {
-        state.postLoaded = true;
+        state.commentPostStatus = false;
       })
       .addCase(fetchFavoriteOffersAction.fulfilled, (state, action) => {
         state.favoriteOffers = action.payload;

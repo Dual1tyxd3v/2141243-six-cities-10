@@ -10,3 +10,4 @@ export const getPostLoadedStatus = (state: State): boolean => state[NameSpace.Da
 export const getNearbyOffers = (state: State): Offers => state[NameSpace.Data].nearbyOffers;
 export const getFavoriteOffers = (state: State): Offers => state[NameSpace.Data].favoriteOffers;
 export const getFavoriteOffersReloadStatus = (state: State) => state[NameSpace.Data].reloadFavorites;
+export const getCommentPostStatus = (state: State) => state[NameSpace.Data].commentPostStatus;

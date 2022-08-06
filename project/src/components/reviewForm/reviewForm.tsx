@@ -1,14 +1,15 @@
-import { useState, ChangeEvent, FormEvent, useCallback } from 'react';
+import { useState, ChangeEvent, FormEvent, useCallback, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { MAX_REVIEW_SYMBOLS, MIN_REVIEW_SYMBOLS, RATING_VALUE } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { addCommentAction } from '../../store/api-actions';
-import { getPostLoadedStatus } from '../../store/dataProcess/selectors';
+import { getCommentPostStatus, getPostLoadedStatus } from '../../store/dataProcess/selectors';
 import Stars from '../stars/stars';
 
 function ReviewForm(): JSX.Element {
   const dispatch = useAppDispatch();
   const postLoaded = useAppSelector(getPostLoadedStatus);
+  const commentPostStatus = useAppSelector(getCommentPostStatus);
 
   const params = useParams();
   const paramsId = Number(params.id);
@@ -25,6 +26,10 @@ function ReviewForm(): JSX.Element {
     setFormData({...formData, review: value});
   }
 
+  useEffect(() => {
+    commentPostStatus && setFormData({rating: '', review: ''});
+  },[commentPostStatus]);
+
   function onSubmitHandler(evt: FormEvent) {
     evt.preventDefault();
 
@@ -33,7 +38,6 @@ function ReviewForm(): JSX.Element {
       rating: Number(formData.rating),
       id: paramsId,
     }));
-    setFormData({rating: '', review: ''});
   }
 
   return (
