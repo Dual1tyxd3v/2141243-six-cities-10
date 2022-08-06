@@ -1,7 +1,7 @@
 import { memo } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { APIRoute, AppRoute } from '../../const';
-import HeaderNav from '../headerNav/headerNav';
+import HeaderNav from '../header-nav/header-nav';
 
 function Header(): JSX.Element {
   const currentUrlPath = useLocation().pathname;

@@ -2,12 +2,12 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AxiosInstance } from 'axios';
 import { APIRoute, TIMEOUT_SHOW_ERROR } from '../const';
 import { dropToken, saveToken } from '../services/token';
-import { dropUserInfo, saveUserInfo } from '../services/userInfo';
+import { dropUserInfo, saveUserInfo } from '../services/user-info';
 import { AuthData } from '../types/auth-data';
 import { Comments, Offer, Offers } from '../types/offer';
 import { PostData } from '../types/post-data';
 import { UserData } from '../types/user-data';
-import { setErrorMessage } from './appProcess/appProcess';
+import { setErrorMessage } from './app-process/app-process';
 import { AppDispatch, ChangeStatusData, State } from '../types/state';
 
 export const logoutAction = createAsyncThunk<void, undefined, {
