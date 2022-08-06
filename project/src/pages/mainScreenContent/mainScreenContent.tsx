@@ -19,7 +19,10 @@ function MainScreenContent({offers, city}: MainScreenContentProps): JSX.Element 
 
   const sortBy = useAppSelector(getSortMethod);
 
-  const activeCardChangeHandle = useCallback((offer: Offer) => setActiveCard(offer), []);
+  const activeCardChangeHandle = useCallback(
+    (offer: Offer, type: string) => {
+      setActiveCard(type === 'mouseenter' ? offer : undefined);
+    }, []);
 
   if (offers.length === 0) {
     return <MainScreenEmpty city={city}/>;

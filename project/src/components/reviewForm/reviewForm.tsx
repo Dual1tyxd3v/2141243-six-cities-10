@@ -1,6 +1,6 @@
 import { useState, ChangeEvent, FormEvent, useCallback } from 'react';
 import { useParams } from 'react-router-dom';
-import { MIN_REVIEW_SYMBOLS, ratingValue } from '../../const';
+import { MAX_REVIEW_SYMBOLS, MIN_REVIEW_SYMBOLS, RATING_VALUE } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { addCommentAction } from '../../store/api-actions';
 import { getPostLoadedStatus } from '../../store/dataProcess/selectors';
@@ -33,7 +33,7 @@ function ReviewForm(): JSX.Element {
       rating: Number(formData.rating),
       id: paramsId,
     }));
-    setFormData({...formData, review: ''});
+    setFormData({rating: '', review: ''});
   }
 
   return (
@@ -46,8 +46,8 @@ function ReviewForm(): JSX.Element {
       <div className="reviews__rating-form form__rating">
 
         {
-          ratingValue.map((star, i) => (
-            <Stars key={star} id={i} value={star} onChangeStar={changeHandler} />
+          RATING_VALUE.map((star, i) => (
+            <Stars key={star} id={i} value={star} rating={formData.rating} onChangeStar={changeHandler} />
           )).reverse()
         }
 
@@ -59,6 +59,7 @@ function ReviewForm(): JSX.Element {
         onChange={onTextAreaChange}
         disabled={postLoaded}
         value={formData.review}
+        maxLength={MAX_REVIEW_SYMBOLS}
       >
       </textarea>
       <div className="reviews__button-wrapper">

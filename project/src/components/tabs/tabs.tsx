@@ -1,6 +1,6 @@
 import { MouseEvent } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { cities } from '../../const';
+import { CITIES } from '../../const';
 import { changeCity } from '../../store/appProcess/appProcess';
 import { getCity } from '../../store/appProcess/selectors';
 
@@ -23,7 +23,7 @@ function Tabs(): JSX.Element {
         <ul className="locations__list tabs__list">
 
           {
-            cities.map((selectedCity) => (
+            CITIES.map((selectedCity) => (
               <li key={selectedCity} className="locations__item">
                 <a
                   className={`locations__item-link tabs__item ${selectedCity === city ? 'tabs__item tabs__item--active' : ''}`}

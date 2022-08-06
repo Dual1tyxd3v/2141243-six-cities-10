@@ -20,7 +20,7 @@ export const dataProcess = createSlice({
   reducers: {
     clearFavoriteOffers: (state) => {
       state.favoriteOffers = [];
-    },
+    }
   },
   extraReducers(builder) {
     builder

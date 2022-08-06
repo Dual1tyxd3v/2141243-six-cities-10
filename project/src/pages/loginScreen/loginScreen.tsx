@@ -2,7 +2,7 @@ import Header from '../../components/header/header';
 import { FormEvent, MouseEvent, useRef } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { Link, Navigate } from 'react-router-dom';
-import { AppRoute, AuthorizationStatus, cities, emailRegular, passwordRegular } from '../../const';
+import { AppRoute, AuthorizationStatus, CITIES, EMAIL_REGULAR, PASSWORD_REGULAR } from '../../const';
 import { clearErrorAction, loginAction } from '../../store/api-actions';
 import { getAuthorizationStatus } from '../../store/userProcess/selectors';
 import { changeCity, setErrorMessage } from '../../store/appProcess/appProcess';
@@ -25,7 +25,7 @@ function LoginScreen(): JSX.Element {
     if (emailRef.current === null || passRef.current === null) {
       return;
     }
-    if (emailRef.current.value.match(emailRegular) && passRef.current.value.match(passwordRegular)) {
+    if (emailRef.current.value.match(EMAIL_REGULAR) && passRef.current.value.match(PASSWORD_REGULAR)) {
       dispatch(loginAction({
         email: emailRef.current.value,
         password: passRef.current.value
@@ -36,7 +36,7 @@ function LoginScreen(): JSX.Element {
     dispatch(clearErrorAction());
   };
 
-  const randomCity = cities[Math.floor(Math.random() * cities.length)];
+  const randomCity = CITIES[Math.floor(Math.random() * CITIES.length)];
 
   const handleClick = (evt: MouseEvent) => {
     evt.preventDefault();
