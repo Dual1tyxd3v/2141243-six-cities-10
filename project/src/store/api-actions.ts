@@ -45,7 +45,7 @@ export const fetchOfferAction = createAsyncThunk<Offer, number, {
 }>(
   'data/fetchOffer',
   async (id, {dispatch, extra: api}) => {
-    const {data} = await api.get<Offer>(`/hotels/${id}`);
+    const {data} = await api.get<Offer>(`${APIRoute.Offer}${id}`);
     return data;
   }
 );
@@ -55,7 +55,7 @@ export const fetchNearbyOffersAction = createAsyncThunk<Offers, number, {
 }>(
   'data/fetchNearbyOffers',
   async (id, {dispatch, extra: api}) => {
-    const NEARBY_OFFERS_ROUTE = `/hotels/${id}/nearby`;
+    const NEARBY_OFFERS_ROUTE = APIRoute.Offer + id + APIRoute.Nearby;
     const {data} = await api.get<Offers>(NEARBY_OFFERS_ROUTE);
     return data;
   },

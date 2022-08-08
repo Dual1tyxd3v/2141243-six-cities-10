@@ -18,6 +18,7 @@ export enum APIRoute {
   Comments = '/comments/',
   Offer = '/hotels/',
   Favorite = '/favorite',
+  Nearby = '/nearby'
 }
 
 export const RATING_VALUE = [
