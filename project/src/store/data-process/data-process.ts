@@ -58,9 +58,11 @@ export const dataProcess = createSlice({
       })
       .addCase(addCommentAction.rejected, (state) => {
         state.commentPostStatus = false;
+        state.isPostLoaded = false;
       })
       .addCase(addCommentAction.pending, (state) => {
         state.commentPostStatus = false;
+        state.isPostLoaded = true;
       })
       .addCase(fetchFavoriteOffersAction.fulfilled, (state, action) => {
         state.offersFavorites = action.payload;
@@ -78,9 +80,11 @@ export const dataProcess = createSlice({
             offer.isFavorite = !offer.isFavorite;
           }
         });
+
         if (state.offer) {
           state.offer.isFavorite = !state.offer.isFavorite;
         }
+
         if (state.offersNearby) {
           state.offersNearby.forEach((offer) => {
             if (offer.id === action.payload.id) {
