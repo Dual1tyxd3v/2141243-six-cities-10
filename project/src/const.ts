@@ -1,5 +1,3 @@
-import { Cities } from './types/offer';
-
 export enum AppRoute {
   Main = '/',
   Login = '/login',
@@ -40,7 +38,14 @@ export enum sortMenuTabs {
   Rated = 'Top rated first',
 }
 
-export const CITIES: Cities = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
+export enum CITIES {
+  Paris = 'Paris',
+  Cologne = 'Cologne',
+  Brussels = 'Brussels',
+  Amsterdam = 'Amsterdam',
+  Hamburg = 'Hamburg',
+  Dusseldorf = 'Dusseldorf',
+}
 
 export const TIMEOUT_SHOW_ERROR = 3000;
 

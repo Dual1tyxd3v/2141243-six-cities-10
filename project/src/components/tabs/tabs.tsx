@@ -23,7 +23,7 @@ function Tabs(): JSX.Element {
         <ul className="locations__list tabs__list">
 
           {
-            CITIES.map((selectedCity) => (
+            Object.values(CITIES).map((selectedCity) => (
               <li key={selectedCity} className="locations__item">
                 <a
                   className={`locations__item-link tabs__item ${selectedCity === city ? 'tabs__item tabs__item--active' : ''}`}

@@ -35,8 +35,8 @@ function LoginScreen(): JSX.Element {
     dispatch(setErrorMessage('Invalid email or password(Min: 1 letter and 1 number).'));
     dispatch(clearErrorAction());
   };
-
-  const randomCity = CITIES[Math.floor(Math.random() * CITIES.length)];
+  const cities = Object.values(CITIES);
+  const randomCity = cities[Math.floor(Math.random() * cities.length)];
 
   const handleClick = (evt: MouseEvent) => {
     evt.preventDefault();
