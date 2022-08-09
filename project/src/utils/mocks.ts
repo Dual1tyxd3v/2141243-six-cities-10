@@ -38,7 +38,7 @@ export const makeFakeOffer = (): Offer => ({
 
 export const makeFakeOffers = (): Offers => new Array(datatype.number({min: 10, max: 30})).fill(makeFakeOffer());
 
-const makeFakeComment = (): Comment => ({
+export const makeFakeComment = (): Comment => ({
   comment: lorem.text(),
   date: date.between(new Date('2000-01-01'), new Date()).toString(),
   id: datatype.number({min: 0, max: 1000}),

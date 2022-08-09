@@ -9,7 +9,8 @@ const mockStore = configureMockStore();
 
 describe('Component: ReviewForm', () => {
   it('should render correctly', () => {
-    const mockTenComments = makeFakeComments().slice(0, MAX_COMMENTS_TO_VIEW);
+    const mockComments = makeFakeComments();
+    const mockTenComments = mockComments.slice(0, MAX_COMMENTS_TO_VIEW);
     const store = mockStore({
       USER: {authorizationStatus: AuthorizationStatus.NoAuth}
     });
@@ -22,7 +23,7 @@ describe('Component: ReviewForm', () => {
 
     expect(screen.getByText(/Reviews/i)).toBeInTheDocument();
     expect(screen.getByText(mockTenComments.length)).toBeInTheDocument();
-    expect(screen.getAllByText(mockTenComments[0].comment).length > 0).toBe(true);
+    expect(screen.getAllByText(mockTenComments[0].user.name).length > 0).toBe(true);
     expect(screen.getAllByTestId('commentItem').length === 10).toBe(true);
   });
 
