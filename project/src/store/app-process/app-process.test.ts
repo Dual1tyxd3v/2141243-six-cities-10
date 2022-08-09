@@ -2,6 +2,7 @@ import { CITIES, sortMenuTabs } from '../../const';
 import { AppProcess } from '../../types/state';
 import { appProcess, changeCity, changeSortBy, setErrorMessage } from './app-process';
 
+
 describe('Reducer: app-process', () => {
   let state: AppProcess;
 

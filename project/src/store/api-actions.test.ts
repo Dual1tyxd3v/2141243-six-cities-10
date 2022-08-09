@@ -1,7 +1,7 @@
 import { createAPI } from '../services/api';
 import MockAdapter from 'axios-mock-adapter';
 import thunk, {ThunkDispatch} from 'redux-thunk';
-import { configureMockStore } from '@jedmao/redux-mock-store';
+import { configureMockStore, MockStoreEnhanced } from '@jedmao/redux-mock-store';
 import { ChangeStatusData, State } from '../types/state';
 import { Action } from '@reduxjs/toolkit';
 import { APIRoute } from '../const';
@@ -10,9 +10,9 @@ import { makeFakeComments, makeFakeOffer, makeFakeOffers } from '../utils/mocks'
 import { datatype } from 'faker';
 import { PostData } from '../types/post-data';
 
-const fakeApiErrorHandler = (error: string) => error;
+const mockOffers = makeFakeOffers();
 
-jest.mock('../services/api-error-handler', () => fakeApiErrorHandler);
+jest.mock('../services/api-error-handler', () => jest.fn());
 
 describe('Async functions', () => {
   const api = createAPI();
@@ -22,11 +22,14 @@ describe('Async functions', () => {
   const mockStore = configureMockStore<
     State, Action, ThunkDispatch<State, typeof api, Action>
   >(middlewares);
+  let store: MockStoreEnhanced<State, Action, ThunkDispatch<State, typeof api, Action>>;
+
+  beforeEach(() => {
+    store = mockStore();
+  });
 
   it('should auth status is "auth" when server return 200', async () => {
     mockAPI.onGet(APIRoute.Login).reply(200, []);
-
-    const store = mockStore();
 
     expect(store.getActions()).toEqual([]);
 
@@ -41,10 +44,7 @@ describe('Async functions', () => {
   });
 
   it('should dispatch load offers when GET /hotels', async () => {
-    const mockOffers = makeFakeOffers();
     mockAPI.onGet(APIRoute.Offers).reply(200, mockOffers);
-
-    const store = mockStore();
 
     await store.dispatch(fetchOffersAction());
 
@@ -61,8 +61,6 @@ describe('Async functions', () => {
     const id = datatype.number({min: 1, max: 90});
     mockAPI.onGet(APIRoute.Offer + id).reply(200, mockOffer);
 
-    const store = mockStore();
-
     await store.dispatch(fetchOfferAction(id));
 
     const actions = store.getActions().map(({type}) => type);
@@ -74,11 +72,8 @@ describe('Async functions', () => {
   });
 
   it('should dispatch load nearby offers when GET /hotels/id/nearby', async () => {
-    const mockOffers = makeFakeOffers();
     const id = datatype.number({min: 1, max: 90});
     mockAPI.onGet(APIRoute.Offer + id + APIRoute.Nearby).reply(200, mockOffers);
-
-    const store = mockStore();
 
     await store.dispatch(fetchNearbyOffersAction(id));
 
@@ -95,8 +90,6 @@ describe('Async functions', () => {
     const id = datatype.number({min: 1, max: 90});
     mockAPI.onGet(APIRoute.Comments + id).reply(200, mockComments);
 
-    const store = mockStore();
-
     await store.dispatch(fetchCommentsAction(id));
 
     const actions = store.getActions().map(({type}) => type);
@@ -108,7 +101,6 @@ describe('Async functions', () => {
   });
 
   it('should dispatch clear error message when implement action', async () => {
-    const store = mockStore();
 
     await store.dispatch(clearErrorAction());
 
@@ -125,8 +117,6 @@ describe('Async functions', () => {
     const fakeComment: PostData = {comment: 'Some text', id, rating: 2};
     mockAPI.onPost(APIRoute.Comments + id).reply(200, fakeComment);
 
-    const store = mockStore();
-
     await store.dispatch(addCommentAction(fakeComment));
 
     const actions = store.getActions().map(({type}) => type);
@@ -138,10 +128,7 @@ describe('Async functions', () => {
   });
 
   it('should dispatch load favorite offers when GET /favorite', async () => {
-    const mockOffers = makeFakeComments();
     mockAPI.onGet(APIRoute.Favorite).reply(200, mockOffers);
-
-    const store = mockStore();
 
     await store.dispatch(fetchFavoriteOffersAction());
 
@@ -159,8 +146,6 @@ describe('Async functions', () => {
     const fakeStatusData: ChangeStatusData = {id, status};
 
     mockAPI.onPost(`${APIRoute.Favorite}/${id}/${status}`).reply(200, fakeStatusData);
-
-    const store = mockStore();
 
     await store.dispatch(changeOfferFavoriteStatusAction(fakeStatusData));
 
