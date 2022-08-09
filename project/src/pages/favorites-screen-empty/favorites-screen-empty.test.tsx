@@ -13,7 +13,7 @@ describe('Component: MainScreenEmpty', () => {
   it('should render correctly', () => {
     const store = mockStore({
       USER: {authorizationStatus: AuthorizationStatus.Auth},
-      DATA: {offersFavorite: [], offers: []}
+      DATA: {offersFavorites: [], offers: []}
     });
 
     render(

@@ -6,6 +6,7 @@ import { getFavoriteOffers, getFavoriteOffersReloadStatus } from '../../store/da
 import CardItem from '../../components/card-item/card-item';
 import { fetchFavoriteOffersAction } from '../../store/api-actions';
 import { store } from '../../store';
+import { Link } from 'react-router-dom';
 
 store.dispatch(fetchFavoriteOffersAction());
 function FavotitesScreen(): JSX.Element {
@@ -29,26 +30,32 @@ function FavotitesScreen(): JSX.Element {
             <ul className="favorites__list">
 
               {
-                Object.keys(favoriteOffersObject).map((city) => (
-                  <li key={city} className="favorites__locations-items">
-                    <div className="favorites__locations locations locations--current">
-                      <div className="locations__item">
-                        <a className="locations__item-link" href="/">
-                          <span>{city}</span>
-                        </a>
+                Object.keys(favoriteOffersObject).map((city, i) => {
+                  const keyValue = `${city}_${i}`;
+                  return (
+                    <li key={keyValue} className="favorites__locations-items">
+                      <div className="favorites__locations locations locations--current">
+                        <div className="locations__item">
+                          <Link className="locations__item-link" to="/">
+                            <span>{city}</span>
+                          </Link>
+                        </div>
                       </div>
-                    </div>
-                    <div className="favorites__places">
+                      <div className="favorites__places">
 
-                      {
-                        favoriteOffersObject[city].map((offer) => (
-                          <CardItem classPrefix='favorites' key={offer.id} offer={offer} />
-                        ))
-                      }
-
-                    </div>
-                  </li>
-                ))
+                        {
+                          favoriteOffersObject[city].map((offer, j) => {
+                            const key = `${offer.id}__${j}`;
+                            return (
+                              <CardItem classPrefix='favorites' key={key} offer={offer} />
+                            );
+                          }
+                          )
+                        }
+                      </div>
+                    </li>
+                  );
+                })
               }
 
             </ul>

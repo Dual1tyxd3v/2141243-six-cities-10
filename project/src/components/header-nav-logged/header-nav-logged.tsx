@@ -14,7 +14,7 @@ function HeaderNavLogged(): JSX.Element {
   const email = getUserInfo();
   const offers = useAppSelector(getFavoriteOffers);
 
-  const favoriteOffersCount = offers ? offers.filter((offer) => offer.isFavorite).length : 0;
+  const favoriteOffersCount = offers.filter((offer) => offer.isFavorite).length;
 
   const urlPath = useLocation().pathname;
   const id = Number(urlPath.slice(urlPath.lastIndexOf('/') + 1));
