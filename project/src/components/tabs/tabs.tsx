@@ -3,6 +3,7 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import { CITIES } from '../../const';
 import { changeCity } from '../../store/app-process/app-process';
 import { getCity } from '../../store/app-process/selectors';
+import { Link } from 'react-router-dom';
 
 function Tabs(): JSX.Element {
   const city = useAppSelector(getCity);
@@ -25,12 +26,12 @@ function Tabs(): JSX.Element {
           {
             Object.values(CITIES).map((selectedCity) => (
               <li key={selectedCity} className="locations__item">
-                <a
+                <Link
                   className={`locations__item-link tabs__item ${selectedCity === city ? 'tabs__item tabs__item--active' : ''}`}
-                  href="/" onClick={onClickHandler}
+                  to="/" onClick={onClickHandler}
                 >
                   <span>{selectedCity}</span>
-                </a>
+                </Link>
               </li>
             ))
           }
