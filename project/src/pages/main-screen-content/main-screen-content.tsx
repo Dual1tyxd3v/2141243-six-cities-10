@@ -69,8 +69,16 @@ function MainScreenContent({offers, city}: MainScreenContentProps): JSX.Element 
           </form>
           <div className="cities__places-list places__list tabs__content">
             {
-              offersSorted.map((offerItem) =>
-                <CardItem classPrefix='cities' key={offerItem.id} offer={offerItem} onActiveCard={activeCardChangeHandle} />)
+              offersSorted.map((offerItem, i) => {
+                const keyValue = `offer_${i}_${offerItem.id}`;
+                return (
+                  <CardItem
+                    classPrefix='cities'
+                    key={keyValue}
+                    offer={offerItem}
+                    onActiveCard={activeCardChangeHandle}
+                  />);
+              })
             }
           </div>
         </section>
