@@ -21,12 +21,13 @@ function ReviewList({comments}: ReviewListProps): JSX.Element {
 
   return (
     <section className="property__reviews reviews">
-      <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{comments.length}</span></h2>
+      <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount" data-testid="commentsCount">{comments.length}</span></h2>
       <ul className="reviews__list">
         {
-          lastTenSortedComments.map((comment) => (
-            <ReviewItem key={comment.id} commentObject={comment}/>
-          ))
+          lastTenSortedComments.map((comment, i) => {
+            const keyValue = `comment_${i}_${comment.id}`;
+            return <ReviewItem key={keyValue} commentObject={comment}/>;
+          })
         }
       </ul>
       {

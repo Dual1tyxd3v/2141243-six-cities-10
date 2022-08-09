@@ -51,4 +51,4 @@ const makeFakeComment = (): Comment => ({
   }
 });
 
-export const makeFakeComments = (): Comments => new Array(datatype.number({min: 0, max: 15})).fill(makeFakeComment());
+export const makeFakeComments = (): Comments => new Array(datatype.number({min: 12, max: 25})).fill(makeFakeComment());
