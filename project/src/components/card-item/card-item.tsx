@@ -38,7 +38,7 @@ function CardItem ({offer, onActiveCard, classPrefix}: OfferProps): JSX.Element 
     );
   };
   return (
-    <article className={`${classPrefix}__card place-card`} onMouseEnter={onMouseOverHandler} onMouseLeave={onMouseOverHandler}>
+    <article className={`${classPrefix}__card place-card`} onMouseEnter={onMouseOverHandler} onMouseLeave={onMouseOverHandler} data-testid="cardContainer">
       {
         isPremium ?
           <div className="place-card__mark">
