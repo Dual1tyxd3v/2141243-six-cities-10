@@ -41,7 +41,6 @@ export type OffersObject = {
   [k: string]: Offer[]
 };
 
-export type Cities = string[];
 
 export type Comment = {
   comment: string;

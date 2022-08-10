@@ -1,5 +1,3 @@
-import { Cities } from './types/offer';
-
 export enum AppRoute {
   Main = '/',
   Login = '/login',
@@ -20,9 +18,10 @@ export enum APIRoute {
   Comments = '/comments/',
   Offer = '/hotels/',
   Favorite = '/favorite',
+  Nearby = '/nearby'
 }
 
-export const ratingValue = [
+export const RATING_VALUE = [
   'terribly', 'badly', 'not bad', 'good', 'perfect',
 ];
 
@@ -40,13 +39,21 @@ export enum sortMenuTabs {
   Rated = 'Top rated first',
 }
 
-export const cities: Cities = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
+export enum CITIES {
+  Paris = 'Paris',
+  Cologne = 'Cologne',
+  Brussels = 'Brussels',
+  Amsterdam = 'Amsterdam',
+  Hamburg = 'Hamburg',
+  Dusseldorf = 'Dusseldorf',
+}
 
 export const TIMEOUT_SHOW_ERROR = 3000;
 
 export const MAX_COMMENTS_TO_VIEW = 10;
 
 export const MIN_REVIEW_SYMBOLS = 50;
+export const MAX_REVIEW_SYMBOLS = 300;
 
 export enum NameSpace {
   User = 'USER',
@@ -55,5 +62,5 @@ export enum NameSpace {
   Other = 'OTHER'
 }
 
-export const passwordRegular = /\d\D|\D\d/g;
-export const emailRegular = /\w{3}@\D{3}.\D{2}/;
+export const PASSWORD_REGULAR = /\d\D|\D\d/g;
+export const EMAIL_REGULAR = /\w{3}@\D{3}.\D{2}/;

@@ -13,12 +13,13 @@ export type UserProcess = {
 export type DataProcess = {
   offers: Offers;
   isLoaded: boolean;
-  nearbyOffers: Offers;
+  offersNearby: Offers;
   comments: Comments;
   offer: Offer | null;
-  postLoaded: boolean;
-  favoriteOffers: Offers;
+  isPostLoaded: boolean;
+  offersFavorites: Offers;
   reloadFavorites: boolean;
+  commentPostStatus: boolean;
 };
 
 export type AppProcess = {
