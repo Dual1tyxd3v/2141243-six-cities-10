@@ -4,7 +4,6 @@ import { createMemoryHistory } from 'history';
 import { Provider } from 'react-redux';
 import { Route, Routes } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../../const';
-import LoginScreen from '../../pages/login-screen/login-screen';
 import HistoryRouter from '../history-route/history-route';
 import PrivateRoute from './private-route';
 
