@@ -5,6 +5,8 @@ import { store } from './store';
 import { Provider } from 'react-redux';
 import { checkAuthAction, fetchOffersAction } from './store/api-actions';
 import ErrorMessage from './components/error-message/error-message';
+import HistoryRouter from './components/history-route/history-route';
+import { browserHistory } from './browser-history';
 
 store.dispatch(fetchOffersAction());
 store.dispatch(checkAuthAction());
@@ -16,8 +18,10 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <ErrorMessage />
-      <App />
+      <HistoryRouter history={browserHistory}>
+        <ErrorMessage />
+        <App />
+      </HistoryRouter>
     </Provider>
   </React.StrictMode>
 );

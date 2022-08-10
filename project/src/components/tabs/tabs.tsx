@@ -27,7 +27,7 @@ function Tabs(): JSX.Element {
             Object.values(CITIES).map((selectedCity) => (
               <li key={selectedCity} className="locations__item">
                 <Link
-                  className={`locations__item-link tabs__item ${selectedCity === city ? 'tabs__item tabs__item--active' : ''}`}
+                  className={`locations__item-link tabs__item ${selectedCity === city ? 'tabs__item--active' : ''}`}
                   to="/" onClick={onClickHandler}
                 >
                   <span>{selectedCity}</span>
