@@ -66,11 +66,13 @@ function RoomScreen(): JSX.Element {
             <div className="property__gallery">
 
               {
-                images.map((image, i) => (
-                  <div key={`${id}-${image}`} className="property__image-wrapper">
-                    <img className="property__image" src={image} alt="Studio" />
-                  </div>
-                ))
+                images.map((image, i) => {
+                  const keyValue = `${i}_${id}-${image}`;
+                  return (
+                    <div key={keyValue} className="property__image-wrapper">
+                      <img className="property__image" src={image} alt="Studio" />
+                    </div>);
+                })
               }
 
             </div>
