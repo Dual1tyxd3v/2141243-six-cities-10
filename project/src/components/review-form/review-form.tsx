@@ -9,7 +9,7 @@ import Stars from '../stars/stars';
 function ReviewForm(): JSX.Element {
   const dispatch = useAppDispatch();
   const postLoaded = useAppSelector(getPostLoadedStatus);
-  const commentPostStatus = useAppSelector(getCommentPostStatus);
+  const isCommentLoaded = useAppSelector(getCommentPostStatus);
 
   const params = useParams();
   const paramsId = Number(params.id);
@@ -27,8 +27,8 @@ function ReviewForm(): JSX.Element {
   }
 
   useEffect(() => {
-    commentPostStatus && setFormData({rating: '', review: ''});
-  },[commentPostStatus]);
+    isCommentLoaded && setFormData({rating: '', review: ''});
+  },[isCommentLoaded]);
 
   function onSubmitHandler(evt: FormEvent) {
     evt.preventDefault();

@@ -15,8 +15,8 @@ describe('Reducer: data-process', () => {
       isPostLoaded: false,
       offersNearby: [],
       offersFavorites: [],
-      reloadFavorites: false,
-      commentPostStatus: false,
+      isFavoritesLoading: false,
+      isCommentLoaded: false,
     };
   });
 
@@ -30,8 +30,8 @@ describe('Reducer: data-process', () => {
         isPostLoaded: false,
         offersNearby: [],
         offersFavorites: [],
-        reloadFavorites: false,
-        commentPostStatus: false,
+        isFavoritesLoading: false,
+        isCommentLoaded: false,
       });
   });
 
@@ -110,58 +110,58 @@ describe('Reducer: data-process', () => {
   });
 
   describe('addCommentAction tests', () => {
-    it('should update "comments", "isPostLoaded" and "commentPostStatus" when action fulfilled', () => {
+    it('should update "comments", "isPostLoaded" and "isCommentLoaded" when action fulfilled', () => {
       const comments = makeFakeComments();
 
       expect(dataProcess.reducer(state, {type: addCommentAction.fulfilled.type, payload: comments}))
-        .toEqual({...state, isPostLoaded: false, commentPostStatus: true, comments});
+        .toEqual({...state, isPostLoaded: false, isCommentLoaded: true, comments});
 
-      expect(dataProcess.reducer({...state, isPostLoaded: true, commentPostStatus: false}, {type: addCommentAction.fulfilled.type, payload: comments}))
-        .toEqual({...state, isPostLoaded: false, commentPostStatus: true, comments});
+      expect(dataProcess.reducer({...state, isPostLoaded: true, isCommentLoaded: false}, {type: addCommentAction.fulfilled.type, payload: comments}))
+        .toEqual({...state, isPostLoaded: false, isCommentLoaded: true, comments});
     });
 
-    it('should update "isPostLoaded" and "commentPostStatus" when action rejected', () => {
+    it('should update "isPostLoaded" and "isCommentLoaded" when action rejected', () => {
       expect(dataProcess.reducer(state, {type: addCommentAction.rejected.type}))
-        .toEqual({...state, isPostLoaded: false, commentPostStatus: false});
+        .toEqual({...state, isPostLoaded: false, isCommentLoaded: false});
 
-      expect(dataProcess.reducer({...state, isPostLoaded: true, commentPostStatus: true}, {type: addCommentAction.rejected.type}))
-        .toEqual({...state, isPostLoaded: false, commentPostStatus: false});
+      expect(dataProcess.reducer({...state, isPostLoaded: true, isCommentLoaded: true}, {type: addCommentAction.rejected.type}))
+        .toEqual({...state, isPostLoaded: false, isCommentLoaded: false});
     });
 
-    it('should update "isPostLoaded" and "commentPostStatus" when action pending', () => {
+    it('should update "isPostLoaded" and "isCommentLoaded" when action pending', () => {
       expect(dataProcess.reducer(state, {type: addCommentAction.pending.type}))
-        .toEqual({...state, isPostLoaded: true, commentPostStatus: false});
+        .toEqual({...state, isPostLoaded: true, isCommentLoaded: false});
 
-      expect(dataProcess.reducer({...state, isPostLoaded: true, commentPostStatus: true}, {type: addCommentAction.pending.type}))
-        .toEqual({...state, isPostLoaded: true, commentPostStatus: false});
+      expect(dataProcess.reducer({...state, isPostLoaded: true, isCommentLoaded: true}, {type: addCommentAction.pending.type}))
+        .toEqual({...state, isPostLoaded: true, isCommentLoaded: false});
     });
   });
 
   describe('fetchFavoriteOffersAction tests', () => {
-    it('should update "offersFavorites" and "reloadFavorites" when action fulfilled', () => {
+    it('should update "offersFavorites" and "isFavoritesLoading" when action fulfilled', () => {
       const offers = makeFakeOffers();
 
       expect(dataProcess.reducer(state, {type: fetchFavoriteOffersAction.fulfilled.type, payload: offers}))
-        .toEqual({...state, offersFavorites: offers, reloadFavorites: false});
+        .toEqual({...state, offersFavorites: offers, isFavoritesLoading: false});
 
-      expect(dataProcess.reducer({...state, reloadFavorites: true}, {type: fetchFavoriteOffersAction.fulfilled.type, payload: offers}))
-        .toEqual({...state, offersFavorites: offers, reloadFavorites: false});
+      expect(dataProcess.reducer({...state, isFavoritesLoading: true}, {type: fetchFavoriteOffersAction.fulfilled.type, payload: offers}))
+        .toEqual({...state, offersFavorites: offers, isFavoritesLoading: false});
     });
 
-    it('should update "reloadFavorites" when action rejected', () => {
+    it('should update "isFavoritesLoading" when action rejected', () => {
       expect(dataProcess.reducer(state, {type: fetchFavoriteOffersAction.rejected.type}))
-        .toEqual({...state, reloadFavorites: false});
+        .toEqual({...state, isFavoritesLoading: false});
 
-      expect(dataProcess.reducer({...state, reloadFavorites: true}, {type: fetchFavoriteOffersAction.rejected.type}))
-        .toEqual({...state, reloadFavorites: false});
+      expect(dataProcess.reducer({...state, isFavoritesLoading: true}, {type: fetchFavoriteOffersAction.rejected.type}))
+        .toEqual({...state, isFavoritesLoading: false});
     });
 
-    it('should update "reloadFavorites" when action pending', () => {
+    it('should update "isFavoritesLoading" when action pending', () => {
       expect(dataProcess.reducer(state, {type: fetchFavoriteOffersAction.pending.type}))
-        .toEqual({...state, reloadFavorites: true});
+        .toEqual({...state, isFavoritesLoading: true});
 
-      expect(dataProcess.reducer({...state, reloadFavorites: true}, {type: fetchFavoriteOffersAction.pending.type}))
-        .toEqual({...state, reloadFavorites: true});
+      expect(dataProcess.reducer({...state, isFavoritesLoading: true}, {type: fetchFavoriteOffersAction.pending.type}))
+        .toEqual({...state, isFavoritesLoading: true});
     });
   });
 

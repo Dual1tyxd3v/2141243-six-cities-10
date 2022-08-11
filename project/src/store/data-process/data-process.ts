@@ -11,8 +11,8 @@ const initialState: DataProcess = {
   isPostLoaded: false,
   offersNearby: [],
   offersFavorites: [],
-  reloadFavorites: false,
-  commentPostStatus: false,
+  isFavoritesLoading: false,
+  isCommentLoaded: false,
 };
 
 export const dataProcess = createSlice({
@@ -54,25 +54,25 @@ export const dataProcess = createSlice({
       .addCase(addCommentAction.fulfilled, (state, action) => {
         state.comments = action.payload;
         state.isPostLoaded = false;
-        state.commentPostStatus = true;
+        state.isCommentLoaded = true;
       })
       .addCase(addCommentAction.rejected, (state) => {
-        state.commentPostStatus = false;
+        state.isCommentLoaded = false;
         state.isPostLoaded = false;
       })
       .addCase(addCommentAction.pending, (state) => {
-        state.commentPostStatus = false;
+        state.isCommentLoaded = false;
         state.isPostLoaded = true;
       })
       .addCase(fetchFavoriteOffersAction.fulfilled, (state, action) => {
         state.offersFavorites = action.payload;
-        state.reloadFavorites = false;
+        state.isFavoritesLoading = false;
       })
       .addCase(fetchFavoriteOffersAction.rejected, (state) => {
-        state.reloadFavorites = false;
+        state.isFavoritesLoading = false;
       })
       .addCase(fetchFavoriteOffersAction.pending, (state) => {
-        state.reloadFavorites = true;
+        state.isFavoritesLoading = true;
       })
       .addCase(changeOfferFavoriteStatusAction.fulfilled, (state, action) => {
         state.offers.forEach((offer) => {
