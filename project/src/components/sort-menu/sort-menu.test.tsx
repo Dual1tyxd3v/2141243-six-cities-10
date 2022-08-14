@@ -4,10 +4,8 @@ import { Provider } from 'react-redux';
 import { sortMenuTabs } from '../../const';
 import SortMenu from './sort-menu';
 import userEvent from '@testing-library/user-event';
-import thunk from 'redux-thunk';
 
-const middlewares = [thunk];
-const mockStore = configureMockStore(middlewares);
+const mockStore = configureMockStore();
 
 describe('Component: SortMenu', () => {
   it('should render correctly', () => {
