@@ -1,20 +1,26 @@
 import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
-import { useAppSelector } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import FavoritesScreenEmpty from '../favorites-screen-empty/favorites-screen-empty';
 import { getFavoriteOffers, getFavoriteOffersReloadStatus } from '../../store/data-process/selectors';
 import CardItem from '../../components/card-item/card-item';
 import { fetchFavoriteOffersAction } from '../../store/api-actions';
 import { store } from '../../store';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { groupByCity } from '../../utils/utils';
 import { useMemo } from 'react';
+import { changeCity } from '../../store/app-process/app-process';
+import { AppRoute } from '../../const';
 
 store.dispatch(fetchFavoriteOffersAction());
+
 function FavotitesScreen(): JSX.Element {
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const offersFavorites = useAppSelector(getFavoriteOffers);
   const isLoaded = useAppSelector(getFavoriteOffersReloadStatus);
+
   const offersFavoritesGrouped = useMemo(() => groupByCity(offersFavorites), [offersFavorites]);
 
   if (offersFavorites.length === 0 && !isLoaded) {
@@ -37,7 +43,15 @@ function FavotitesScreen(): JSX.Element {
                     <li key={keyValue} className="favorites__locations-items">
                       <div className="favorites__locations locations locations--current">
                         <div className="locations__item">
-                          <Link className="locations__item-link" to="/">
+                          <Link
+                            className="locations__item-link"
+                            to="/"
+                            onClick={(evt) => {
+                              evt.preventDefault();
+                              dispatch(changeCity(group[0]));
+                              navigate(AppRoute.Main);
+                            }}
+                          >
                             <span>{group[0]}</span>
                           </Link>
                         </div>
