@@ -1,4 +1,4 @@
-import { configureMockStore } from '@jedmao/redux-mock-store';
+import { configureMockStore, MockStore } from '@jedmao/redux-mock-store';
 import { render, screen } from '@testing-library/react';
 import { createMemoryHistory } from 'history';
 import { Provider } from 'react-redux';
@@ -8,18 +8,24 @@ import HistoryRouter from '../history-route/history-route';
 import CardItem from './card-item';
 import userEvent from '@testing-library/user-event';
 import { Route, Routes } from 'react-router-dom';
+import thunk from 'redux-thunk';
 
-const mockStore = configureMockStore();
+const middlewares = [thunk];
+const mockStore = configureMockStore(middlewares);
 const history = createMemoryHistory();
 const mockOffer = makeFakeOffer();
 const mockOffers = makeFakeOffers().concat(mockOffer);
 mockOffer.isFavorite = true;
-const store = mockStore({
-  USER: {authorizationStatus: AuthorizationStatus.Auth},
-  DATA: {offers: mockOffers}
-});
+let store: MockStore;
 
 describe('Component: CardItem', () => {
+  beforeEach(() => {
+    store = mockStore({
+      USER: {authorizationStatus: AuthorizationStatus.Auth},
+      DATA: {offers: mockOffers}
+    });
+  });
+
   it('should render correctly', () => {
 
     render(
@@ -117,7 +123,47 @@ describe('Component: CardItem', () => {
     expect(history.location.pathname).toBe(`/offer/${mockOffer.id}`);
   });
 
-  /* it('handleClick should redirect to /login when user click button with AuthStatus = "NO_AUTH"', async () => {
+  it('handleClick should called "redirectToRoute" when user click button with AuthStatus = "NO_AUTH"', async () => {
+    store = mockStore({
+      USER: {authorizationStatus: AuthorizationStatus.NoAuth},
+      DATA: {offers: mockOffers}
+    });
 
-  }); */
+    render(
+      <Provider store={store}>
+        <HistoryRouter history={history}>
+          <CardItem
+            offer={mockOffer}
+            classPrefix='mockClass'
+            onActiveCard={jest.fn()}
+          />
+        </HistoryRouter>
+      </Provider>
+    );
+
+    await userEvent.click(screen.getByRole('button'));
+
+    expect(store.getActions().length).toBe(1);
+    expect(store.getActions()[0].type).toBe('redirectToRoute');
+    expect(store.getActions()[0].payload).toBe(AppRoute.Login);
+  });
+
+  it('handleClick should called "changeOfferFavoriteStatusAction" when user click button with AuthStatus = "AUTH"', async () => {
+    render(
+      <Provider store={store}>
+        <HistoryRouter history={history}>
+          <CardItem
+            offer={mockOffer}
+            classPrefix='mockClass'
+            onActiveCard={jest.fn()}
+          />
+        </HistoryRouter>
+      </Provider>
+    );
+
+    await userEvent.click(screen.getByRole('button'));
+
+    expect(store.getActions()[0].type).toBe('DATA/changeOfferFavoriteStatus/pending');
+    expect(store.getActions()[0].meta.arg).toEqual({id: mockOffer.id, status: Number(!mockOffer.isFavorite)});
+  });
 });

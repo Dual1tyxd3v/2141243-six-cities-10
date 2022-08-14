@@ -66,7 +66,8 @@ describe('Component: HeaderNavLogged', () => {
   });
 
   it('should clear "offersFavorites" and change when user click on "Sign out"', async () => {
-    history.push(AppRoute.Room + 4);
+    const mockOfferId = mockOffers[0].id;
+    history.push(AppRoute.Room + mockOfferId);
     render(
       <Provider store={store}>
         <HistoryRouter history={history}>
