@@ -1,15 +1,15 @@
 import { MouseEvent} from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { getUserInfo } from '../../services/user-info';
-import { redirectToRoute } from '../../store/action';
 import { fetchFavoriteOffersAction, fetchNearbyOffersAction, fetchOffersAction, logoutAction } from '../../store/api-actions';
 import { clearFavoriteOffers } from '../../store/data-process/data-process';
 import { getFavoriteOffers } from '../../store/data-process/selectors';
 
 function HeaderNavLogged(): JSX.Element {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const email = getUserInfo();
   const offers = useAppSelector(getFavoriteOffers);
@@ -22,23 +22,24 @@ function HeaderNavLogged(): JSX.Element {
   const handleClick = (evt: MouseEvent) => {
     evt.preventDefault();
     dispatch(fetchFavoriteOffersAction());
-    dispatch(redirectToRoute(AppRoute.Favorites));
+    navigate(AppRoute.Favorites);
   };
   return (
     <nav className="header__nav">
       <ul className="header__nav-list">
         <li className="header__nav-item user">
-          <Link className="header__nav-link header__nav-link--profile" to={AppRoute.Favorites} title={AppRoute.Favorites} onClick={handleClick} >
+          <Link className="header__nav-link header__nav-link--profile" to={AppRoute.Favorites} title={AppRoute.Favorites} onClick={handleClick} data-testid="emailLink">
             <div className="header__avatar-wrapper user__avatar-wrapper">
             </div>
             <span className="header__user-name user__name">{email}</span>
-            <span className="header__favorite-count">{favoriteOffersCount}</span>
+            <span className="header__favorite-count" data-testid="offersCounter">{favoriteOffersCount}</span>
           </Link>
         </li>
         <li className="header__nav-item">
           <Link
             className="header__nav-link"
             to='/logout'
+            data-testid="sign-out"
             onClick={(evt) => {
               evt.preventDefault();
               dispatch(logoutAction());
