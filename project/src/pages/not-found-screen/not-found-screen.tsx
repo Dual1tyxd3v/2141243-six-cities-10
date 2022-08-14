@@ -13,7 +13,7 @@ function NotFoundScreen(): JSX.Element {
           <section className="favorites favorites--empty">
             <div className="favorites__status-wrapper">
               <b className="favorites__status">404 - Page not found.</b>
-              <Link to="/" className="favorites__status-description" title="/">Back to main.</Link>
+              <Link to="/" data-testid="linkBackToMain" className="favorites__status-description" title="/">Back to main.</Link>
             </div>
           </section>
         </div>
