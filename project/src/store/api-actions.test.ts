@@ -5,7 +5,7 @@ import { configureMockStore, MockStoreEnhanced } from '@jedmao/redux-mock-store'
 import { ChangeStatusData, State } from '../types/state';
 import { Action } from '@reduxjs/toolkit';
 import { APIRoute } from '../const';
-import { addCommentAction, changeOfferFavoriteStatusAction, checkAuthAction, clearErrorAction, fetchCommentsAction, fetchFavoriteOffersAction, fetchNearbyOffersAction, fetchOfferAction, fetchOffersAction } from './api-actions';
+import { addCommentAction, changeOfferFavoriteStatusAction, checkAuthAction, clearErrorAction, fetchCommentsAction, fetchFavoriteOffersAction, fetchNearbyOffersAction, fetchOfferAction, fetchOffersAction, loginAction, logoutAction } from './api-actions';
 import { makeFakeComments, makeFakeOffer, makeFakeOffers } from '../utils/mocks';
 import { datatype } from 'faker';
 import { PostData } from '../types/post-data';
@@ -26,6 +26,46 @@ describe('Async functions', () => {
 
   beforeEach(() => {
     store = mockStore();
+  });
+
+  it('should dispatch Logout when Delete /logout', async () => {
+    mockAPI.onDelete(APIRoute.Logout).reply(204);
+
+    Storage.prototype.removeItem = jest.fn();
+
+    await store.dispatch(logoutAction());
+
+    const actions = store.getActions().map(({type}) => type);
+
+    expect(actions).toEqual([
+      logoutAction.pending.type,
+      logoutAction.fulfilled.type
+    ]);
+
+    expect(Storage.prototype.removeItem).toBeCalledTimes(2);
+    expect(Storage.prototype.removeItem).nthCalledWith(1, 'cit_cities_token');
+    expect(Storage.prototype.removeItem).nthCalledWith(2, 'user_info');
+  });
+
+  it('should dispatch Login when POST /login', async () => {
+    const fakeAuthData = {email: 'mock@email.com', password: 'qwe123ASD'};
+
+    mockAPI.onPost(APIRoute.Login, fakeAuthData).reply(200, {token: 'some-token'});
+
+    Storage.prototype.setItem = jest.fn();
+
+    await store.dispatch(loginAction(fakeAuthData));
+
+    const actions = store.getActions().map(({type}) => type);
+
+    expect(actions).toEqual([
+      loginAction.pending.type,
+      loginAction.fulfilled.type
+    ]);
+
+    expect(Storage.prototype.setItem).toBeCalledTimes(2);
+    expect(Storage.prototype.setItem).nthCalledWith(1, 'cit_cities_token', 'some-token');
+    expect(Storage.prototype.setItem).nthCalledWith(2, 'user_info', fakeAuthData.email);
   });
 
   it('should auth status is "auth" when server return 200', async () => {
