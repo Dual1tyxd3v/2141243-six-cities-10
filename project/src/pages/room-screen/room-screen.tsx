@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import Header from '../../components/header/header';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
@@ -10,13 +10,13 @@ import CardItem from '../../components/card-item/card-item';
 import { getComments, getLoadedStatus, getNearbyOffers, getOffer } from '../../store/data-process/selectors';
 import { getAuthorizationStatus } from '../../store/user-process/selectors';
 import { AppRoute, AuthorizationStatus } from '../../const';
-import { redirectToRoute } from '../../store/action';
 
 function RoomScreen(): JSX.Element {
   const params = useParams();
   const paramsId = Number(params.id);
 
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const offer = useAppSelector(getOffer);
   const comments = useAppSelector(getComments);
   const nearbyOffers = useAppSelector(getNearbyOffers);
@@ -53,9 +53,9 @@ function RoomScreen(): JSX.Element {
     isFavorite} = offer;
 
   const handleClick = () => {
-    dispatch(authorizationStatus === AuthorizationStatus.Auth
-      ? changeOfferFavoriteStatusAction({id, status: Number(!isFavorite)})
-      : redirectToRoute(AppRoute.Login));
+    authorizationStatus === AuthorizationStatus.Auth
+      ? dispatch(changeOfferFavoriteStatusAction({id, status: Number(!isFavorite)}))
+      : navigate(AppRoute.Login);
   };
   return (
     <div className="page">
@@ -66,28 +66,33 @@ function RoomScreen(): JSX.Element {
             <div className="property__gallery">
 
               {
-                images.map((image, i) => (
-                  <div key={`${id}-${image}`} className="property__image-wrapper">
-                    <img className="property__image" src={image} alt="Studio" />
-                  </div>
-                ))
+                images.map((image, i) => {
+                  const keyValue = `${i}_${id}-${image}`;
+                  return (
+                    <div key={keyValue} className="property__image-wrapper">
+                      <img className="property__image" src={image} alt="Studio" />
+                    </div>);
+                })
               }
 
             </div>
           </div>
           <div className="property__container container">
             <div className="property__wrapper">
-              {isPremium ?
-                <div className="property__mark">
-                  <span>Premium</span>
-                </div> : null}
+              {
+                isPremium
+                  ? <div className="property__mark"><span>Premium</span></div>
+                  : null
+              }
               <div className="property__name-wrapper">
                 <h1 className="property__name">
                   {title}
                 </h1>
                 <button
-                  className={`button property__bookmark-button ${isFavorite ? 'property__bookmark-button--active' : ''}`} type="button"
+                  className={`button property__bookmark-button ${isFavorite ? 'property__bookmark-button--active' : ''}`}
+                  type="button"
                   onClick={handleClick}
+                  data-testid="toBookmark"
                 >
                   <svg className="place-card__bookmark-icon" width="31" height="33">
                     <use xlinkHref="#icon-bookmark"></use>
@@ -122,11 +127,10 @@ function RoomScreen(): JSX.Element {
                 <ul className="property__inside-list">
 
                   {
-                    goods.map((good) => (
-                      <li key={`${id}-${good}`} className="property__inside-item">
-                        {good}
-                      </li>
-                    ))
+                    goods.map((good, i) => {
+                      const keyValue = `${i}_${id}-${good}`;
+                      return <li key={keyValue} className="property__inside-item" data-testid="goodsItem">{good}</li>;
+                    })
                   }
 
                 </ul>
@@ -166,7 +170,9 @@ function RoomScreen(): JSX.Element {
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <div className="near-places__list places__list">
               {
-                nearbyOffers.map((offerItem) => <CardItem classPrefix='cities' key={offerItem.id} offer={offerItem}/>)
+                nearbyOffers.map((offerItem, i) => {
+                  const keyValue = `${i}_${id}-${offerItem}`;
+                  return <CardItem classPrefix='cities' key={keyValue} offer={offerItem}/>;})
               }
             </div>
           </section>

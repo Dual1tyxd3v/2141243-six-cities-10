@@ -1,24 +1,31 @@
 import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
-import { useAppSelector } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import FavoritesScreenEmpty from '../favorites-screen-empty/favorites-screen-empty';
 import { getFavoriteOffers, getFavoriteOffersReloadStatus } from '../../store/data-process/selectors';
 import CardItem from '../../components/card-item/card-item';
 import { fetchFavoriteOffersAction } from '../../store/api-actions';
 import { store } from '../../store';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { groupByCity } from '../../utils/utils';
+import { useMemo } from 'react';
+import { changeCity } from '../../store/app-process/app-process';
+import { AppRoute } from '../../const';
 
 store.dispatch(fetchFavoriteOffersAction());
-function FavotitesScreen(): JSX.Element {
 
-  const favoriteOffers = useAppSelector(getFavoriteOffers);
+function FavotitesScreen(): JSX.Element {
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
+  const offersFavorites = useAppSelector(getFavoriteOffers);
   const isLoaded = useAppSelector(getFavoriteOffersReloadStatus);
 
-  if (favoriteOffers.length === 0 && !isLoaded) {
+  const offersFavoritesGrouped = useMemo(() => groupByCity(offersFavorites), [offersFavorites]);
+
+  if (offersFavorites.length === 0 && !isLoaded) {
     return <FavoritesScreenEmpty />;
   }
-
-  const favoriteOffersObject = Object.fromEntries(favoriteOffers.map((m) => [m.city.name, favoriteOffers.filter((it) => it.city.name === m.city.name)]));
 
   return (
     <>
@@ -30,21 +37,29 @@ function FavotitesScreen(): JSX.Element {
             <ul className="favorites__list">
 
               {
-                Object.keys(favoriteOffersObject).map((city, i) => {
-                  const keyValue = `${city}_${i}`;
+                offersFavoritesGrouped.map((group, i) => {
+                  const keyValue = `${group[0]}_${i}`;
                   return (
                     <li key={keyValue} className="favorites__locations-items">
                       <div className="favorites__locations locations locations--current">
                         <div className="locations__item">
-                          <Link className="locations__item-link" to="/">
-                            <span>{city}</span>
+                          <Link
+                            className="locations__item-link"
+                            to="/"
+                            onClick={(evt) => {
+                              evt.preventDefault();
+                              dispatch(changeCity(group[0]));
+                              navigate(AppRoute.Main);
+                            }}
+                          >
+                            <span>{group[0]}</span>
                           </Link>
                         </div>
                       </div>
                       <div className="favorites__places">
 
                         {
-                          favoriteOffersObject[city].map((offer, j) => {
+                          group[1].map((offer, j) => {
                             const key = `${offer.id}__${j}`;
                             return (
                               <CardItem classPrefix='favorites' key={key} offer={offer} />

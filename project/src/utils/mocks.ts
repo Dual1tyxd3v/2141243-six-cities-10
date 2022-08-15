@@ -52,3 +52,5 @@ export const makeFakeComment = (): Comment => ({
 });
 
 export const makeFakeComments = (): Comments => new Array(datatype.number({min: 12, max: 25})).fill(makeFakeComment());
+
+export const makeFakeText = (): string => lorem.paragraph(5);

@@ -1,12 +1,11 @@
 import Header from '../../components/header/header';
 import { FormEvent, MouseEvent, useRef } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { Link, Navigate } from 'react-router-dom';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus, CITIES, EMAIL_REGULAR, PASSWORD_REGULAR } from '../../const';
 import { clearErrorAction, loginAction } from '../../store/api-actions';
 import { getAuthorizationStatus } from '../../store/user-process/selectors';
 import { changeCity, setErrorMessage } from '../../store/app-process/app-process';
-import { redirectToRoute } from '../../store/action';
 
 function LoginScreen(): JSX.Element {
   const emailRef = useRef<HTMLInputElement | null>(null);
@@ -14,6 +13,7 @@ function LoginScreen(): JSX.Element {
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
 
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   if (authorizationStatus === AuthorizationStatus.Auth) {
     return <Navigate to={AppRoute.Main} />;
@@ -42,7 +42,7 @@ function LoginScreen(): JSX.Element {
   const handleClick = (evt: MouseEvent) => {
     evt.preventDefault();
     dispatch(changeCity(randomCity));
-    dispatch(redirectToRoute(AppRoute.Main));
+    navigate(AppRoute.Main);
   };
   return (
     <div className="page page--gray page--login">
@@ -59,13 +59,13 @@ function LoginScreen(): JSX.Element {
             >
               <div className="login__input-wrapper form__input-wrapper">
                 <label className="visually-hidden">E-mail</label>
-                <input className="login__input form__input" type="email" name="email" placeholder="Email" ref={emailRef} required />
+                <input className="login__input form__input" type="email" name="email" placeholder="Email" ref={emailRef} required data-testid="login"/>
               </div>
               <div className="login__input-wrapper form__input-wrapper">
                 <label className="visually-hidden">Password</label>
-                <input className="login__input form__input" type="password" name="password" placeholder="Password" ref={passRef} required/>
+                <input className="login__input form__input" type="password" name="password" placeholder="Password" ref={passRef} required data-testid="password"/>
               </div>
-              <button className="login__submit form__submit button" type="submit">Sign in</button>
+              <button className="login__submit form__submit button" type="submit" data-testid="submitButton">Sign in</button>
             </form>
           </section>
           <section className="locations locations--login locations--current">
@@ -74,6 +74,7 @@ function LoginScreen(): JSX.Element {
                 className="locations__item-link"
                 to={AppRoute.Main}
                 onClick={handleClick}
+                data-testid="randomCity"
               >
                 <span>{randomCity}</span>
               </Link>

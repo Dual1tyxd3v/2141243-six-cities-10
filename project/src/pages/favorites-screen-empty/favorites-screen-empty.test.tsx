@@ -9,7 +9,7 @@ import FavoritesScreenEmpty from './favorites-screen-empty';
 const history = createMemoryHistory();
 const mockStore = configureMockStore();
 
-describe('Component: MainScreenEmpty', () => {
+describe('Component: FavoritesScreenEmpty', () => {
   it('should render correctly', () => {
     const store = mockStore({
       USER: {authorizationStatus: AuthorizationStatus.Auth},

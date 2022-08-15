@@ -18,8 +18,8 @@ export type DataProcess = {
   offer: Offer | null;
   isPostLoaded: boolean;
   offersFavorites: Offers;
-  reloadFavorites: boolean;
-  commentPostStatus: boolean;
+  isFavoritesLoading: boolean;
+  isCommentLoaded: boolean;
 };
 
 export type AppProcess = {
