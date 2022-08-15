@@ -57,7 +57,12 @@ function MainScreenContent({offers, city}: MainScreenContentProps): JSX.Element 
           <b className="places__found">{offers.length} places to stay in {city}</b>
           <form className="places__sorting" action="#" method="get">
             <span className="places__sorting-caption">Sort by</span>
-            <span className="places__sorting-type" tabIndex={0} onClick={onSortMenuHandler}>
+            <span
+              className="places__sorting-type"
+              tabIndex={0}
+              onClick={onSortMenuHandler}
+              data-testid="sortTab"
+            >
               &nbsp;{sortBy}
               <svg className="places__sorting-arrow" width="7" height="4">
                 <use xlinkHref="#icon-arrow-select"></use>
