@@ -14,7 +14,7 @@ const history = createMemoryHistory();
 const mockStore = configureMockStore(middlewares);
 let store: MockStore;
 
-describe('Form test', () => {
+describe('Component: ReviewForm', () => {
   beforeEach(() => {
     store = mockStore({
       DATA: {isPostLoaded: false, isCommentLoaded: false}
