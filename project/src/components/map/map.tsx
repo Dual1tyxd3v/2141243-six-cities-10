@@ -53,7 +53,7 @@ function Map({offers, activeCard}: MapProps): JSX.Element {
   });
 
   return (
-    <div ref={mapRef} style={{height: '100%'}}></div>
+    <div ref={mapRef} style={{height: '100%'}} data-testid="mapContainer"></div>
   );
 
 }
