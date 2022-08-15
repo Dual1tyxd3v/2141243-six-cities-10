@@ -10,6 +10,7 @@ import userEvent from '@testing-library/user-event';
 import { Route, Routes } from 'react-router-dom';
 import thunk from 'redux-thunk';
 
+window.scrollTo = jest.fn();
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
 const history = createMemoryHistory();

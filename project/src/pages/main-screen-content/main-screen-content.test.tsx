@@ -9,6 +9,7 @@ import { makeFakeOffers } from '../../utils/mocks';
 import userEvent from '@testing-library/user-event';
 import MainScreenContent from './main-screen-content';
 
+window.scrollTo = jest.fn();
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
 const store = mockStore({

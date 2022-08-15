@@ -10,6 +10,7 @@ import RoomScreen from './room-screen';
 import { Route, Routes } from 'react-router-dom';
 import userEvent from '@testing-library/user-event';
 
+window.scrollTo = jest.fn();
 const mockOffers = makeFakeOffers();
 const mockOffer = makeFakeOffer();
 const mockComments = makeFakeComments();

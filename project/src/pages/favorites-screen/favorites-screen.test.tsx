@@ -9,6 +9,7 @@ import { makeFakeOffers } from '../../utils/mocks';
 import FavoritesScreen from './favorites-screen';
 import userEvent from '@testing-library/user-event';
 
+window.scrollTo = jest.fn();
 const history = createMemoryHistory();
 const mockStore = configureMockStore();
 const mockOffers = makeFakeOffers();
