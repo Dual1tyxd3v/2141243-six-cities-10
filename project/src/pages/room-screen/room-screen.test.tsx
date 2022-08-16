@@ -10,7 +10,9 @@ import RoomScreen from './room-screen';
 import { Route, Routes } from 'react-router-dom';
 import userEvent from '@testing-library/user-event';
 
-jest.mock('../../components/map/map', () => jest.fn());
+jest.mock('../../components/map/map', () => function mockMap(){
+  return <h1>map component</h1>;
+});
 window.scrollTo = jest.fn();
 const mockOffers = makeFakeOffers();
 const mockOffer = makeFakeOffer();
@@ -44,6 +46,7 @@ describe('Component: RoomScreen', () => {
     expect(screen.getByText(/Meet the host/i)).toBeInTheDocument();
     expect(screen.getByText(mockOffer.host.name)).toBeInTheDocument();
     expect(screen.getAllByTestId('commentItem').length).toBe(mockComments.slice(0, MAX_COMMENTS_TO_VIEW).length);
+    expect(screen.getByText(/map component/i)).toBeInTheDocument();
     expect(screen.getAllByTestId('cardContainer').length).toBe(mockOffers.length);
   });
 
