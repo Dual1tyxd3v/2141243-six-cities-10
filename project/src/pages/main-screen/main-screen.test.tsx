@@ -7,6 +7,8 @@ import { AuthorizationStatus } from '../../const';
 import { makeFakeOffers } from '../../utils/mocks';
 import MainScreen from './main-screen';
 
+jest.mock('../../components/map/map', () => jest.fn());
+window.scrollTo = jest.fn();
 const mockStore = configureMockStore();
 const history = createMemoryHistory();
 

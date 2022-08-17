@@ -9,6 +9,10 @@ import { makeFakeOffers } from '../../utils/mocks';
 import userEvent from '@testing-library/user-event';
 import MainScreenContent from './main-screen-content';
 
+window.scrollTo = jest.fn();
+jest.mock('../../components/map/map', () => function mockMap(){
+  return <h1>map component</h1>;
+});
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
 const store = mockStore({
@@ -30,6 +34,7 @@ describe('Component: MainScreenContent', () => {
 
     expect(screen.getByText(new RegExp(`${mockOffers.length} places to stay in ${CITIES.Paris}`))).toBeInTheDocument();
     expect(screen.getByText(sortMenuTabs.Popular)).toBeInTheDocument();
+    expect(screen.getByText(/map component/i)).toBeInTheDocument();
     expect(screen.queryByText(sortMenuTabs.PriceHighToLow)).not.toBeInTheDocument();
     expect(screen.getAllByRole('article').length).toBe(mockOffers.length);
   });

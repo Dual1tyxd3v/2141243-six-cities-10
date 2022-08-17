@@ -7,6 +7,8 @@ import { makeFakeOffers } from '../../utils/mocks';
 import HistoryRouter from '../history-route/history-route';
 import App from './app';
 
+jest.mock('../map/map', () => jest.fn());
+window.scrollTo = jest.fn();
 const history = createMemoryHistory();
 const mockStore = configureMockStore();
 const mockOffers = makeFakeOffers();

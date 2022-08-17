@@ -1,4 +1,4 @@
-import { memo, MouseEvent } from 'react';
+import { memo, MouseEvent, useEffect } from 'react';
 import { Link, } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
@@ -30,6 +30,10 @@ function CardItem ({offer, onActiveCard, classPrefix}: OfferProps): JSX.Element 
   function onMouseOverHandler(evt: MouseEvent<HTMLElement>) {
     onActiveCard && onActiveCard(offer, evt.type);
   }
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const handleClick = () => {
     dispatch(authorizationStatus === AuthorizationStatus.Auth
