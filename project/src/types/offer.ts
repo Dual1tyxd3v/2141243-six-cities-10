@@ -51,3 +51,7 @@ export type Comment = {
 };
 
 export type Comments = Comment[];
+
+export type OffersGroupedByCity = [string, Offer[]];
+
+export type OffersGrouped = OffersGroupedByCity[];

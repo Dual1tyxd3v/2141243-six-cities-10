@@ -21,7 +21,7 @@ function ReviewForm(): JSX.Element {
     setFormData({...formData, rating: value});
   }, [formData]);
 
-  function onTextAreaChange(evt: ChangeEvent<HTMLTextAreaElement>) {
+  function onTextAreaChange(evt: ChangeEvent<HTMLTextAreaElement>): void {
     const {value} = evt.target;
     setFormData({...formData, review: value});
   }
@@ -30,7 +30,7 @@ function ReviewForm(): JSX.Element {
     isCommentLoaded && setFormData({rating: '', review: ''});
   },[isCommentLoaded]);
 
-  function onSubmitHandler(evt: FormEvent) {
+  function onSubmitHandler(evt: FormEvent): void {
     evt.preventDefault();
 
     dispatch(addCommentAction({
@@ -50,7 +50,7 @@ function ReviewForm(): JSX.Element {
       <div className="reviews__rating-form form__rating">
 
         {
-          RATING_VALUE.map((star, i) => (
+          RATING_VALUE.map((star: string, i) => (
             <Stars key={star} id={i} value={star} rating={formData.rating} onChangeStar={changeHandler} />
           )).reverse()
         }
@@ -68,7 +68,7 @@ function ReviewForm(): JSX.Element {
       </textarea>
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
-                      To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least <b className="reviews__text-amount">50 characters</b>.
+          To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least <b className="reviews__text-amount">50 characters</b>.
         </p>
         <button
           className="reviews__submit form__submit button"

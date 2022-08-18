@@ -14,12 +14,12 @@ function HeaderNavLogged(): JSX.Element {
   const email = getUserInfo();
   const offers = useAppSelector(getFavoriteOffers);
 
-  const favoriteOffersCount = offers.filter((offer) => offer.isFavorite).length;
+  const favoriteOffersCount: number = offers.filter((offer) => offer.isFavorite).length;
 
-  const urlPath = useLocation().pathname;
+  const urlPath: string = useLocation().pathname;
   const id = Number(urlPath.slice(urlPath.lastIndexOf('/') + 1));
 
-  const handleClick = (evt: MouseEvent) => {
+  const handleClick = (evt: MouseEvent): void => {
     evt.preventDefault();
     dispatch(fetchFavoriteOffersAction());
     navigate(AppRoute.Favorites);
@@ -40,7 +40,7 @@ function HeaderNavLogged(): JSX.Element {
             className="header__nav-link"
             to='/logout'
             data-testid="sign-out"
-            onClick={(evt) => {
+            onClick={(evt: MouseEvent): void => {
               evt.preventDefault();
               dispatch(logoutAction());
               dispatch(fetchOffersAction());

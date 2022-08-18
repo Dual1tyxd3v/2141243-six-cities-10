@@ -1,6 +1,6 @@
-import { Offers } from '../types/offer';
+import { Offers, OffersGrouped } from '../types/offer';
 
-export const groupByCity = (offersOriginal: Offers) => {
+export const groupByCity = (offersOriginal: Offers): OffersGrouped => {
   const offers = Object.fromEntries(offersOriginal.map((m) =>
     [m.city.name, offersOriginal.filter((it) => it.city.name === m.city.name)]));
 

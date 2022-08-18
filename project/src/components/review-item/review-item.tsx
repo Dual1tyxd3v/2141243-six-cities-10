@@ -8,7 +8,7 @@ type ReviewItemProps = {
 function ReviewItem({commentObject}: ReviewItemProps): JSX.Element {
   const {rating, comment, date, user: {avatarUrl, name}} = commentObject;
 
-  const formatDate = (dateString: string) => {
+  const formatDate = (dateString: string): string => {
     const dateObject = new Date(dateString);
 
     return `${MONTHS[dateObject.getMonth()]} ${dateObject.getFullYear()}`;
@@ -27,7 +27,7 @@ function ReviewItem({commentObject}: ReviewItemProps): JSX.Element {
       <div className="reviews__info">
         <div className="reviews__rating rating">
           <div className="reviews__stars rating__stars">
-            <span style={{width: `${Math.floor(rating * 100 / 5)}%`}}></span>
+            <span style={{width: `${Math.round(rating) * 20}%`}}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>

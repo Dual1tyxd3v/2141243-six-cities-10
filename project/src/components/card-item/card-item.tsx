@@ -27,7 +27,7 @@ function CardItem ({offer, onActiveCard, classPrefix}: OfferProps): JSX.Element 
 
   const dispatch = useAppDispatch();
 
-  function onMouseOverHandler(evt: MouseEvent<HTMLElement>) {
+  function onMouseOverHandler(evt: MouseEvent<HTMLElement>): void {
     onActiveCard && onActiveCard(offer, evt.type);
   }
 
@@ -35,7 +35,7 @@ function CardItem ({offer, onActiveCard, classPrefix}: OfferProps): JSX.Element 
     window.scrollTo(0, 0);
   }, []);
 
-  const handleClick = () => {
+  const handleClick = (): void => {
     dispatch(authorizationStatus === AuthorizationStatus.Auth
       ? changeOfferFavoriteStatusAction({id, status: Number(!isFavorite)})
       : redirectToRoute(AppRoute.Login)

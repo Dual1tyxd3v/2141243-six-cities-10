@@ -19,7 +19,7 @@ function LoginScreen(): JSX.Element {
     return <Navigate to={AppRoute.Main} />;
   }
 
-  const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (evt: FormEvent<HTMLFormElement>): void => {
     evt.preventDefault();
 
     if (emailRef.current === null || passRef.current === null) {
@@ -39,7 +39,7 @@ function LoginScreen(): JSX.Element {
   const cities = Object.values(CITIES);
   const randomCity = cities[Math.floor(Math.random() * cities.length)];
 
-  const handleClick = (evt: MouseEvent) => {
+  const handleClick = (evt: MouseEvent): void => {
     evt.preventDefault();
     dispatch(changeCity(randomCity));
     navigate(AppRoute.Main);

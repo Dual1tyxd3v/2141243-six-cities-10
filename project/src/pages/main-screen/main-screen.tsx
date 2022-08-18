@@ -4,13 +4,14 @@ import { useAppSelector } from '../../hooks';
 import MainScreenContent from '../main-screen-content/main-screen-content';
 import { getLoadedStatus, getOffers } from '../../store/data-process/selectors';
 import { getCity } from '../../store/app-process/selectors';
+import { Offers } from '../../types/offer';
 
 function MainScreen(): JSX.Element {
   const city = useAppSelector(getCity);
   const offers = useAppSelector(getOffers);
   const isLoaded = useAppSelector(getLoadedStatus);
 
-  const filteredOffers = offers.filter((offer) => offer.city.name === city);
+  const filteredOffers: Offers = offers.filter((offer) => offer.city.name === city);
   return (
     <div className="page page--gray page--main">
       <Header />

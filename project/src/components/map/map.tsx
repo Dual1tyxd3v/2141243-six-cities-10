@@ -1,8 +1,8 @@
-import leaflet from 'leaflet';
+import leaflet, { Layer } from 'leaflet';
 import { useRef, useEffect } from 'react';
 import useMap from '../../hooks/use-map/use-map';
 import { DEFAULT_MARKER_SRC, ACTIVE_MARKER_SRC } from '../../const';
-import { Offers, Offer } from '../../types/offer';
+import { Offers, Offer, City } from '../../types/offer';
 
 import 'leaflet/dist/leaflet.css';
 
@@ -14,7 +14,7 @@ type MapProps = {
 function Map({offers, activeCard}: MapProps): JSX.Element {
   const mapRef = useRef(null);
 
-  const city = offers[0].city;
+  const city: City = offers[0].city;
   const {latitude, longitude, zoom} = city.location;
   const map = useMap(mapRef, city);
   const defaultIcon = leaflet.icon({
@@ -33,7 +33,7 @@ function Map({offers, activeCard}: MapProps): JSX.Element {
     if (map) {
       map.setView([latitude, longitude], zoom);
 
-      offers.forEach((offer) => {
+      offers.forEach((offer: Offer) => {
         leaflet
           .marker({
             lat: offer.location.latitude,
@@ -44,9 +44,9 @@ function Map({offers, activeCard}: MapProps): JSX.Element {
       });
     }
     return () => {
-      map?.eachLayer((it) => {
-        if (it.getPane()?.classList.contains('leaflet-marker-pane')) {
-          it.remove();
+      map?.eachLayer((layer: Layer) => {
+        if (layer.getPane()?.classList.contains('leaflet-marker-pane')) {
+          layer.remove();
         }
       });
     };

@@ -28,8 +28,8 @@ function MainScreenContent({offers, city}: MainScreenContentProps): JSX.Element 
     return <MainScreenEmpty city={city}/>;
   }
 
-  const offersCopy = JSON.parse(JSON.stringify(offers));
-  const sortOffers = (sortMethod: string, arr: Offers) => {
+  const offersCopy: Offers = JSON.parse(JSON.stringify(offers));
+  const sortOffers = (sortMethod: string, arr: Offers): Offers => {
     switch (sortMethod) {
       case sortMenuTabs.Popular:
         return offers;
@@ -43,9 +43,9 @@ function MainScreenContent({offers, city}: MainScreenContentProps): JSX.Element 
         return offers;
     }
   };
-  const offersSorted = sortOffers(sortBy, offersCopy);
+  const offersSorted: Offers = sortOffers(sortBy, offersCopy);
 
-  const onSortMenuHandler = () => {
+  const onSortMenuHandler = (): void => {
     setShowSortMenu(!showSortMenu);
   };
 

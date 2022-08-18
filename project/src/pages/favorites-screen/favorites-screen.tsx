@@ -8,9 +8,10 @@ import { fetchFavoriteOffersAction } from '../../store/api-actions';
 import { store } from '../../store';
 import { Link, useNavigate } from 'react-router-dom';
 import { groupByCity } from '../../utils/utils';
-import { useMemo } from 'react';
+import { MouseEvent, useMemo } from 'react';
 import { changeCity } from '../../store/app-process/app-process';
 import { AppRoute } from '../../const';
+import { Offer, Offers, OffersGrouped, OffersGroupedByCity } from '../../types/offer';
 
 store.dispatch(fetchFavoriteOffersAction());
 
@@ -18,10 +19,10 @@ function FavotitesScreen(): JSX.Element {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const offersFavorites = useAppSelector(getFavoriteOffers);
+  const offersFavorites: Offers = useAppSelector(getFavoriteOffers);
   const isLoaded = useAppSelector(getFavoriteOffersReloadStatus);
 
-  const offersFavoritesGrouped = useMemo(() => groupByCity(offersFavorites), [offersFavorites]);
+  const offersFavoritesGrouped: OffersGrouped = useMemo(() => groupByCity(offersFavorites), [offersFavorites]);
 
   if (offersFavorites.length === 0 && !isLoaded) {
     return <FavoritesScreenEmpty />;
@@ -37,7 +38,7 @@ function FavotitesScreen(): JSX.Element {
             <ul className="favorites__list">
 
               {
-                offersFavoritesGrouped.map((group, i) => {
+                offersFavoritesGrouped.map((group: OffersGroupedByCity, i) => {
                   const keyValue = `${group[0]}_${i}`;
                   return (
                     <li key={keyValue} className="favorites__locations-items">
@@ -46,7 +47,7 @@ function FavotitesScreen(): JSX.Element {
                           <Link
                             className="locations__item-link"
                             to="/"
-                            onClick={(evt) => {
+                            onClick={(evt: MouseEvent): void => {
                               evt.preventDefault();
                               dispatch(changeCity(group[0]));
                               navigate(AppRoute.Main);
@@ -59,7 +60,7 @@ function FavotitesScreen(): JSX.Element {
                       <div className="favorites__places">
 
                         {
-                          group[1].map((offer, j) => {
+                          group[1].map((offer: Offer, j) => {
                             const key = `${offer.id}__${j}`;
                             return (
                               <CardItem classPrefix='favorites' key={key} offer={offer} />

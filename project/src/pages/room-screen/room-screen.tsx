@@ -10,6 +10,7 @@ import CardItem from '../../components/card-item/card-item';
 import { getComments, getLoadedStatus, getNearbyOffers, getOffer } from '../../store/data-process/selectors';
 import { getAuthorizationStatus } from '../../store/user-process/selectors';
 import { AppRoute, AuthorizationStatus } from '../../const';
+import { Comments, Offer, Offers } from '../../types/offer';
 
 function RoomScreen(): JSX.Element {
   const params = useParams();
@@ -17,9 +18,9 @@ function RoomScreen(): JSX.Element {
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const offer = useAppSelector(getOffer);
-  const comments = useAppSelector(getComments);
-  const nearbyOffers = useAppSelector(getNearbyOffers);
+  const offer: Offer = useAppSelector(getOffer);
+  const comments: Comments = useAppSelector(getComments);
+  const nearbyOffers: Offers = useAppSelector(getNearbyOffers);
   const isLoaded = useAppSelector(getLoadedStatus);
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
 
@@ -66,7 +67,7 @@ function RoomScreen(): JSX.Element {
             <div className="property__gallery">
 
               {
-                images.map((image, i) => {
+                images.map((image: string, i) => {
                   const keyValue = `${i}_${id}-${image}`;
                   return (
                     <div key={keyValue} className="property__image-wrapper">
@@ -127,7 +128,7 @@ function RoomScreen(): JSX.Element {
                 <ul className="property__inside-list">
 
                   {
-                    goods.map((good, i) => {
+                    goods.map((good: string, i) => {
                       const keyValue = `${i}_${id}-${good}`;
                       return <li key={keyValue} className="property__inside-item" data-testid="goodsItem">{good}</li>;
                     })
@@ -170,7 +171,7 @@ function RoomScreen(): JSX.Element {
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <div className="near-places__list places__list">
               {
-                nearbyOffers.map((offerItem, i) => {
+                nearbyOffers.map((offerItem: Offer, i) => {
                   const keyValue = `${i}_${id}-${offerItem}`;
                   return <CardItem classPrefix='cities' key={keyValue} offer={offerItem}/>;})
               }

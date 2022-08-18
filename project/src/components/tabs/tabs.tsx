@@ -10,10 +10,10 @@ function Tabs(): JSX.Element {
 
   const dispatch = useAppDispatch();
 
-  const onClickHandler = (e: MouseEvent) => {
-    e.preventDefault();
-    if (e.currentTarget.textContent) {
-      const targetCity = e.currentTarget.textContent;
+  const onClickHandler = (evt: MouseEvent): void => {
+    evt.preventDefault();
+    if (evt.currentTarget.textContent) {
+      const targetCity: string = evt.currentTarget.textContent;
       dispatch(changeCity(targetCity));
     }
   };

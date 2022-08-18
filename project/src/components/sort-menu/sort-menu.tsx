@@ -11,7 +11,7 @@ function SortMenu({onCloseMenu}: SortMenuProps): JSX.Element {
   const sortBy = useAppSelector(getSortMethod);
   const dispatch = useAppDispatch();
 
-  const onSortChangeHandler = (sortTab: string) => {
+  const onSortChangeHandler = (sortTab: string): void => {
     dispatch(changeSortBy(sortTab));
     onCloseMenu();
   };
