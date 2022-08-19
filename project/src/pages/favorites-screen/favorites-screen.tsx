@@ -15,7 +15,7 @@ import { Offer, Offers, OffersGrouped, OffersGroupedByCity } from '../../types/o
 
 store.dispatch(fetchFavoriteOffersAction());
 
-function FavotitesScreen(): JSX.Element {
+function FavoritesScreen(): JSX.Element {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
@@ -83,4 +83,4 @@ function FavotitesScreen(): JSX.Element {
   );
 }
 
-export default FavotitesScreen;
+export default FavoritesScreen;

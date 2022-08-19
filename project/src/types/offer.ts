@@ -37,11 +37,6 @@ export type Offer = {
 
 export type Offers = Offer[];
 
-export type OffersObject = {
-  [k: string]: Offer[]
-};
-
-
 export type Comment = {
   comment: string;
   date: string;

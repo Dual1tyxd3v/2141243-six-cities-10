@@ -63,4 +63,4 @@ export enum NameSpace {
 }
 
 export const PASSWORD_REGULAR = /\d\D|\D\d/g;
-export const EMAIL_REGULAR = /\w{3}@\D{3}.\D{2}/;
+export const EMAIL_REGULAR = /\w{3}@\D{1}.\D{2}/;
